@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scroll-Choreografie — Render·Live·Workshop · Stage 02</title>
+    <meta
+      name="description"
+      content="Workshop-Stage 02: Lenis Smooth-Scroll, GSAP ScrollTrigger Pin & Scrub, char-weiser SplitText-Stagger und Stat-Counter — editorial-brutalist choreografiert."
+    />
+
+    <!-- UI / Eyebrow-Mono / Editorial: Manrope + Chivo Mono (OFL). Display = Anton (kondensiert). -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Chivo+Mono:wght@300..700&family=Manrope:wght@500;700;800&display=swap"
+    />
+    <script type="module" crossorigin src="./assets/index-umL96yVX.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-Cd1aQFPF.css">
+  </head>
+  <body>
+    <!-- Scroll-Progress: macht das Scrub-Prinzip sichtbar (Scroll-Position → Fortschritt) -->
+    <div class="progress" aria-hidden="true"><span class="progress__bar"></span></div>
+
+    <!-- ───────────── Sticky Top-Bar (Live-Ticker · Nav) ───────────── -->
+    <header class="topbar">
+      <p class="ticker" aria-label="Render Live Workshop, Stage 02">
+        <span class="ticker__dot" aria-hidden="true"></span>
+        <span class="ticker__long">RENDER·LIVE·WORKSHOP</span>
+        <span class="ticker__sep ticker__sep--long" aria-hidden="true">/</span>
+        <span>STAGE 02</span>
+        <span class="ticker__sep" aria-hidden="true">/</span>
+        <time class="ticker__clock" data-clock aria-hidden="true">--:--:--</time>
+      </p>
+      <nav class="nav" aria-label="Sektionen">
+        <a href="#intro">Intro</a>
+        <a href="#pin">Pin</a>
+        <a href="#stats">Stats</a>
+        <a href="#break">Break</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- ───────────── Hero — Mega-Wortmarke, Char-Stagger beim Laden ───────────── -->
+      <section class="hero" id="intro">
+        <p class="eyebrow">GSAP ScrollTrigger · Lenis · SplitText</p>
+        <h1 class="hero__title" data-split data-split-hero>Scroll Choreo</h1>
+        <p class="hero__lead">
+          Vier Bewegungs-Ebenen, sauber gestapelt: weiches Lenis-Scrollen,
+          eine gepinnte Bühne, scroll-gebundenes Scrub und ein buchstabenweiser
+          Text-Reveal. Die Stage zeigt, wie man Scroll <em>choreografiert</em> —
+          und wie man es barrierefrei hält.
+        </p>
+        <div class="hero__cue" aria-hidden="true">
+          <span>Scroll</span>
+          <span class="hero__cue-line"></span>
+        </div>
+      </section>
+
+      <!-- ───────────── Olive Flow-Band (Tone-Switch + Eyebrow) ───────────── -->
+      <section class="flow" aria-label="Übergang">
+        <p class="flow__eyebrow">— Die Mechanik —</p>
+        <p class="flow__text">
+          Lenis übersetzt rohe Wheel-Events in <strong>Trägheit</strong>.
+          GSAP <strong>pinnt</strong> eine Sektion und bindet ihre Timeline an die
+          Scroll-Position — <strong>Scrub</strong>. Nichts spielt von allein:
+          jede Bewegung ist eine Geste des Nutzers.
+        </p>
+      </section>
+
+      <!-- ───────────── Pin + Scrub — Sektion pinnt, Inhalt scrubt horizontal ───────────── -->
+      <section class="pin" id="pin" aria-label="Pin und Scrub — horizontale Choreografie">
+        <div class="pin__track" data-track>
+          <article class="panel panel--01">
+            <p class="panel__no" aria-hidden="true">01</p>
+            <p class="panel__eyebrow">Basis-Ebene</p>
+            <h2 class="panel__title">Lenis</h2>
+            <p class="panel__body">
+              Smooth-Scroll als Trägheit, die sich richtig anfühlt. Lenis
+              interpoliert den Ziel-Scroll-Wert (lerp) statt hart zu springen —
+              und gibt GSAP via <code>scroll</code>-Event den Takt.
+            </p>
+          </article>
+
+          <article class="panel panel--02">
+            <p class="panel__no" aria-hidden="true">02</p>
+            <p class="panel__eyebrow">Die Bühne</p>
+            <h2 class="panel__title">Pin</h2>
+            <p class="panel__body">
+              ScrollTrigger fixiert diese Sektion im Viewport. Während du
+              weiterscrollst, bleibt die Bühne stehen — und der Inhalt
+              bewegt sich horizontal an dir vorbei.
+            </p>
+          </article>
+
+          <article class="panel panel--03">
+            <p class="panel__no" aria-hidden="true">03</p>
+            <p class="panel__eyebrow">Die Bindung</p>
+            <h2 class="panel__title">Scrub</h2>
+            <p class="panel__body">
+              <code>scrub</code> verknüpft die Animations-Timeline 1:1 mit der
+              Scroll-Position. Vor- und Zurückscrollen spult die Choreografie
+              vor und zurück — der Nutzer ist der Abspielkopf.
+            </p>
+          </article>
+
+          <article class="panel panel--04">
+            <p class="panel__no" aria-hidden="true">04</p>
+            <p class="panel__eyebrow">Das Detail</p>
+            <h2 class="panel__title">Split</h2>
+            <p class="panel__body">
+              Eine Headline, Buchstabe für Buchstabe gestaffelt. Eigene
+              Split-Funktion statt Premium-Plugin: die visuellen Klone sind
+              <code>aria-hidden</code>, der Screenreader liest den Text genau einmal.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ───────────── Stats — Vectura-Bento 2-2-1 + Counter ───────────── -->
+      <section class="stats" id="stats" aria-label="Kennzahlen der Choreografie">
+        <p class="stats__eyebrow">Performance-Budget</p>
+        <h2 class="stats__title" data-split>Zahlen, die zählen</h2>
+
+        <div class="bento">
+          <article class="card card--cool" data-card>
+            <p class="card__eyebrow">Frame-Rate</p>
+            <p class="card__stat" data-count-to="60">0</p>
+            <p class="card__label">Frames pro Sekunde — das Ziel jeder Scroll-Animation.</p>
+          </article>
+
+          <article class="card card--cool" data-card>
+            <p class="card__eyebrow">Abdeckung</p>
+            <p class="card__stat" data-count-to="100" data-count-suffix="%">0</p>
+            <p class="card__label">der Scroll-Strecke läuft unter Lenis-Kontrolle.</p>
+          </article>
+
+          <article class="card card--quote" data-card>
+            <blockquote>
+              „Scroll ist die einzige Geste, die jeder Nutzer beherrscht.
+              Choreografiere sie — missbrauche sie nicht.“
+            </blockquote>
+            <p class="card__author">Render·Live·Workshop / Stage 02 — Scroll-Choreografie</p>
+          </article>
+
+          <article class="card card--cool" data-card>
+            <p class="card__eyebrow">Bausteine</p>
+            <p class="card__stat" data-count-to="4">0</p>
+            <p class="card__label">Ebenen: Lenis · Pin · Scrub · Split — sauber gestapelt.</p>
+          </article>
+
+          <article class="card card--cream" data-card>
+            <p class="card__eyebrow">Frame-Budget</p>
+            <p class="card__stat" data-count-to="16" data-count-suffix=" ms">0</p>
+            <p class="card__label">pro Frame bei 60 fps — alles drüber wird zu Jank.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ───────────── Dark Climax — nummerierte Liste + BREAK ───────────── -->
+      <section class="climax" id="break">
+        <ol class="techlist" aria-label="Die vier Ebenen">
+          <li data-line><span class="techlist__no">01</span> Lenis Smooth-Scroll</li>
+          <li data-line><span class="techlist__no">02</span> ScrollTrigger Pin</li>
+          <li data-line><span class="techlist__no">03</span> Scroll-Scrub</li>
+          <li data-line><span class="techlist__no">04</span> Char-Split-Stagger</li>
+        </ol>
+        <h2 class="break" data-split data-split-break>Break</h2>
+        <p class="break__sub">Kurz. Experimentell. Respektvoll gegenüber Reduced-Motion.</p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>
+        Render·Live·Workshop — Stage 02 „Scroll-Choreografie“ (80%-Stufe).
+        Quellen: <em>Jasmine-Gunarto</em> (GSAP Pin-Scroll, SplitText-Stagger,
+        Editorial-Brutalist Paper/Ink) &amp; <em>Vectura-Bento-grid</em>
+        (Stat-Counter, 2-2-1-Bento). Eigene Split-Funktion mit
+        <code>aria-hidden</code>-Klonen statt Premium-Plugin.
+      </p>
+    </footer>
+
+  </body>
+</html>

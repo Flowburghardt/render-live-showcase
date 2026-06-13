@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Stage 1 — Editorial Scroll · Render-Live-Workshop</title>
+<meta name="description" content="Workshop-Stage 1: Marquee, Hover-Reveal-Grid, asymmetrisches Bento-Layout und IntersectionObserver-Reveal — editorial, ohne Build-Tool." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<!-- Mona Sans → ersetzt durch Work Sans (Nordiq-Grotesk-Welt); Fraunces = der EINE Serif-Moment (Bottega53-Lehre). -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,400&family=Work+Sans:wght@400;500;600;700&display=swap" />
+
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="bar">
+    <a class="bar__brand" href="#top">render·live</a>
+    <span class="bar__meta">Stage 1 — Editorial Scroll</span>
+  </header>
+
+  <main id="top">
+
+    <!-- ─── Hero (Nordiq: ruhige Editorial-Wortmarke) ─────────────── -->
+    <section class="hero reveal" data-reveal>
+      <p class="eyebrow">Render-Live-Workshop · Günstige Stufe</p>
+      <h1 class="hero__title">
+        Stillstand<br />
+        ist <em>kein</em><br />
+        Editorial.
+      </h1>
+      <p class="hero__lead">
+        Vier Scroll-Bausteine, kein Build-Tool: eine endlose Marquee, ein
+        Grid das seine Titel erst bei Berührung zeigt, ein asymmetrisches
+        Bento-Layout und Sektionen, die beim Eintreten sanft erscheinen.
+      </p>
+    </section>
+
+    <!-- ─── Marquee (Nordiq-Mantra, CSS-Keyframes, dupliziertes DOM) ─
+         Der Track ist 2× im DOM (Original + aria-hidden-Klon) → sobald
+         der erste Track komplett durchgelaufen ist, steht der Klon
+         lückenlos an gleicher Stelle: nahtlose Endlos-Schleife.        -->
+    <section class="marquee" aria-label="Studio-Mantra">
+      <div class="marquee__track">
+        <span class="marquee__group">
+          Crafted for calm <i>·</i> Natural rhythm only <i>·</i>
+          Editorial soul <i>·</i> Motion mit Haltung <i>·</i>
+        </span>
+        <span class="marquee__group" aria-hidden="true">
+          Crafted for calm <i>·</i> Natural rhythm only <i>·</i>
+          Editorial soul <i>·</i> Motion mit Haltung <i>·</i>
+        </span>
+      </div>
+    </section>
+
+    <!-- ─── Hover-Reveal-Grid (Bottega53/Nordiq) ──────────────────── -->
+    <section class="section reveal" data-reveal>
+      <div class="section__head">
+        <p class="eyebrow">( Arbeiten )</p>
+        <h2 class="section__title">Titel auf Berührung</h2>
+        <p class="section__note">
+          Desktop: Titel erscheint beim Hover. Touch: Titel ist dauerhaft
+          sichtbar — keine versteckten Inhalte für Finger-Nutzer.
+        </p>
+      </div>
+
+      <div class="reveal-grid">
+        <a class="tile" href="#">
+          <img loading="lazy" src="https://picsum.photos/seed/rlw11/800/1000" alt="Projekt Halle 7" />
+          <span class="tile__scrim" aria-hidden="true"></span>
+          <span class="tile__caption">
+            <span class="tile__title">Halle&nbsp;7</span>
+            <span class="tile__loc">Industrie-Editorial, Erfurt</span>
+          </span>
+        </a>
+        <a class="tile" href="#">
+          <img loading="lazy" src="https://picsum.photos/seed/rlw22/800/1000?grayscale" alt="Projekt Nordlicht" />
+          <span class="tile__scrim" aria-hidden="true"></span>
+          <span class="tile__caption">
+            <span class="tile__title">Nordlicht</span>
+            <span class="tile__loc">Brand-Studie, Tromsø</span>
+          </span>
+        </a>
+        <a class="tile" href="#">
+          <img loading="lazy" src="https://picsum.photos/seed/rlw33/800/1000" alt="Projekt Auftakt" />
+          <span class="tile__scrim" aria-hidden="true"></span>
+          <span class="tile__caption">
+            <span class="tile__title">Auftakt</span>
+            <span class="tile__loc">Scroll-Story, Web</span>
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ─── Bento-Grid (Vectura: asymmetrisch, 2-2-1 mit Full-Span) ── -->
+    <section class="section reveal" data-reveal>
+      <div class="section__head">
+        <p class="eyebrow">( Case Study )</p>
+        <h2 class="section__title">Asymmetrie als Erzählung</h2>
+      </div>
+
+      <div class="bento">
+        <article class="bento__card bento__card--stat">
+          <p class="bento__eyebrow">Aufmerksamkeit</p>
+          <p class="bento__stat">+42<span>%</span></p>
+          <p class="bento__label">längere Verweildauer durch Scroll-Choreografie</p>
+        </article>
+
+        <article class="bento__card bento__card--photo">
+          <img loading="lazy" src="https://picsum.photos/seed/rlw44/1200/900" alt="Studio-Aufnahme" />
+        </article>
+
+        <article class="bento__card bento__card--quote">
+          <blockquote>
+            „Der Header, der sich selbst lesbar hält, war der Moment, in dem
+            das Team verstanden hat: Weniger State, mehr Gestaltung.“
+          </blockquote>
+          <p class="bento__author">— Workshop-Teilnehmer, Kohorte 02</p>
+        </article>
+
+        <article class="bento__card bento__card--stat bento__card--cream">
+          <p class="bento__eyebrow">Aufwand</p>
+          <p class="bento__stat">0<span>kb</span></p>
+          <p class="bento__label">Build-Tooling — eine HTML, eine CSS, eine JS</p>
+        </article>
+
+        <article class="bento__card bento__card--trim">
+          <p class="bento__eyebrow">Stack</p>
+          <ul class="bento__list">
+            <li>CSS Grid</li>
+            <li>Keyframe-Marquee</li>
+            <li>IntersectionObserver</li>
+            <li>Hover + Touch-Fallback</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- ─── IO-Reveal-Demo (gestaffelt) ───────────────────────────── -->
+    <section class="section reveal" data-reveal>
+      <div class="section__head">
+        <p class="eyebrow">( Reveal )</p>
+        <h2 class="section__title">Eintritt mit Haltung</h2>
+      </div>
+      <div class="stagger">
+        <div class="stagger__item reveal" data-reveal>Beobachten</div>
+        <div class="stagger__item reveal" data-reveal>Eintreten</div>
+        <div class="stagger__item reveal" data-reveal>Erscheinen</div>
+        <div class="stagger__item reveal" data-reveal>Ruhen</div>
+      </div>
+    </section>
+
+    <footer class="foot reveal" data-reveal>
+      <p class="foot__line">Render-Live-Workshop</p>
+      <a href="mailto:hallo@burghardt.studio">hallo@burghardt.studio</a>
+    </footer>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

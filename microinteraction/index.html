@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23FF8BBC'/><circle cx='16' cy='16' r='9' fill='none' stroke='%231A1A1A' stroke-width='3'/><circle cx='16' cy='16' r='3' fill='%23FC362D'/></svg>"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="microinteraction hub — ein handgemachtes Showcase für animierte Assets: Lottie (Loop + Scroll-Seek), interaktives 'raise a hand'-Element, Hover-Microinteractions und ein Mono-Marquee."
+    />
+    <title>microinteraction hub — animated assets, by hand</title>
+    <script type="module" crossorigin src="./assets/index-B_j7MXQ3.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DmqVoDTn.css">
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <a class="skip-link" href="#hero">zum inhalt springen</a>
+
+    <!-- HEADER ------------------------------------------------------------ -->
+    <header class="chrome">
+      <span class="chrome__brand">made by burghardt.studio</span>
+      <nav class="pill-nav" aria-label="Abschnitte">
+        <a class="pill" href="#loop">loop</a>
+        <a class="pill" href="#seek">scroll-seek</a>
+        <a class="pill" href="#hover">hover</a>
+        <a class="pill" href="#raise">raise a hand</a>
+      </nav>
+      <span class="chrome__wink">0% ai assets</span>
+    </header>
+
+    <main>
+      <!-- HERO — Pink-Vollfläche + atmender Loop ------------------------- -->
+      <section id="hero" class="hero panel">
+        <p class="hero__kicker">render-live-workshop · showcase n°02</p>
+        <h1 class="hero__title">microinteraction hub</h1>
+        <p class="hero__lead">
+          animierte assets &amp; microinteractions — lottie als loop, lottie am scroll, ein interaktives
+          „raise a hand" und hover-states. handgemacht, mono, mehrfarbig.
+        </p>
+        <div class="hero__motif" id="hero-lottie" aria-hidden="true"></div>
+      </section>
+
+      <!-- MARQUEE — Mono-Mantra (Nordiq) --------------------------------- -->
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee__track">
+          <span class="marquee__item">lottie loop</span><span class="marquee__sep">·</span>
+          <span class="marquee__item">scroll-seek</span><span class="marquee__sep">·</span>
+          <span class="marquee__item">raise a hand</span><span class="marquee__sep">·</span>
+          <span class="marquee__item">hover-microinteractions</span><span class="marquee__sep">·</span>
+          <span class="marquee__item">0% ai</span><span class="marquee__sep">·</span>
+          <span class="marquee__item">lottie loop</span><span class="marquee__sep">·</span>
+          <span class="marquee__item">scroll-seek</span><span class="marquee__sep">·</span>
+          <span class="marquee__item">raise a hand</span><span class="marquee__sep">·</span>
+          <span class="marquee__item">hover-microinteractions</span><span class="marquee__sep">·</span>
+          <span class="marquee__item">0% ai</span><span class="marquee__sep">·</span>
+        </div>
+      </div>
+
+      <!-- LOOP — schwarze Bühne, Play/Pause ------------------------------ -->
+      <section id="loop" class="stage stage--dark">
+        <div class="stage__copy">
+          <p class="eyebrow">01 — lottie loop</p>
+          <h2 class="stage__title">eine vektor-animation, endlos.</h2>
+          <p class="stage__body">
+            das günstigste lottie-muster: eine <code>.json</code> rendert als svg und loopt. die ringe hier
+            sind aus code generiert (<code>scripts/gen-lottie.mjs</code>) — kein stock, kein lizenz-thema.
+          </p>
+          <button id="loop-toggle" class="btn btn--ghost" type="button" aria-pressed="true">pause</button>
+        </div>
+        <div class="stage__motif" id="loop-lottie" aria-hidden="true"></div>
+      </section>
+
+      <!-- SCROLL-SEEK — hoher Track, sticky Bühne ------------------------ -->
+      <section id="seek" class="seek-track" aria-label="Scroll-Seek: Tageslauf">
+        <div class="seek-stage stage--dark">
+          <div class="stage__copy">
+            <p class="eyebrow">02 — scroll-seek</p>
+            <h2 class="stage__title">der frame folgt dem scroll.</h2>
+            <p class="stage__body">
+              die animation läuft nicht von selbst — jeder scroll-pixel setzt einen frame. hier füllt sich der
+              tageslauf, während du scrollst.
+            </p>
+            <p class="seek-readout">
+              <span class="seek-readout__time" id="seek-time">09:00</span>
+              <span class="seek-readout__pct" id="seek-pct">0%</span>
+            </p>
+          </div>
+          <div class="seek-stage__motif" id="seek-stage" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <!-- HOVER — helle Bühne, Microinteractions (Elevate) -------------- -->
+      <section id="hover" class="stage stage--light">
+        <div class="stage__copy stage__copy--wide">
+          <p class="eyebrow eyebrow--ink">03 — hover-microinteractions</p>
+          <h2 class="stage__title stage__title--ink">die kleinen reaktionen.</h2>
+          <p class="stage__body stage__body--ink">
+            button-states und card-lift — rein css. auf touch-geräten greift der fallback: keine hover-falle,
+            der zustand ist sichtbar oder per tap erreichbar.
+          </p>
+          <div class="btn-row">
+            <button class="btn btn--accent" type="button">
+              let's talk <span class="btn__arrow" aria-hidden="true">→</span>
+            </button>
+            <button class="btn btn--outline" type="button">mehr ansehen</button>
+          </div>
+        </div>
+
+        <ul class="cards" role="list">
+          <li class="card">
+            <span class="card__badge" aria-hidden="true"></span>
+            <h3 class="card__title">card-lift</h3>
+            <p class="card__text">hebt sich beim hover, schatten wächst. 180ms, kein zappeln.</p>
+          </li>
+          <li class="card">
+            <span class="card__badge card__badge--cyan" aria-hidden="true"></span>
+            <h3 class="card__title">icon-swap</h3>
+            <p class="card__text">der pfeil gleitet, das badge dreht. zustand statt dekoration.</p>
+          </li>
+          <li class="card">
+            <span class="card__badge card__badge--yellow" aria-hidden="true"></span>
+            <h3 class="card__title">touch-fallback</h3>
+            <p class="card__text">ohne echtes hover bleibt alles sicht- und antippbar.</p>
+          </li>
+        </ul>
+      </section>
+
+      <!-- RAISE A HAND — schwarze Bühne, interaktives State-Element ------ -->
+      <section id="raise" class="stage stage--dark stage--center">
+        <div class="stage__copy stage__copy--center">
+          <p class="eyebrow">04 — interaktiv</p>
+          <h2 class="stage__title">raise a hand.</h2>
+          <p class="stage__body">
+            ein state-element wie in remote-rituals (dort rive). tippe die hand an — sie winkt, der anonyme
+            counter zählt hoch. funktioniert mit maus und touch.
+          </p>
+        </div>
+        <button id="hand-button" class="hand-btn" type="button" aria-describedby="hand-counter">
+          <span class="hand-btn__stage" id="hand-stage" aria-hidden="true"></span>
+          <span class="visually-hidden">eine hand heben</span>
+        </button>
+        <p id="hand-counter" class="hand-counter" aria-live="polite">0 hands raised</p>
+      </section>
+    </main>
+
+    <!-- FOOTER ------------------------------------------------------------ -->
+    <footer class="site-footer">
+      <span class="site-footer__mark">microinteraction hub</span>
+      <span class="site-footer__note">
+        showcase · render-live-workshop · ©&nbsp;<span id="year">2026</span> burghardt.studio. lottie aus
+        code generiert. quellen: remote-rituals · elevate · nordiq.
+      </span>
+      <span class="site-footer__motion" id="motion-status" data-reduced="false">motion: an</span>
+    </footer>
+
+  </body>
+</html>

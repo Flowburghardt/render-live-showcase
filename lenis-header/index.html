@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Stage 0 — Lenis + Blend-Header · Render-Live-Workshop</title>
+<meta name="description" content="Workshop-Stage 0: Lenis Smooth-Scroll + mix-blend-mode-Header, der ohne JS über Hell/Dunkel-Sektionen lesbar bleibt." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<!-- Cormorant = Nyght-Serif-Ersatz (High-Contrast-Light-Serif), Work Sans = Basic-Sans-Ersatz (Grotesk). Quelle: Hero-Studios/DESIGN.md -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;1,400&family=Work+Sans:wght@400;500;800;900&display=swap" />
+
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ───────────────────────────────────────────────────────────────
+       Der eine Trick dieser Stage: EIN fixed Header, mix-blend-mode:
+       difference. Er invertiert sich gegen das, was hinter ihm liegt —
+       weiß über Schwarz, schwarz über Off-White. KEIN Scroll-JS,
+       kein nav-flip-State-Management. Lesbar über jeden Sektionston.
+  ──────────────────────────────────────────────────────────────── -->
+  <header class="site-header" id="siteHeader">
+    <a class="brand" href="#top">
+      RENDER<span class="brand__dot">·</span>LIVE
+      <small>Workshop — Stage 0</small>
+    </a>
+    <nav class="nav" aria-label="Hauptnavigation">
+      <a href="#work">Index</a>
+      <a href="#studio">Studio</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+  </header>
+
+  <main id="top">
+
+    <!-- Dunkle Kino-Bühne (Hero-Studios-Eröffnung) -->
+    <section class="panel panel--dark" data-tone="dark">
+      <div class="panel__inner hero">
+        <p class="eyebrow">Render-Live-Workshop · Günstige Stufe</p>
+        <h1 class="display">
+          Ein Header.<br />
+          <em>Zwei Welten.</em><br />
+          Null Scroll-JS.
+        </h1>
+        <p class="lead">
+          Smooth-Scroll mit <strong>Lenis</strong>, ein Fixed-Header mit
+          <code>mix-blend-mode: difference</code> — er liest sich über jeder
+          Hell/Dunkel-Fläche von selbst. Scroll runter und beobachte die
+          Navigation oben.
+        </p>
+        <a class="scroll-cue" href="#work" aria-label="Weiter scrollen">
+          <span>Scroll</span>
+          <span class="scroll-cue__line" aria-hidden="true"></span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Helle Editorial-Fläche -->
+    <section class="panel panel--light" id="work" data-tone="light">
+      <div class="panel__inner">
+        <p class="eyebrow">( Index )</p>
+        <ul class="work-list">
+          <li class="work-list__item">
+            <span class="work-list__title">Kinetik</span>
+            <span class="work-list__tag">Motion · Title-Design</span>
+          </li>
+          <li class="work-list__item">
+            <span class="work-list__title">Halle&nbsp;7</span>
+            <span class="work-list__tag">Foto · Editorial</span>
+          </li>
+          <li class="work-list__item">
+            <span class="work-list__title">Nordlicht</span>
+            <span class="work-list__tag">Brand · Identity</span>
+          </li>
+          <li class="work-list__item">
+            <span class="work-list__title">Auftakt</span>
+            <span class="work-list__tag">Web · Scroll-Story</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Dunkle Fläche -->
+    <section class="panel panel--dark" data-tone="dark">
+      <div class="panel__inner statement">
+        <h2 class="display display--md">
+          Kontrast ist kein Effekt — er ist Rhythmus.
+        </h2>
+        <p class="lead">
+          Der Sektionswechsel Hell→Dunkel erzeugt Takt ohne ein einziges
+          dekoratives Element. Die Bühne bleibt monochrom, die Bewegung
+          übernimmt die Dramaturgie.
+        </p>
+      </div>
+    </section>
+
+    <!-- Helle Fläche -->
+    <section class="panel panel--light" id="studio" data-tone="light">
+      <div class="panel__inner two-col">
+        <h2 class="display display--md">Studio</h2>
+        <div class="prose">
+          <p>
+            Wir bauen lauffähige Web-Effekte aus einer kuratierten
+            Design-Inspirations-Sammlung — als Pitch-Differenzierung und als
+            Lehrmaterial.
+          </p>
+          <p>
+            Diese Stage ist der Einstieg: copy-paste-fähig, kein Build-Tool,
+            eine externe Library. Genau das richtige Fundament, bevor GSAP und
+            Three.js übernehmen.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dunkler Footer-Kontrast -->
+    <section class="panel panel--dark" id="kontakt" data-tone="dark">
+      <div class="panel__inner footer">
+        <h2 class="display display--xl">Sprich&nbsp;mit&nbsp;uns.</h2>
+        <div class="footer__meta">
+          <a href="mailto:hallo@burghardt.studio">hallo@burghardt.studio</a>
+          <span>burghardt.studio · Erfurt</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Lenis Smooth-Scroll via CDN. Quelle: Hero-Studios/DESIGN.md -->
+  <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

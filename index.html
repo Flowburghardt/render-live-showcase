@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>RENDER·LIVE — PoC Index</title>
+<style>
+  :root{
+    --bg:#0E0E10; --surface:#16161A; --line:#26262C;
+    --ink:#EAEAEC; --muted:#8A8A93;
+    --cyan:#00E5FF; --orange:#FF6A00;
+    --mono:"SFMono-Regular",ui-monospace,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:clamp(32px,6vw,80px) clamp(20px,4vw,48px)}
+  header{margin-bottom:clamp(40px,7vw,72px)}
+  .dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--cyan);margin-right:9px;box-shadow:0 0 12px var(--cyan);animation:pulse 1.8s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+  h1{font-size:clamp(34px,6vw,60px);font-weight:800;letter-spacing:-.02em;margin:14px 0 12px;line-height:1.02}
+  h1 .live{background:linear-gradient(90deg,var(--cyan),var(--orange));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .lead{color:var(--muted);max-width:62ch;font-size:clamp(15px,2vw,17px)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:22px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:border-color .25s,transform .25s}
+  .card:hover{border-color:var(--cyan);transform:translateY(-3px)}
+  .card:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+  .thumb{aspect-ratio:16/10;background:#0A0A0C center/cover no-repeat;border-bottom:1px solid var(--line)}
+  .body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:9px;flex:1}
+  .row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .name{font-size:18px;font-weight:700;letter-spacing:-.01em}
+  .badge{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;border-radius:999px;white-space:nowrap}
+  .b-guenstig{background:rgba(0,229,255,.12);color:var(--cyan);border:1px solid rgba(0,229,255,.3)}
+  .b-80{background:rgba(255,255,255,.06);color:var(--ink);border:1px solid var(--line)}
+  .b-award{background:rgba(255,106,0,.13);color:var(--orange);border:1px solid rgba(255,106,0,.35)}
+  .stage{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+  .desc{font-size:13.5px;color:var(--muted)}
+  .go{margin-top:auto;font-family:var(--mono);font-size:12px;color:var(--cyan);letter-spacing:.05em}
+  .card:hover .go{color:var(--orange)}
+  footer{margin-top:56px;padding-top:24px;border-top:1px solid var(--line);font-family:var(--mono);font-size:11.5px;color:var(--muted);letter-spacing:.04em}
+  @media (prefers-reduced-motion:reduce){.dot{animation:none}.card{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="kicker"><span class="dot"></span>render·live · proof-of-concept index</span>
+    <h1>Web-Effekt-<span class="live">PoCs</span></h1>
+    <p class="lead">Lauffähige Demos moderner Web-Effekte, extrahiert aus einer kuratierten Design-Inspirations-Sammlung. Didaktisch gestuft vom Copy-Paste-Trick bis zum Custom-WebGL-Shader. Klick eine Karte → live ansehen.</p>
+  </header>
+
+  <main class="grid">
+    <a class="card" href="lenis-header/" target="_blank" rel="noopener">
+      <div class="thumb" style="background-image:url(thumbs/lenis-header.png)"></div>
+      <div class="body">
+        <div class="row"><span class="stage">Stage 00</span><span class="badge b-guenstig">günstig</span></div>
+        <div class="name">Lenis Blend-Header</div>
+        <p class="desc">Lenis Smooth-Scroll + <code>mix-blend-mode</code>-Header, der über Hell/Dunkel-Sektionen lesbar bleibt.</p>
+        <span class="go">→ live ansehen</span>
+      </div>
+    </a>
+    <a class="card" href="editorial/" target="_blank" rel="noopener">
+      <div class="thumb" style="background-image:url(thumbs/editorial.png)"></div>
+      <div class="body">
+        <div class="row"><span class="stage">Stage 01</span><span class="badge b-guenstig">günstig</span></div>
+        <div class="name">Editorial Scroll</div>
+        <p class="desc">Marquee + Hover-Reveal + Bento-Grid + IntersectionObserver-Reveal. „Modernes Web" ohne Spezial-Tech.</p>
+        <span class="go">→ live ansehen</span>
+      </div>
+    </a>
+    <a class="card" href="scroll-choreo/" target="_blank" rel="noopener">
+      <div class="thumb" style="background-image:url(thumbs/scroll-choreo.png)"></div>
+      <div class="body">
+        <div class="row"><span class="stage">Stage 02</span><span class="badge b-80">80 %</span></div>
+        <div class="name">Scroll-Choreografie</div>
+        <p class="desc">Lenis + GSAP ScrollTrigger Pin/Scrub + SplitText-Stagger + Stat-Counter. Der Award-Pitch-Standard.</p>
+        <span class="go">→ live ansehen</span>
+      </div>
+    </a>
+    <a class="card" href="3d-typo/" target="_blank" rel="noopener">
+      <div class="thumb" style="background-image:url(thumbs/3d-typo.png)"></div>
+      <div class="body">
+        <div class="row"><span class="stage">Stage 03</span><span class="badge b-award">award</span></div>
+        <div class="name">3D-Typo-Tunnel</div>
+        <p class="desc">Three.js extrudierte Schrift + scroll-gesteuerte Kamera-Fahrt + Custom-GLSL-Shader. Der USP-Moment.</p>
+        <span class="go">→ live ansehen</span>
+      </div>
+    </a>
+    <a class="card" href="video-grid/" target="_blank" rel="noopener">
+      <div class="thumb" style="background-image:url(thumbs/video-grid.png)"></div>
+      <div class="body">
+        <div class="row"><span class="stage">Showcase</span><span class="badge b-80">80 %</span></div>
+        <div class="name">Video-Grid-Portal</div>
+        <p class="desc">Bento-Video-Grid + Hover-Reveal + View-Transitions. Direkt als Foto-Portfolio nutzbar.</p>
+        <span class="go">→ live ansehen</span>
+      </div>
+    </a>
+    <a class="card" href="microinteraction/" target="_blank" rel="noopener">
+      <div class="thumb" style="background-image:url(thumbs/microinteraction.png)"></div>
+      <div class="body">
+        <div class="row"><span class="stage">Showcase</span><span class="badge b-80">80 %</span></div>
+        <div class="name">Microinteraction-Hub</div>
+        <p class="desc">Lottie (Loop + Scroll-Seek) + interaktives Rive-Element + Hover-States + Marquee.</p>
+        <span class="go">→ live ansehen</span>
+      </div>
+    </a>
+  </main>
+
+  <footer>render·live · 6 PoCs · 10 Effekt-Familien · Live auf VDS Prime · brghrdt.dev · 2026-06-13</footer>
+</div>
+</body>
+</html>
