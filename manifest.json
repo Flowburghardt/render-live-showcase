@@ -1,0 +1,59 @@
+{
+  "_comment": "Single Source für das Dashboard. generate-dashboard.mjs rendert daraus index.html. Reihenfolge = Anzeige-Reihenfolge. effort: quick|mid|award. desc_html:true = desc als rohes HTML (für <code> etc.), sonst escaped. nightly:true + built:YYYY-MM-DD = Auto-built-Marker auf der Karte. Nightly-Einträge fügt der nightly-poc-builder upsert-by-slug an — kuratierte Einträge NIE automatisch überschreiben.",
+  "items": [
+    {
+      "slug": "lenis-header",
+      "title": "Lenis Blend-Header",
+      "stage": "Stage 00",
+      "effort": "quick",
+      "desc": "Lenis Smooth-Scroll + <code>mix-blend-mode</code>-Header, der über Hell/Dunkel-Sektionen lesbar bleibt.",
+      "desc_html": true,
+      "nightly": false
+    },
+    {
+      "slug": "editorial",
+      "title": "Editorial Scroll",
+      "stage": "Stage 01",
+      "effort": "quick",
+      "desc": "Marquee + Hover-Reveal + Bento-Grid + IntersectionObserver-Reveal. „Modernes Web\" ohne Spezial-Tech.",
+      "desc_html": true,
+      "nightly": false
+    },
+    {
+      "slug": "scroll-choreo",
+      "title": "Scroll-Choreografie",
+      "stage": "Stage 02",
+      "effort": "mid",
+      "desc": "Lenis + GSAP ScrollTrigger Pin/Scrub + SplitText-Stagger + Stat-Counter. Der Award-Pitch-Standard.",
+      "desc_html": true,
+      "nightly": false
+    },
+    {
+      "slug": "3d-typo",
+      "title": "3D-Typo-Tunnel",
+      "stage": "Stage 03",
+      "effort": "award",
+      "desc": "Three.js extrudierte Schrift + scroll-gesteuerte Kamera-Fahrt + Custom-GLSL-Shader. Der USP-Moment.",
+      "desc_html": true,
+      "nightly": false
+    },
+    {
+      "slug": "video-grid",
+      "title": "Video-Grid-Portal",
+      "stage": "Showcase",
+      "effort": "mid",
+      "desc": "Bento-Video-Grid + Hover-Reveal + View-Transitions. Direkt als Foto-Portfolio nutzbar.",
+      "desc_html": true,
+      "nightly": false
+    },
+    {
+      "slug": "microinteraction",
+      "title": "Microinteraction-Hub",
+      "stage": "Showcase",
+      "effort": "mid",
+      "desc": "Lottie (Loop + Scroll-Seek) + interaktives Rive-Element + Hover-States + Marquee.",
+      "desc_html": true,
+      "nightly": false
+    }
+  ]
+}

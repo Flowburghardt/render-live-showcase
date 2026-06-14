@@ -1,3 +1,7 @@
 .git
 Dockerfile
 .dockerignore
+*.mjs
+manifest.json
+index.template.html
+README.md
