@@ -72,6 +72,15 @@
       "desc": "WebGL-Poster-Cluster, Geometrie-Morph Ring/Flower/Sphere/Cylinder + mausreaktiver Pride-Gradient + White/Pride-Toggle",
       "nightly": true,
       "built": "2026-06-14"
+    },
+    {
+      "slug": "poc-aircenter",
+      "title": "AIR Business Center",
+      "stage": "Manual",
+      "effort": "mid",
+      "desc": "Live-3D twisted ribbon (scroll-gekoppelte Rotation) + Mega-Typo-Reveals, monochrom + ein Rot — Nachbau des Signature-Looks von aircenter.space (VIDE INFRA).",
+      "nightly": true,
+      "built": "2026-06-14"
     }
   ]
 }
