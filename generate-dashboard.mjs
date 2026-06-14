@@ -39,8 +39,15 @@ function card(it) {
     const [, m, d] = it.built.split('-');
     nightly = ` · <span style="color:var(--muted)">auto-built ${d}.${m}</span>`;
   }
+  // Thumb: echte PNG wenn vorhanden, sonst eleganter CSS-Fallback (nie schwarz).
+  // Der Nightly-Screenshot-Step legt thumbs/<slug>.png nur ab, wenn sie nicht leer/schwarz ist
+  // → fehlt sie hier, rendert der Generator bewusst ein Cover statt einer toten Fläche.
+  const hasThumb = existsSync(join(__dirname, 'thumbs', `${it.slug}.png`));
+  const thumb = hasThumb
+    ? `<div class="thumb" style="background-image:url(thumbs/${it.slug}.png)"></div>`
+    : `<div class="thumb thumb--ph"><span class="ph-tag">nightly poc</span><span class="ph-name">${title}</span></div>`;
   return `    <a class="card" href="${it.slug}/" target="_blank" rel="noopener">
-      <div class="thumb" style="background-image:url(thumbs/${it.slug}.png)"></div>
+      ${thumb}
       <div class="body">
         <div class="row"><span class="stage">${stage}</span><span class="badge ${eff.cls}">${eff.label}</span></div>
         <div class="name">${title}</div>
