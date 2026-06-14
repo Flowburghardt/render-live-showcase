@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#000000" />
+    <title>Anniel — Dark Editorial Photography PoC</title>
+    <meta
+      name="description"
+      content="Dark editorial photography landing — hero reveal, animated role cycle and a video section. PoC for render-live-workshop."
+    />
+    <!-- Progressive enhancement: gate reveal-hiding behind .js so no-JS still shows content. -->
+    <script>
+      document.documentElement.classList.add('js')
+    </script>
+    <script type="module" crossorigin src="./assets/index-Bmja-ql7.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-yQDl50o-.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <nav class="nav" aria-label="Primary">
+        <a class="nav__logo" href="#top">Anniel<span aria-hidden="true">.</span></a>
+        <ul class="nav__list">
+          <li><a class="link-ghost" href="#main">Home</a></li>
+          <li><a class="link-ghost" href="#works">Works</a></li>
+          <li><a class="link-ghost" href="#about">About</a></li>
+          <li><a class="link-ghost" href="#journal">Journal</a></li>
+          <li><a class="link-ghost" href="#contact">Contact</a></li>
+        </ul>
+        <a class="btn btn--nav" href="#contact">Let&rsquo;s talk</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <!-- ============ HERO ============ -->
+      <section class="hero" id="top" data-reveal aria-labelledby="hero-title">
+        <div class="hero__media" role="img" aria-label="Moody black-and-white beauty portrait, warm dramatic light.">
+          <img
+            class="hero__img"
+            src="https://picsum.photos/seed/anniel-hero/1600/2000"
+            alt=""
+            loading="eager"
+            decoding="async"
+          />
+          <div class="hero__scrim" aria-hidden="true"></div>
+        </div>
+
+        <div class="hero__content">
+          <h1 class="hero__title" id="hero-title" data-split>
+            Through the lens, I capture stories untold.
+          </h1>
+          <p class="hero__lead">
+            A dark editorial studio for photographers and beauty directors —
+            where the image is the loudest thing in the room.
+          </p>
+          <a class="btn btn--primary" href="#contact">Start a project</a>
+        </div>
+
+        <div
+          class="hero__roles"
+          aria-label="Representing photographers, beauty directors, creative stylists and set designers."
+        >
+          <span class="hero__roles-kicker" aria-hidden="true">Representing</span>
+          <span class="role-cycle" aria-hidden="true">
+            <span class="role-cycle__item is-active">Photographers</span>
+            <span class="role-cycle__item">Beauty Directors</span>
+            <span class="role-cycle__item">Creative Stylists</span>
+            <span class="role-cycle__item">Set Designers</span>
+          </span>
+        </div>
+      </section>
+
+      <!-- ============ ABOUT / INTRO ============ -->
+      <section class="about" id="about" data-reveal aria-labelledby="about-title">
+        <p class="kicker">Intro</p>
+        <h2 class="about__title" id="about-title" data-split>
+          Live like the moment never existed before.
+        </h2>
+        <p class="about__body">
+          We work in the quiet space between portrait and editorial — letting
+          warm, moody light do the talking. No noise, no clutter. One accent,
+          one voice, and a black canvas built to let every image breathe.
+        </p>
+        <ul class="about__social" aria-label="Social channels">
+          <li><a class="link-ghost" href="#contact">X</a></li>
+          <li><a class="link-ghost" href="#contact">IG</a></li>
+          <li><a class="link-ghost" href="#contact">FB</a></li>
+          <li><a class="link-ghost" href="#contact">YT</a></li>
+        </ul>
+      </section>
+
+      <!-- ============ WORKS (hover-reveal grid) ============ -->
+      <section class="works" id="works" data-reveal aria-labelledby="works-title">
+        <header class="works__head">
+          <h2 class="works__title" id="works-title">Scroll slow</h2>
+          <p class="works__sub">Let the images breathe.</p>
+        </header>
+
+        <ul class="works__grid">
+          <li class="work work--tall">
+            <a class="work__link" href="#works">
+              <span class="work__frame">
+                <img
+                  class="work__img"
+                  src="https://picsum.photos/seed/anniel-w1/900/1200"
+                  alt="Editorial portrait — Streets of Solitude series."
+                  loading="lazy"
+                  decoding="async"
+                />
+              </span>
+              <span class="work__meta">
+                <span class="work__name">Streets of Solitude</span>
+                <span class="work__place">Paris, France</span>
+              </span>
+            </a>
+          </li>
+          <li class="work">
+            <a class="work__link" href="#works">
+              <span class="work__frame">
+                <img
+                  class="work__img"
+                  src="https://picsum.photos/seed/anniel-w2/1000/800"
+                  alt="Beauty close-up — Tuscany editorial."
+                  loading="lazy"
+                  decoding="async"
+                />
+              </span>
+              <span class="work__meta">
+                <span class="work__name">The Beauty of Imperfection</span>
+                <span class="work__place">Tuscany, Italy</span>
+              </span>
+            </a>
+          </li>
+          <li class="work">
+            <a class="work__link" href="#works">
+              <span class="work__frame">
+                <img
+                  class="work__img"
+                  src="https://picsum.photos/seed/anniel-w3/1000/800"
+                  alt="Fashion still — Moments Between Moments."
+                  loading="lazy"
+                  decoding="async"
+                />
+              </span>
+              <span class="work__meta">
+                <span class="work__name">Moments Between Moments</span>
+                <span class="work__place">Lisbon, Portugal</span>
+              </span>
+            </a>
+          </li>
+          <li class="work work--tall">
+            <a class="work__link" href="#works">
+              <span class="work__frame">
+                <img
+                  class="work__img"
+                  src="https://picsum.photos/seed/anniel-w4/900/1200"
+                  alt="Studio portrait — Chasing Light series."
+                  loading="lazy"
+                  decoding="async"
+                />
+              </span>
+              <span class="work__meta">
+                <span class="work__name">Chasing Light</span>
+                <span class="work__place">Reykjavík, Iceland</span>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ============ VIDEO / SHOWREEL SECTION ============ -->
+      <section class="showreel" id="journal" data-reveal aria-labelledby="showreel-title">
+        <div class="showreel__head">
+          <p class="kicker">Motion</p>
+          <h2 class="showreel__title" id="showreel-title">Showreel 2026</h2>
+        </div>
+
+        <figure class="showreel__stage">
+          <img
+            class="showreel__poster"
+            src="https://picsum.photos/seed/anniel-reel/1600/900"
+            alt="Showreel poster frame — atmospheric moving portrait."
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="showreel__shimmer" aria-hidden="true"></span>
+          <button
+            type="button"
+            class="showreel__play"
+            aria-pressed="false"
+            aria-label="Play showreel preview"
+          >
+            <span class="showreel__play-icon" aria-hidden="true"></span>
+          </button>
+          <figcaption class="showreel__caption">
+            <span class="showreel__caption-title">Atmosphere, not just moments</span>
+            <span class="showreel__caption-meta">02:14 · Director&rsquo;s cut</span>
+          </figcaption>
+        </figure>
+      </section>
+
+      <!-- ============ VISION mega word ============ -->
+      <section class="vision" data-reveal aria-labelledby="vision-title">
+        <h2 class="display-word" id="vision-title" data-split>VISION</h2>
+        <p class="vision__badge"><span aria-hidden="true">★</span> Winner — Editorial of the Year</p>
+      </section>
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="site-footer" id="contact" data-reveal aria-labelledby="footer-title">
+      <div class="site-footer__lead">
+        <p class="kicker">Get in touch</p>
+        <h2 class="site-footer__title" id="footer-title">Let&rsquo;s make something that breathes.</h2>
+        <a class="btn btn--primary" href="mailto:info@anniel.studio">Start a project</a>
+      </div>
+      <div class="site-footer__cols">
+        <div class="site-footer__col">
+          <h3 class="site-footer__label">Contact</h3>
+          <p><a class="link-ghost" href="mailto:info@anniel.studio">INFO@ANNIEL.STUDIO</a></p>
+          <p><a class="link-ghost" href="tel:+10000000000">+1 000 000 0000</a></p>
+        </div>
+        <div class="site-footer__col">
+          <h3 class="site-footer__label">Studio</h3>
+          <p class="site-footer__muted">12 Negative Space Ave<br />Berlin, DE</p>
+        </div>
+        <div class="site-footer__col">
+          <h3 class="site-footer__label">Social</h3>
+          <p>
+            <a class="link-ghost" href="#contact">X</a> /
+            <a class="link-ghost" href="#contact">IG</a> /
+            <a class="link-ghost" href="#contact">FB</a> /
+            <a class="link-ghost" href="#contact">YT</a>
+          </p>
+        </div>
+      </div>
+      <p class="site-footer__fine">
+        <span>© 2026 Anniel Studio — render-live-workshop PoC</span>
+        <span class="site-footer__muted">Images via picsum.photos placeholders</span>
+      </p>
+    </footer>
+
+  </body>
+</html>

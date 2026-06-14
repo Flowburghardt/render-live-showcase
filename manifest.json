@@ -54,6 +54,15 @@
       "desc": "Lottie (Loop + Scroll-Seek) + interaktives Rive-Element + Hover-States + Marquee.",
       "desc_html": true,
       "nightly": false
+    },
+    {
+      "slug": "poc-anniel",
+      "title": "Anniel",
+      "stage": "Nightly",
+      "effort": "quick",
+      "desc": "Hero-Reveal + animierte Rollen-Liste (Text-Cycle) + Video-Section",
+      "nightly": true,
+      "built": "2026-06-14"
     }
   ]
 }
