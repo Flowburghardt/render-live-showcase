@@ -63,6 +63,15 @@
       "desc": "Hero-Reveal + animierte Rollen-Liste (Text-Cycle) + Video-Section",
       "nightly": true,
       "built": "2026-06-14"
+    },
+    {
+      "slug": "obys-geometry-morph",
+      "title": "Obys Geometry Morph",
+      "stage": "Manual",
+      "effort": "award",
+      "desc": "WebGL-Poster-Cluster, Geometrie-Morph Ring/Flower/Sphere/Cylinder + mausreaktiver Pride-Gradient + White/Pride-Toggle",
+      "nightly": true,
+      "built": "2026-06-14"
     }
   ]
 }
