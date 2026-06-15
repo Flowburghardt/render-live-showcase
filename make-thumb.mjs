@@ -47,6 +47,7 @@ async function loadPuppeteer() {
     'puppeteer',
     '/Users/florianburghardt/.claude/tools/wcheck/node_modules/puppeteer/lib/esm/puppeteer/puppeteer.js',
     '/root/.npm-global/lib/node_modules/puppeteer/lib/esm/puppeteer/puppeteer.js',
+    '/usr/lib/node_modules/puppeteer/lib/esm/puppeteer/puppeteer.js', // Prime: npm global prefix /usr (puppeteer 24, Chromium seit 2026-06-15)
   ].filter(Boolean);
   for (const c of candidates) {
     try { const m = await import(c); return m.default || m; } catch (_) { /* next */ }
