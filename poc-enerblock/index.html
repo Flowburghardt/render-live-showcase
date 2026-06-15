@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enerblock — Next-Gen Buildings · PoC</title>
+    <meta
+      name="description"
+      content="Enerblock-PoC: Decode-Scramble-Labels, CAD-Koordinaten-Readout, harte Rot/Schwarz/Beige-Farbblöcke mit Blueprint-Grid. Brutalist-Industrie-Signature."
+    />
+    <script type="module" crossorigin src="./assets/index-CX09tWvC.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DjvfrOAr.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+    <!-- Technisches Blueprint-Grid-Overlay (12 Spalten + Hairlines) -->
+    <div class="grid-overlay" aria-hidden="true"></div>
+
+    <!-- 1 — HEADER (sticky, adaptive Kontrast-Inversion) -->
+    <header class="site-header" data-header data-tone="red">
+      <div class="container site-header__inner">
+        <a class="brand" href="#top" aria-label="Enerblock — Startseite">
+          <span class="brand__mark" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+          </span>
+          <span class="brand__word">Enerblock</span>
+        </a>
+        <nav class="site-nav" aria-label="Hauptnavigation">
+          <span class="site-nav__label">Menu</span>
+          <a class="btn" href="#prefooter">
+            <span class="btn__text">Contact</span>
+            <span class="btn__icon" aria-hidden="true">↗</span>
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <span id="top"></span>
+
+      <!-- 2 — HERO (rot) -->
+      <section class="section hero" data-tone="red">
+        <div class="container hero__inner">
+          <div class="hero__labels">
+            <span class="label decode" data-decode>SYSTEM</span>
+            <span class="label decode" data-decode>EST. 2025</span>
+          </div>
+          <h1 class="h1 hero__title">Next-Gen Buildings</h1>
+          <p class="claim hero__claim">
+            The future of construction is industrialized and digital.
+          </p>
+          <div class="hero__logo" aria-hidden="true">
+            <span class="slab"></span><span class="slab"></span><span class="slab"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3 — VISION (beige) -->
+      <section class="section vision" data-tone="beige">
+        <div class="container">
+          <span class="label decode vision__pretitle" data-decode>VISION</span>
+          <h2 class="h2 vision__title">
+            Industrialized vision and digital control to execute with certainty
+          </h2>
+          <div class="vision__grid">
+            <article class="card">
+              <span class="card__marker" aria-hidden="true">■</span>
+              <h3 class="card__title">Approach</h3>
+              <p class="card__body">
+                An industrialized component system that turns construction into a
+                predictable, controllable process.
+              </p>
+              <a class="btn btn--ghost" href="#schema">
+                <span class="btn__text">Learn more</span>
+                <span class="btn__icon" aria-hidden="true">↗</span>
+              </a>
+            </article>
+            <article class="card">
+              <span class="card__marker" aria-hidden="true">■</span>
+              <h3 class="card__title">Company</h3>
+              <p class="card__body">
+                A team building the digital and physical infrastructure for the next
+                generation of buildings.
+              </p>
+              <a class="btn btn--ghost" href="#projects">
+                <span class="btn__text">Learn more</span>
+                <span class="btn__icon" aria-hidden="true">↗</span>
+              </a>
+            </article>
+            <figure class="media media--cad vision__media" data-cad>
+              <img
+                src="https://picsum.photos/seed/enerblock-vision/960/640"
+                alt="Industrialisierte Bau-Komponenten im Werk"
+                loading="lazy"
+                width="960"
+                height="640"
+              />
+              <figcaption class="cad" aria-hidden="true">
+                <span class="cad__x">X: -20</span>
+                <span class="cad__y">Y: 0</span>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4 — SCHEMA (ink/schwarz) -->
+      <section class="section schema" id="schema" data-tone="ink">
+        <div class="container schema__inner">
+          <div class="schema__text">
+            <span class="label decode schema__pretitle" data-decode>SYSTEM</span>
+            <h2 class="h2 schema__title">
+              The industrialized component system that reduces risk and provides certainty
+            </h2>
+          </div>
+          <div class="blueprint">
+            <div class="blueprint__rows">
+              <div class="blueprint-row">
+                <span class="blueprint-row__key">Drawing No.</span>
+                <span class="blueprint-row__val">158.01.00</span>
+              </div>
+              <div class="blueprint-row">
+                <span class="blueprint-row__key">Scale</span>
+                <span class="blueprint-row__val">1/100</span>
+              </div>
+              <div class="blueprint-row">
+                <span class="blueprint-row__key">Sheet</span>
+                <span class="blueprint-row__val">Standard Floor Plan and Axonometrics</span>
+              </div>
+            </div>
+            <!-- Reine CSS-Axonometrie-Andeutung (rote Wireframe-Linien) -->
+            <div class="axono" aria-hidden="true">
+              <span class="axono__slab axono__slab--a"></span>
+              <span class="axono__slab axono__slab--b"></span>
+              <span class="axono__slab axono__slab--c"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5 — SOLUTIONS (beige) -->
+      <section class="section solutions" data-tone="beige">
+        <div class="container">
+          <span class="label decode" data-decode>SOLUTIONS</span>
+          <ol class="sol-list">
+            <li class="sol-item">
+              <span class="sol-item__index">01</span>
+              <h3 class="sol-item__title">Enerblock Panel</h3>
+              <div class="sol-item__media media" data-fallback="PANEL">
+                <img
+                  src="https://picsum.photos/seed/enerblock-panel/720/480"
+                  alt="Enerblock Panel — vorgefertigtes Bauelement"
+                  loading="lazy"
+                  width="720"
+                  height="480"
+                />
+              </div>
+            </li>
+            <li class="sol-item">
+              <span class="sol-item__index">02</span>
+              <h3 class="sol-item__title">Structural Core</h3>
+              <div class="sol-item__media media" data-fallback="CORE">
+                <img
+                  src="https://picsum.photos/seed/enerblock-core/720/480"
+                  alt="Structural Core — tragendes Kernsystem"
+                  loading="lazy"
+                  width="720"
+                  height="480"
+                />
+              </div>
+            </li>
+            <li class="sol-item">
+              <span class="sol-item__index">03</span>
+              <h3 class="sol-item__title">Digital Twin</h3>
+              <div class="sol-item__media media" data-fallback="TWIN">
+                <img
+                  src="https://picsum.photos/seed/enerblock-twin/720/480"
+                  alt="Digital Twin — digitales Steuerungsmodell"
+                  loading="lazy"
+                  width="720"
+                  height="480"
+                />
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- 6 — PARALLAX (rot) — vollbreiter Bau-Foto-Streifen -->
+      <section class="section parallax" data-tone="red">
+        <div class="parallax__strip" data-parallax>
+          <img
+            src="https://picsum.photos/seed/enerblock-site/1600/700"
+            alt="Industrialisierte Baustelle im Aufbau"
+            loading="lazy"
+            width="1600"
+            height="700"
+          />
+        </div>
+      </section>
+
+      <!-- 7 — PROJECTS (beige) — DAS Decode-Showcase-Label -->
+      <section class="section projects" id="projects" data-tone="beige">
+        <div class="container">
+          <span class="label decode" data-decode>PROJECTS</span>
+          <h2 class="h2 projects__title">Case studies</h2>
+          <div class="projects__grid">
+            <article class="project">
+              <figure class="media media--cad" data-cad>
+                <img
+                  src="https://picsum.photos/seed/enerblock-sondika/640/480"
+                  alt="Projekt Sondika — fertiggestelltes Gebäude"
+                  loading="lazy"
+                  width="640"
+                  height="480"
+                />
+                <figcaption class="cad" aria-hidden="true">
+                  <span class="cad__x">X: -20</span>
+                  <span class="cad__y">Y: 0</span>
+                </figcaption>
+              </figure>
+              <h3 class="project__title">Sondika</h3>
+              <p class="project__meta">Industrial · 2024</p>
+            </article>
+            <article class="project">
+              <figure class="media media--cad" data-cad>
+                <img
+                  src="https://picsum.photos/seed/enerblock-eibar/640/480"
+                  alt="Projekt Eibar — Wohngebäude"
+                  loading="lazy"
+                  width="640"
+                  height="480"
+                />
+                <figcaption class="cad" aria-hidden="true">
+                  <span class="cad__x">X: -20</span>
+                  <span class="cad__y">Y: 0</span>
+                </figcaption>
+              </figure>
+              <h3 class="project__title">Eibar</h3>
+              <p class="project__meta">Residential · 2024</p>
+            </article>
+            <article class="project">
+              <figure class="media media--cad" data-cad>
+                <img
+                  src="https://picsum.photos/seed/enerblock-galdakao/640/480"
+                  alt="Projekt Galdakao — Mischnutzung"
+                  loading="lazy"
+                  width="640"
+                  height="480"
+                />
+                <figcaption class="cad" aria-hidden="true">
+                  <span class="cad__x">X: -20</span>
+                  <span class="cad__y">Y: 0</span>
+                </figcaption>
+              </figure>
+              <h3 class="project__title">Galdakao</h3>
+              <p class="project__meta">Mixed-use · 2025</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8 — PREFOOTER (ink/schwarz) -->
+      <section class="section prefooter" id="prefooter" data-tone="ink">
+        <div class="container prefooter__inner">
+          <p class="display-mega prefooter__title">
+            Build with an industrialized and digital system
+          </p>
+          <a class="btn btn--outline" href="#top">
+            <span class="btn__text">Contact</span>
+            <span class="btn__icon" aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- 9 — FOOTER (rot) — Block-Wortspiel BLCK. -->
+    <footer class="section site-footer" data-tone="red">
+      <div class="container site-footer__inner">
+        <div class="footer-col">
+          <span class="footer-col__head">BLCK. 01</span>
+          <ul class="footer-col__list">
+            <li><a href="#schema">System</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#main">Approach</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <span class="footer-col__head">BLCK. 02</span>
+          <ul class="footer-col__list">
+            <li><a href="#main">Enerblock Panel</a></li>
+            <li><a href="#main">Structural Core</a></li>
+            <li><a href="#main">Digital Twin</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <span class="footer-col__head">BLCK. 03</span>
+          <ul class="footer-col__list">
+            <li><a href="#prefooter">Contact</a></li>
+            <li><a href="#main">Imprint</a></li>
+            <li><a href="#main">Privacy</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+  </body>
+</html>
