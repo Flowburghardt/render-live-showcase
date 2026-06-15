@@ -90,6 +90,15 @@
       "desc": "Section-Labels scrambeln beim Reveal zeichenweise von Zufalls-Glyphen in den Zieltext (SplitType-Decode, PROJECTS→PROJIQT→PROJECTS); Bild-Container zeigen beim Hover einen live mitlaufenden CAD-Koordinaten-Readout (X:/Y:) in der Ecke; harte vollflächige Farbblöcke (Rot/Schwarz/Beige) wechseln beim Scrollen ohne Verlauf, überlagert von einem sichtbaren technischen Grid mit Blueprint-Labels (DRAWING NO. / SCALE 1:100).",
       "nightly": true,
       "built": "2026-06-15"
+    },
+    {
+      "slug": "poc-fitflow",
+      "title": "Fitflow",
+      "stage": "Nightly",
+      "effort": "mid",
+      "desc": "StackRotator + Card-Flip + Parallax-Scroll",
+      "nightly": true,
+      "built": "2026-06-15"
     }
   ]
 }

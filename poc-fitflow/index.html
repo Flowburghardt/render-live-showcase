@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FitFlow — Stronger. Healthier. You.</title>
+    <meta
+      name="description"
+      content="FitFlow PoC — scroll-driven StackRotator, hover/touch/keyboard Card-Flip and a parallax blog strip in a loud hot-pink fitness brand. Vanilla TypeScript + Vite, zero runtime dependencies."
+    />
+    <script type="module" crossorigin src="./assets/index-CcX5bIZn.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BgCBE_st.css">
+  </head>
+  <body>
+    <!-- A11y: skip-link must be the first focusable element in the body -->
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <header class="site-header" data-header>
+      <nav class="nav" aria-label="Primary">
+        <a class="brand" href="#main" aria-label="FitFlow — home">
+          Fit<span class="brand__flow">Flow</span>
+        </a>
+        <a class="btn btn--pill nav__cta" href="#team">Get Started</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <!-- ===== Hero ===== -->
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero__mesh" aria-hidden="true"></div>
+        <div class="container hero__inner">
+          <p class="trustpoint">
+            <span class="trustpoint__stars" aria-hidden="true">★★★★★</span>
+            <span class="trustpoint__label">Excellent 4.9 of 5</span>
+          </p>
+
+          <h1 class="hero__title" id="hero-title">
+            <!-- A11y-Guard 2: real text for screen readers -->
+            <span class="sr-only">Stronger. Healthier. You.</span>
+            <!-- visible animated word-spans are built by split-reveal.ts -->
+            <span class="hero__title-vis" data-split="Stronger. Healthier. You." aria-hidden="true"></span>
+          </h1>
+
+          <p class="hero__lead">
+            Personal coaching, mobility and performance — one flow that bends to your life,
+            not the other way around. Train smarter, recover better, show up stronger.
+          </p>
+
+          <a class="btn btn--pill hero__cta" href="#team">Start your flow</a>
+        </div>
+      </section>
+
+      <!-- ===== Team / StackRotator ===== -->
+      <section class="team" id="team" data-stack-section aria-labelledby="team-title">
+        <!-- inner sticky stage: cards are pinned and tween from deck → row -->
+        <div class="team__stage" data-stack-stage>
+          <div class="container team__head">
+            <p class="eyebrow">About us</p>
+            <h2 class="section-title" id="team-title">Your Fitness, Your Flow.</h2>
+            <p class="team__hint">Hover, tap or focus a coach to flip the card.</p>
+          </div>
+
+          <ul class="coach-stack" role="list">
+            <li class="coach-stack__item">
+              <button class="coach-card" type="button" aria-pressed="false">
+                <span class="coach-card__inner">
+                  <span class="coach-card__face coach-card__face--front">
+                    <span class="coach-card__media" aria-hidden="true">
+                      <img
+                        src="https://picsum.photos/seed/fitflow-coach-mark/720/960"
+                        alt=""
+                        width="720"
+                        height="960"
+                        loading="lazy"
+                      />
+                    </span>
+                    <span class="coach-card__name">Mark Thompson</span>
+                    <span class="coach-card__role-front">Strength Coach</span>
+                  </span>
+                  <span class="coach-card__face coach-card__face--back">
+                    <span class="coach-card__role">Strength Coach</span>
+                    <span class="coach-card__bio">
+                      Powerlifting background turned hypertrophy nerd. Mark builds progressive
+                      plans that add real, sustainable load without burning you out.
+                    </span>
+                  </span>
+                </span>
+              </button>
+            </li>
+
+            <li class="coach-stack__item">
+              <button class="coach-card" type="button" aria-pressed="false">
+                <span class="coach-card__inner">
+                  <span class="coach-card__face coach-card__face--front">
+                    <span class="coach-card__media" aria-hidden="true">
+                      <img
+                        src="https://picsum.photos/seed/fitflow-coach-lisa/720/960"
+                        alt=""
+                        width="720"
+                        height="960"
+                        loading="lazy"
+                      />
+                    </span>
+                    <span class="coach-card__name">Lisa Carter</span>
+                    <span class="coach-card__role-front">Mobility Coach</span>
+                  </span>
+                  <span class="coach-card__face coach-card__face--back">
+                    <span class="coach-card__role">Mobility Coach</span>
+                    <span class="coach-card__bio">
+                      Movement-first coaching that frees up tight hips and stiff shoulders, so
+                      every lift, run and rest day finally feels light again.
+                    </span>
+                  </span>
+                </span>
+              </button>
+            </li>
+
+            <li class="coach-stack__item">
+              <button class="coach-card" type="button" aria-pressed="false">
+                <span class="coach-card__inner">
+                  <span class="coach-card__face coach-card__face--front">
+                    <span class="coach-card__media" aria-hidden="true">
+                      <img
+                        src="https://picsum.photos/seed/fitflow-coach-alejandro/720/960"
+                        alt=""
+                        width="720"
+                        height="960"
+                        loading="lazy"
+                      />
+                    </span>
+                    <span class="coach-card__name">Alejandro Torres</span>
+                    <span class="coach-card__role-front">Performance Coach</span>
+                  </span>
+                  <span class="coach-card__face coach-card__face--back">
+                    <span class="coach-card__role">Performance Coach</span>
+                    <span class="coach-card__bio">
+                      Data-driven conditioning for athletes and weekend warriors. Alejandro
+                      turns your numbers into peak-day performance, not guesswork.
+                    </span>
+                  </span>
+                </span>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ===== Stats counter ===== -->
+      <section class="stats" aria-labelledby="stats-title">
+        <div class="container">
+          <h2 class="sr-only" id="stats-title">FitFlow by the numbers</h2>
+          <ul class="stats__grid" role="list">
+            <li class="stat">
+              <span class="stat__num" data-count="1200" data-suffix="+">1200+</span>
+              <span class="stat__label">Active Members</span>
+            </li>
+            <li class="stat">
+              <span class="stat__num" data-count="85" data-suffix="K+">85K+</span>
+              <span class="stat__label">Sessions Completed</span>
+            </li>
+            <li class="stat">
+              <span class="stat__num" data-count="3.2" data-decimals="1" data-suffix="M+">3.2M+</span>
+              <span class="stat__label">Calories Burnt</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ===== Parallax blog strip ===== -->
+      <section class="blog" aria-labelledby="blog-title">
+        <div class="container">
+          <p class="eyebrow eyebrow--on-dark">From the journal</p>
+          <h2 class="section-title section-title--on-dark" id="blog-title">Stronger Every Day</h2>
+        </div>
+
+        <div class="blog__strip">
+          <figure class="blog__card">
+            <div class="blog__media">
+              <img
+                data-parallax
+                src="https://picsum.photos/seed/fitflow-blog-mobility/900/1100"
+                alt="An athlete stretching through a deep mobility flow at sunrise."
+                width="900"
+                height="1100"
+                loading="lazy"
+              />
+            </div>
+            <figcaption class="blog__caption">5 mobility drills before every lift</figcaption>
+          </figure>
+
+          <figure class="blog__card blog__card--offset">
+            <div class="blog__media">
+              <img
+                data-parallax
+                src="https://picsum.photos/seed/fitflow-blog-recovery/900/1100"
+                alt="A coach guiding a client through a guided recovery session."
+                width="900"
+                height="1100"
+                loading="lazy"
+              />
+            </div>
+            <figcaption class="blog__caption">Recovery is a skill — train it</figcaption>
+          </figure>
+
+          <figure class="blog__card">
+            <div class="blog__media">
+              <img
+                data-parallax
+                src="https://picsum.photos/seed/fitflow-blog-strength/900/1100"
+                alt="Close-up of loaded barbell training during a strength block."
+                width="900"
+                height="1100"
+                loading="lazy"
+              />
+            </div>
+            <figcaption class="blog__caption">Build a strength block that sticks</figcaption>
+          </figure>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container site-footer__inner">
+        <span class="brand brand--footer">Fit<span class="brand__flow">Flow</span></span>
+        <p class="site-footer__note">PoC — Render-Live-Workshop · burghardt.studio</p>
+      </div>
+    </footer>
+
+  </body>
+</html>
