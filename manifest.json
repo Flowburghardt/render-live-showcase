@@ -99,6 +99,15 @@
       "desc": "StackRotator + Card-Flip + Parallax-Scroll",
       "nightly": true,
       "built": "2026-06-15"
+    },
+    {
+      "slug": "poc-grotesk-zero",
+      "title": "Grotesk-Zero",
+      "stage": "Nightly",
+      "effort": "mid",
+      "desc": "\"Scroll-Zoom in den Buchstaben-Counter ('A letter is a room — enter it'): GSAP ScrollTrigger pinnt eine Sektion und zoomt in das 576px-O hinein bis man 'inside the counter' steht, dazu SplitText-Stagger der Hero-Buchstaben + Lenis Smooth-Scroll + fluide clamp()-Mega-Typo bis 864px\"",
+      "nightly": true,
+      "built": "2026-06-16"
     }
   ]
 }
