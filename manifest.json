@@ -108,6 +108,15 @@
       "desc": "\"Scroll-Zoom in den Buchstaben-Counter ('A letter is a room — enter it'): GSAP ScrollTrigger pinnt eine Sektion und zoomt in das 576px-O hinein bis man 'inside the counter' steht, dazu SplitText-Stagger der Hero-Buchstaben + Lenis Smooth-Scroll + fluide clamp()-Mega-Typo bis 864px\"",
       "nightly": true,
       "built": "2026-06-16"
+    },
+    {
+      "slug": "poc-plat-form",
+      "title": "Plat-form",
+      "stage": "Nightly",
+      "effort": "mid",
+      "desc": "3D-Cubes + Hover-3x-Cycle + Button-Glow",
+      "nightly": true,
+      "built": "2026-06-16"
     }
   ]
 }

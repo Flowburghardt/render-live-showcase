@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Platform® — the smarter way to build, run, and scale your business. Dark Tech Brutalist PoC."
+    />
+    <title>Platform® — build, run, scale</title>
+
+    <!-- Inter via Google Fonts (Display ist Pro-only; Inter ist die offene Schwester der Quelle) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" crossorigin src="./assets/index-j9yyfwT4.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-F0xmSsel.css">
+  </head>
+  <body>
+    <!-- ============ NAV ============ -->
+    <header class="site-header">
+      <div class="container nav-inner">
+        <a class="wordmark" href="#top" aria-label="Platform, home">
+          Platform<span class="wordmark__reg" aria-hidden="true">&reg;</span>
+        </a>
+
+        <nav class="nav" aria-label="Primary">
+          <!--
+            Hover-3x-Cycle: jeder Link traegt seinen echten Text als
+            semantischen Inhalt. main.ts erzeugt zwei aria-hidden Klon-Layer
+            pro Link — der Originaltext bleibt die EINZIGE Quelle fuer
+            Screenreader (kein "WorkWorkWork").
+          -->
+          <ul class="nav__list">
+            <li><a class="nav__link" href="#work">Work</a></li>
+            <li><a class="nav__link" href="#services">Services</a></li>
+            <li><a class="nav__link" href="#process">Process</a></li>
+            <li><a class="nav__link" href="#pricing">Pricing</a></li>
+            <li><a class="nav__link" href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- ============ HERO ============ -->
+      <section class="hero" aria-labelledby="hero-title">
+        <!-- 3D-Cube + Dots Decoration-Layer (rein dekorativ, overflow-clipped) -->
+        <div class="cube-field" aria-hidden="true" data-parallax>
+          <div class="cube cube--a">
+            <span class="face face--front"></span>
+            <span class="face face--back"></span>
+            <span class="face face--right"></span>
+            <span class="face face--left"></span>
+            <span class="face face--top"></span>
+            <span class="face face--bottom"></span>
+          </div>
+          <div class="cube cube--b">
+            <span class="face face--front"></span>
+            <span class="face face--back"></span>
+            <span class="face face--right"></span>
+            <span class="face face--left"></span>
+            <span class="face face--top"></span>
+            <span class="face face--bottom"></span>
+          </div>
+          <div class="cube cube--c">
+            <span class="face face--front"></span>
+            <span class="face face--back"></span>
+            <span class="face face--right"></span>
+            <span class="face face--left"></span>
+            <span class="face face--top"></span>
+            <span class="face face--bottom"></span>
+          </div>
+          <div class="cube cube--d">
+            <span class="face face--front"></span>
+            <span class="face face--back"></span>
+            <span class="face face--right"></span>
+            <span class="face face--left"></span>
+            <span class="face face--top"></span>
+            <span class="face face--bottom"></span>
+          </div>
+
+          <!-- Scatter-Dots: Star-Field -->
+          <span class="dot dot--1"></span>
+          <span class="dot dot--2"></span>
+          <span class="dot dot--3"></span>
+          <span class="dot dot--4"></span>
+          <span class="dot dot--5"></span>
+          <span class="dot dot--6"></span>
+          <span class="dot dot--7"></span>
+          <span class="star" aria-hidden="true">&#10022;</span>
+        </div>
+
+        <div class="container hero__inner">
+          <p class="indicator">Neural Network <span class="slash">//</span> Latest Release</p>
+
+          <h1 class="hero__title" id="hero-title">
+            &mdash; The smarter way to
+            <span class="accent">build, run,</span>
+            and <span class="accent">scale</span>
+            your business.
+          </h1>
+
+          <div class="hero__actions">
+            <a class="btn btn--glow" href="#contact">
+              Book a Demo
+              <span class="btn__arrow" aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ STATS ============ -->
+      <section class="stats" aria-labelledby="stats-title">
+        <div class="container">
+          <h2 class="section-label" id="stats-title">
+            <span class="num">01</span> <span class="slash">//</span> Reliability
+          </h2>
+
+          <div class="stats__grid">
+            <div class="stat-tile">
+              <p class="stat-tile__num">99.9<span class="stat-tile__suffix">%</span></p>
+              <p class="stat-tile__label">Uptime across all regions</p>
+            </div>
+            <div class="stat-tile">
+              <p class="stat-tile__num">8<span class="stat-tile__suffix">/8</span></p>
+              <p class="stat-tile__label">Core services healthy</p>
+            </div>
+            <div class="stat-tile">
+              <p class="stat-tile__num">120<span class="stat-tile__suffix">ms</span></p>
+              <p class="stat-tile__label">Median edge response time</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ CAPABILITIES ============ -->
+      <section class="capabilities" id="services" aria-labelledby="cap-title">
+        <div class="container">
+          <h2 class="section-label" id="cap-title">
+            <span class="num">02</span> <span class="slash">//</span> Capabilities
+          </h2>
+
+          <ol class="cap__list">
+            <li class="cap__item">
+              <span class="cap__num" aria-hidden="true">01</span>
+              <div class="cap__body">
+                <h3 class="cap__title">Neural Network</h3>
+                <p class="cap__text">
+                  A self-learning intelligence core that observes traffic, predicts load,
+                  and re-routes capacity before a spike ever reaches your users.
+                </p>
+              </div>
+            </li>
+            <li class="cap__item" id="process">
+              <span class="cap__num" aria-hidden="true">02</span>
+              <div class="cap__body">
+                <h3 class="cap__title">Adaptive Infrastructure</h3>
+                <p class="cap__text">
+                  Compute that scales itself horizontally in milliseconds &mdash; you ship the
+                  product, the platform negotiates the hardware underneath.
+                </p>
+              </div>
+            </li>
+            <li class="cap__item" id="work">
+              <span class="cap__num" aria-hidden="true">03</span>
+              <div class="cap__body">
+                <h3 class="cap__title">Observability Mesh</h3>
+                <p class="cap__text">
+                  Every request traced, every anomaly surfaced in terminal-green health
+                  signals &mdash; status you can read at a glance, debug in a click.
+                </p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ============ CTA ============ -->
+      <section class="cta" id="pricing" aria-labelledby="cta-title">
+        <div class="container cta__inner">
+          <h2 class="cta__title" id="cta-title">See Platform in action</h2>
+          <p class="cta__lead">Watch the neural core re-balance a live region in real time.</p>
+          <a class="btn btn--glow" href="#contact">
+            Book a Demo
+            <span class="btn__arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="site-footer" id="contact">
+      <div class="container footer__inner">
+        <p class="footer__slogan">
+          we run infrastructure <span class="footer__dash">&mdash;</span> you lead innovation
+        </p>
+        <p class="footer__subtitle">
+          The smarter way to build, run, and scale your business.
+        </p>
+        <p class="footer__meta">Platform<span class="wordmark__reg">&reg;</span> &middot; PoC build &middot; CSS-3D, zero runtime deps</p>
+      </div>
+    </footer>
+
+  </body>
+</html>
