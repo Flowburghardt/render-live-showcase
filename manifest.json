@@ -126,6 +126,15 @@
       "desc": "\"Vollbild-Foto-Galerie (full-bleed bis Bildrand, responsiv): Startseite vertikal-Scroll, Projekt-/Galerieseiten horizontal-Scroll (nach rechts) mit %-Fortschritt. Lenis + GSAP horizontal-ScrollTrigger + Barba-Seitenwechsel.\"",
       "nightly": true,
       "built": "2026-06-17"
+    },
+    {
+      "slug": "poc-tres-mares-capital",
+      "title": "Tres-Mares-Capital",
+      "stage": "Nightly",
+      "effort": "mid",
+      "desc": "WebGL-Canvas-Hero (Three.js Nebel/Berg) + SplitText-Treppen-Headline + rote Stat-Counter + Lenis Smooth-Scroll",
+      "nightly": true,
+      "built": "2026-06-17"
     }
   ]
 }

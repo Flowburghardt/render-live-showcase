@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tresmares — Editorial Finance Brutalism (PoC)</title>
+    <meta
+      name="description"
+      content="A pan-european alternative investment firm partnering with founders to drive growth — editorial finance PoC with a Three.js paper-fog hero, SplitText Treppe headline and red scroll-counters."
+    />
+    <script type="module" crossorigin src="./assets/index-DycYqrzA.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-pG05reHv.css">
+  </head>
+  <body>
+    <!-- ===================== Header (72px sticky) ===================== -->
+    <header class="header">
+      <a class="header__logo" href="#hero">Tresmares</a>
+      <nav class="header__nav" aria-label="Primary">
+        <a href="#stats">About</a>
+        <a href="#solutions">Financial Solutions</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#solutions">Team</a>
+        <a href="#footer">Investors</a>
+        <a href="#footer">Contact</a>
+      </nav>
+      <div class="header__right">
+        <span class="header__lang" aria-label="Language">EN&nbsp;/&nbsp;ES</span>
+        <a class="btn btn--primary" href="#footer">Investors Portal</a>
+      </div>
+    </header>
+
+    <main>
+      <!-- ===================== Hero ===================== -->
+      <section class="hero" id="hero">
+        <canvas id="hero-canvas" class="hero__canvas" aria-hidden="true"></canvas>
+        <div class="hero__inner">
+          <h1 class="hero__title">
+            <span class="sr-only">Drive to grow</span>
+            <span class="hero__title-visual" aria-hidden="true" data-split-words>
+              <span class="line">Drive</span>
+              <span class="line line--2">to</span>
+              <span class="line line--3">grow</span>
+            </span>
+          </h1>
+          <p class="hero__lead">
+            Tailored financing for high-growth SMEs and private equity managers.
+          </p>
+          <div class="hero__scroll" aria-hidden="true">
+            <span class="hero__scroll-text">Scroll</span>
+            <span class="hero__scroll-arrow">&#8595;</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== About / Stats ===================== -->
+      <section class="stats" id="stats">
+        <p class="label" data-reveal>About Tresmares</p>
+        <h2 class="section-intro" data-reveal>
+          A pan-european alternative investment firm partnering with founders to drive growth.
+        </h2>
+
+        <div class="stats__grid">
+          <div class="stat" data-reveal>
+            <span class="stat__value" data-count-to="2014">2014</span>
+            <span class="stat__label">Founded</span>
+          </div>
+          <div class="stat" data-reveal>
+            <span class="stat__value" data-count-to="3500" data-prefix="+" data-grouping>+3.500</span>
+            <span class="stat__label">Companies screened</span>
+          </div>
+          <div class="stat" data-reveal>
+            <span class="stat__value" data-count-to="2000" data-prefix="+" data-grouping>+2.000</span>
+            <span class="stat__label">Mgmt. meetings</span>
+          </div>
+          <div class="stat" data-reveal>
+            <span class="stat__value">4&#8211;75</span>
+            <span class="stat__label">Ticket size &euro;M</span>
+          </div>
+          <div class="stat" data-reveal>
+            <span class="stat__value" data-count-to="100" data-prefix="+">+100</span>
+            <span class="stat__label">Investments</span>
+          </div>
+          <div class="stat" data-reveal>
+            <span class="stat__value" data-count-to="60" data-prefix="+">+60</span>
+            <span class="stat__label">Professionals</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== Financial Solutions (dark) ===================== -->
+      <section class="solutions" id="solutions">
+        <p class="label label--on-dark" data-reveal>Financial Solutions</p>
+        <ul class="solutions__list">
+          <li class="strategy strategy--red" data-reveal>
+            <span class="sr-only">Private Equity</span>
+            <span class="strategy__visual" aria-hidden="true" data-split-words>Private Equity</span>
+          </li>
+          <li class="strategy strategy--white" data-reveal>
+            <span class="sr-only">Direct Lending</span>
+            <span class="strategy__visual" aria-hidden="true" data-split-words>Direct Lending</span>
+          </li>
+          <li class="strategy strategy--red" data-reveal>
+            <span class="sr-only">Fund of Funds</span>
+            <span class="strategy__visual" aria-hidden="true" data-split-words>Fund of Funds</span>
+          </li>
+          <li class="strategy strategy--white" data-reveal>
+            <span class="sr-only">Fund Financing</span>
+            <span class="strategy__visual" aria-hidden="true" data-split-words>Fund Financing</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ===================== Atmosphere (transition) ===================== -->
+      <section class="atmosphere" aria-label="Atmosphere">
+        <span class="atmosphere__caption">Atmosphere &mdash; macro placeholder</span>
+      </section>
+
+      <!-- ===================== Portfolio ===================== -->
+      <section class="portfolio" id="portfolio">
+        <h2 class="section-intro" data-reveal>Portfolio</h2>
+        <div class="portfolio__grid">
+          <figure class="tile" data-reveal>
+            <img
+              class="tile__img"
+              src="https://picsum.photos/seed/tres1/600/750"
+              alt="Portfolio company — atmospheric placeholder one"
+              loading="lazy"
+              width="600"
+              height="750"
+            />
+            <figcaption class="tile__caption">
+              <span class="tile__name">Northbound Capital</span>
+              <span class="tile__meta">Private Equity &middot; 2019</span>
+            </figcaption>
+          </figure>
+          <figure class="tile" data-reveal>
+            <img
+              class="tile__img"
+              src="https://picsum.photos/seed/tres2/600/750"
+              alt="Portfolio company — atmospheric placeholder two"
+              loading="lazy"
+              width="600"
+              height="750"
+            />
+            <figcaption class="tile__caption">
+              <span class="tile__name">Meridian Labs</span>
+              <span class="tile__meta">Direct Lending &middot; 2021</span>
+            </figcaption>
+          </figure>
+          <figure class="tile" data-reveal>
+            <img
+              class="tile__img"
+              src="https://picsum.photos/seed/tres3/600/750"
+              alt="Portfolio company — atmospheric placeholder three"
+              loading="lazy"
+              width="600"
+              height="750"
+            />
+            <figcaption class="tile__caption">
+              <span class="tile__name">Halden Industrie</span>
+              <span class="tile__meta">Fund of Funds &middot; 2020</span>
+            </figcaption>
+          </figure>
+          <figure class="tile" data-reveal>
+            <img
+              class="tile__img"
+              src="https://picsum.photos/seed/tres4/600/750"
+              alt="Portfolio company — atmospheric placeholder four"
+              loading="lazy"
+              width="600"
+              height="750"
+            />
+            <figcaption class="tile__caption">
+              <span class="tile__name">Atlas Ventures</span>
+              <span class="tile__meta">Fund Financing &middot; 2022</span>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===================== Footer ===================== -->
+    <footer class="footer" id="footer">
+      <p class="footer__statement" data-reveal>
+        The opportunity to create, grow, and look ahead.
+      </p>
+      <div class="footer__bar">
+        <nav class="footer__links" aria-label="Footer">
+          <a href="#stats">About</a>
+          <a href="#solutions">Financial Solutions</a>
+          <a href="#portfolio">Portfolio</a>
+          <a href="#footer">Contact</a>
+        </nav>
+        <p class="footer__fine">
+          &copy; 2026 Tresmares — PoC. Editorial Finance Brutalism demo, not a real firm.
+        </p>
+      </div>
+    </footer>
+
+  </body>
+</html>
