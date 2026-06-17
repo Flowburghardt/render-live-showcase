@@ -117,6 +117,15 @@
       "desc": "3D-Cubes + Hover-3x-Cycle + Button-Glow",
       "nightly": true,
       "built": "2026-06-16"
+    },
+    {
+      "slug": "poc-bottega53",
+      "title": "Bottega53",
+      "stage": "Nightly",
+      "effort": "mid",
+      "desc": "\"Vollbild-Foto-Galerie (full-bleed bis Bildrand, responsiv): Startseite vertikal-Scroll, Projekt-/Galerieseiten horizontal-Scroll (nach rechts) mit %-Fortschritt. Lenis + GSAP horizontal-ScrollTrigger + Barba-Seitenwechsel.\"",
+      "nightly": true,
+      "built": "2026-06-17"
     }
   ]
 }
