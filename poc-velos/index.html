@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Velos — brutalist deep-space aerospace design system PoC. Mega-typo, CSS render planets, emerald telemetry."
+    />
+    <title>VELOS — Dark &amp; Matter</title>
+    <script type="module" crossorigin src="./assets/index-DuExgnYG.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BoH6qzzA.css">
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+
+    <!-- ============================ NAV ============================ -->
+    <header class="site-header">
+      <nav class="nav container" aria-label="Primary">
+        <a class="wordmark" href="#top">VELOS</a>
+        <ul class="nav-links">
+          <li><a href="#missions">Fleet</a></li>
+          <li><a href="#missions">Missions</a></li>
+          <li><a href="#systems">Tech</a></li>
+          <li><a href="#careers">Crew</a></li>
+          <li><a href="#footer">Protocol</a></li>
+        </ul>
+        <div class="nav-right">
+          <span class="clock mono" data-clock aria-live="off">UTC --:--:-- · SYS.NORM</span>
+          <a class="pill pill--white" href="#missions">View Manifest</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="top">
+      <!-- ============================ HERO ============================ -->
+      <section class="hero container" aria-labelledby="hero-title">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="ticker mono" data-reveal>
+              <span class="live-dot" aria-hidden="true"></span> LIVE: ORBITAL STATION ALPHA
+            </p>
+
+            <!-- Real, semantic, read-once headline for screen readers. -->
+            <h1 id="hero-title" class="sr-only">Dark &amp; Matter</h1>
+
+            <!-- Visual mega-typo: aria-hidden split clones with staggered slideUpFade. -->
+            <p class="mega" aria-hidden="true" data-reveal>
+              <span class="mega-word" style="--i: 0">DARK</span>
+              <span class="mega-amp" style="--i: 1">&amp;</span>
+              <span class="mega-word" style="--i: 2">MATTER</span>
+            </p>
+
+            <p class="lead" data-reveal>
+              We engineer the infrastructure of the second space age — orbital
+              foundries, deep-system probes, and the quiet machinery that turns
+              the dark between worlds into a place to live.
+            </p>
+
+            <a class="pill pill--white hero-cta" href="#missions" data-reveal>
+              View Manifest <span aria-hidden="true">→</span>
+            </a>
+          </div>
+
+          <div class="hero-visual" aria-hidden="true" data-reveal>
+            <div class="planet planet--moon">
+              <span class="crater crater--a"></span>
+              <span class="crater crater--b"></span>
+              <span class="crater crater--c"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-foot mono" aria-hidden="true">
+          <span>SCROLL ↓</span>
+          <span>SYS.NORM</span>
+        </div>
+      </section>
+
+      <!-- ========================== MISSIONS ========================= -->
+      <section id="missions" class="section missions" aria-labelledby="missions-title">
+        <div class="container">
+          <p class="eyebrow mono" data-reveal>MISSION LOG 2024</p>
+          <h2 id="missions-title" class="h2 h2--echo" data-reveal>
+            STELLAR <span class="echo">RANGE.</span>
+          </h2>
+
+          <div class="filters" role="group" aria-label="Filter missions">
+            <button type="button" class="pill pill--ghost" data-filter="all" aria-pressed="true">
+              All Missions
+            </button>
+            <button type="button" class="pill pill--ghost" data-filter="deep" aria-pressed="false">
+              Deep Space
+            </button>
+            <button type="button" class="pill pill--ghost" data-filter="orbital" aria-pressed="false">
+              Orbital
+            </button>
+          </div>
+
+          <ul class="mission-list">
+            <li class="mission-card" data-category="deep" data-reveal>
+              <span class="mission-index" aria-hidden="true">01</span>
+              <div class="mission-body">
+                <h3 class="mission-title">Ares Heavy</h3>
+                <div class="mission-planet" aria-hidden="true">
+                  <span class="planet planet--rust"></span>
+                </div>
+                <ul class="spec-tags mono" aria-label="Specifications">
+                  <li>DEEP SPACE</li>
+                  <li>PAYLOAD 64T</li>
+                  <li>Δv 11.2 KM/S</li>
+                </ul>
+                <p class="mission-detail mono">DESTINATION: MARS TRANSFER ORBIT · WINDOW 2031-Q3</p>
+              </div>
+            </li>
+
+            <li class="mission-card" data-category="orbital" data-reveal>
+              <span class="mission-index" aria-hidden="true">02</span>
+              <div class="mission-body">
+                <h3 class="mission-title">Gateway Station</h3>
+                <div class="mission-planet" aria-hidden="true">
+                  <span class="planet planet--ice"></span>
+                </div>
+                <ul class="spec-tags mono" aria-label="Specifications">
+                  <li>ORBITAL</li>
+                  <li>CREW 12</li>
+                  <li>ALT 384,400 KM</li>
+                </ul>
+                <p class="mission-detail mono">ROLE: CIS-LUNAR LOGISTICS HUB · STATUS NOMINAL</p>
+              </div>
+            </li>
+
+            <li class="mission-card" data-category="deep" data-reveal>
+              <span class="mission-index" aria-hidden="true">03</span>
+              <div class="mission-body">
+                <h3 class="mission-title">Titan Rover</h3>
+                <div class="mission-planet" aria-hidden="true">
+                  <span class="planet planet--amber"></span>
+                </div>
+                <ul class="spec-tags mono" aria-label="Specifications">
+                  <li>DEEP SPACE</li>
+                  <li>RTG 4.1 KW</li>
+                  <li>RANGE 1.2 BN KM</li>
+                </ul>
+                <p class="mission-detail mono">TARGET: TITAN METHANE LAKES · ETA 2038-Q1</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ====================== INFRASTRUCTURE ======================= -->
+      <section class="section infra-outer" aria-labelledby="infra-title">
+        <div class="container">
+          <div class="infra-island" data-reveal>
+            <p class="eyebrow eyebrow--accent mono">
+              <span class="live-dot" aria-hidden="true"></span> GLOBAL NETWORK
+            </p>
+            <h2 id="infra-title" class="h2 h2--mid">
+              INTERPLANETARY<br /><span class="dim">INFRASTRUCTURE</span>
+            </h2>
+
+            <div class="globe" aria-hidden="true"></div>
+
+            <div class="infra-cards">
+              <article class="infra-card" data-reveal>
+                <h3 class="infra-card-title">Zero-G Manufactory</h3>
+                <p class="stat" aria-hidden="true">
+                  <span data-count="142" data-suffix="">0</span>
+                </p>
+                <p class="infra-card-meta mono">ACTIVE PRINT CELLS IN ORBIT</p>
+                <p class="sr-only">142 active print cells in orbit.</p>
+              </article>
+
+              <article class="infra-card" data-reveal>
+                <h3 class="infra-card-title">He-3 Energy Grid</h3>
+                <p class="stat" aria-hidden="true">
+                  <span data-count="98" data-suffix="%">0%</span>
+                </p>
+                <p class="infra-card-meta mono">LUNAR GRID UPTIME · ROLLING 30D</p>
+                <p class="sr-only">98 percent lunar grid uptime over a rolling 30 days.</p>
+              </article>
+            </div>
+
+            <a class="pill pill--white" href="#systems">View Infrastructure Map</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================= TIMELINE ========================== -->
+      <section class="section timeline" aria-labelledby="timeline-title">
+        <div class="container">
+          <p class="eyebrow mono" data-reveal>CHRONOLOGY</p>
+          <h2 id="timeline-title" class="h2 h2--mid" data-reveal>THE ASCENT</h2>
+
+          <ol class="timeline-list">
+            <li class="timeline-row" data-reveal>
+              <span class="ghost-digit" aria-hidden="true">2030</span>
+              <span class="timeline-year">2030</span>
+              <div class="timeline-meta">
+                <h3 class="timeline-stage">Foundation</h3>
+                <p class="timeline-caption mono">FIRST AUTONOMOUS ORBITAL FOUNDRY GOES LIVE</p>
+              </div>
+            </li>
+            <li class="timeline-row" data-reveal>
+              <span class="ghost-digit" aria-hidden="true">2042</span>
+              <span class="timeline-year">2042</span>
+              <div class="timeline-meta">
+                <h3 class="timeline-stage">First Light</h3>
+                <p class="timeline-caption mono">HE-3 FUSION GRID REACHES BREAK-EVEN</p>
+              </div>
+            </li>
+            <li class="timeline-row" data-reveal>
+              <span class="ghost-digit" aria-hidden="true">2055</span>
+              <span class="timeline-year">2055</span>
+              <div class="timeline-meta">
+                <h3 class="timeline-stage">Mars Colony</h3>
+                <p class="timeline-caption mono">FIRST PERMANENT 1,000-PERSON SETTLEMENT</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ========================== SYSTEMS ========================== -->
+      <section id="systems" class="section systems" aria-labelledby="systems-title">
+        <div class="container">
+          <p class="eyebrow mono" data-reveal>SYSTEM ARCHITECTURE</p>
+          <h2 id="systems-title" class="h2 h2--mid" data-reveal>CORE SYSTEMS</h2>
+
+          <div class="systems-grid">
+            <article class="system-card glow glow--blue" data-reveal>
+              <div class="system-icon" aria-hidden="true">
+                <span class="equalizer">
+                  <span style="--b: 0"></span><span style="--b: 1"></span
+                  ><span style="--b: 2"></span><span style="--b: 3"></span
+                  ><span style="--b: 4"></span>
+                </span>
+              </div>
+              <h3 class="system-title">Nav-AI Core</h3>
+              <p class="system-copy">
+                Autonomous trajectory planning across a 40-body ephemeris, replanning
+                in under 12 ms per correction burn.
+              </p>
+              <p class="system-meta mono">SUBSYSTEM · GNC-01</p>
+            </article>
+
+            <article class="system-card glow glow--emerald" data-reveal>
+              <div class="system-icon" aria-hidden="true">
+                <span class="equalizer">
+                  <span style="--b: 0"></span><span style="--b: 1"></span
+                  ><span style="--b: 2"></span><span style="--b: 3"></span
+                  ><span style="--b: 4"></span>
+                </span>
+              </div>
+              <h3 class="system-title">Aegis Hull</h3>
+              <p class="system-copy">
+                Self-annealing composite shielding rated for micrometeoroid flux at
+                relative velocities beyond 20 km/s.
+              </p>
+              <p class="system-meta mono">SUBSYSTEM · STR-07</p>
+            </article>
+
+            <article class="system-card glow glow--purple" data-reveal>
+              <div class="system-icon" aria-hidden="true">
+                <span class="equalizer">
+                  <span style="--b: 0"></span><span style="--b: 1"></span
+                  ><span style="--b: 2"></span><span style="--b: 3"></span
+                  ><span style="--b: 4"></span>
+                </span>
+              </div>
+              <h3 class="system-title">Fusion Drive</h3>
+              <p class="system-copy">
+                Direct-drive He-3 fusion torch sustaining continuous thrust for
+                fast-transit deep-space transfers.
+              </p>
+              <p class="system-meta mono">SUBSYSTEM · PRP-03</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================== CAREERS ========================== -->
+      <section id="careers" class="section careers" aria-labelledby="careers-title">
+        <div class="container">
+          <h2 id="careers-title" class="h2 h2--echo" data-reveal>
+            JOIN THE <span class="echo echo--30">VANGUARD.</span>
+          </h2>
+          <p class="intro" data-reveal>
+            We are a small crew building absurdly hard things. If you would rather
+            ship a working torch drive than argue about roadmaps, talk to us.
+          </p>
+
+          <ul class="job-list">
+            <li class="job-row" data-reveal>
+              <h3 class="job-title">Propulsion Lead</h3>
+              <ul class="job-tags mono" aria-label="Role details">
+                <li><span class="live-dot" aria-hidden="true"></span> FULL-TIME</li>
+                <li>HOUSTON, TX</li>
+              </ul>
+              <span class="job-arrow" aria-hidden="true">→</span>
+            </li>
+            <li class="job-row" data-reveal>
+              <h3 class="job-title">Exobiology Specialist</h3>
+              <ul class="job-tags mono" aria-label="Role details">
+                <li><span class="live-dot" aria-hidden="true"></span> FULL-TIME</li>
+                <li>HOUSTON, TX</li>
+              </ul>
+              <span class="job-arrow" aria-hidden="true">→</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <!-- ========================== FOOTER =========================== -->
+    <footer id="footer" class="site-footer">
+      <div class="container footer-inner">
+        <span class="wordmark">VELOS</span>
+        <p class="mono footer-copy">© 2024 VELOS AEROSPACE · ALL VECTORS RESERVED</p>
+        <p class="mono footer-status">
+          <span class="live-dot" aria-hidden="true"></span> ALL SYSTEMS NOMINAL
+        </p>
+      </div>
+    </footer>
+
+  </body>
+</html>
