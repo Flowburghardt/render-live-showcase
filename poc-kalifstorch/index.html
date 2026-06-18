@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kalif Storch — Programm</title>
+    <meta
+      name="description"
+      content="Anzeigetafel des Kalif Storch (P147, Erfurt): Live-Uhr, Datums-Index und Monospace-Eventliste. Funktionaler Mono-Brutalismus."
+    />
+    <script type="module" crossorigin src="./assets/index-Cli9uzjO.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-u_qqBiL1.css">
+  </head>
+  <body>
+    <h1 class="visually-hidden">Kalif Storch — Programm</h1>
+
+    <!-- ===== LIVE STATUS BAR (sticky) ===== -->
+    <header class="statusbar" id="statusbar">
+      <div class="statusbar__group statusbar__lang" role="group" aria-label="Sprache">
+        <button type="button" class="lang lang--active" aria-pressed="true">DE</button>
+        <button type="button" class="lang" aria-pressed="false">EN</button>
+      </div>
+      <span class="statusbar__code" aria-label="Standort-Code P147">P147</span>
+      <span class="statusbar__date" id="statusbar-date" aria-label="Datum"></span>
+      <span class="statusbar__clock">
+        <span class="live-dot" aria-hidden="true"></span>
+        <span id="statusbar-clock">--:--:--</span>
+      </span>
+      <button
+        type="button"
+        class="hamburger"
+        id="hamburger"
+        aria-label="Menü"
+        aria-expanded="false"
+        aria-controls="menu-overlay"
+      >
+        <span class="hamburger__bar" aria-hidden="true"></span>
+        <span class="hamburger__bar" aria-hidden="true"></span>
+        <span class="hamburger__bar" aria-hidden="true"></span>
+      </button>
+    </header>
+
+    <!-- ===== MENU OVERLAY ===== -->
+    <div class="menu-overlay" id="menu-overlay" hidden>
+      <nav aria-label="Hauptmenü" class="menu-overlay__nav">
+        <a href="#programm">Programm</a>
+        <a href="#brand">Club</a>
+        <a href="#shop">Shop</a>
+      </nav>
+    </div>
+
+    <main>
+      <!-- ===== BRAND HERO (3 Farb-Kacheln, keine Fotos) ===== -->
+      <section class="brand" id="brand" aria-label="Kalif Storch">
+        <div class="brand__tile brand__tile--a">
+          <span class="brand__kicker">P147 · ERFURT</span>
+          <span class="brand__word">KALIF</span>
+        </div>
+        <div class="brand__tile brand__tile--b">
+          <span class="brand__kicker">CLUB · BAR · BÜHNE</span>
+          <span class="brand__word">STORCH</span>
+        </div>
+        <div class="brand__tile brand__tile--c">
+          <span class="brand__wordmark" aria-hidden="true">●</span>
+          <span class="brand__word brand__word--small">ANZEIGE&shy;TAFEL</span>
+        </div>
+      </section>
+
+      <!-- ===== DATUMS-INDEX-NAV ===== -->
+      <nav class="index" aria-label="Datums-Index">
+        <div class="index__scroll" id="date-index">
+          <!-- main.ts rendert die DD/MM-Links -->
+        </div>
+      </nav>
+
+      <!-- ===== EVENT-LISTE ===== -->
+      <section class="program" id="programm" aria-labelledby="program-heading">
+        <h2 id="program-heading" class="program__heading">Programm</h2>
+        <ol class="events" id="event-list">
+          <!-- main.ts rendert die Event-Zeilen -->
+        </ol>
+      </section>
+    </main>
+
+    <!-- ===== SHOP-TAB (angeschnitten, fixed rechts) ===== -->
+    <a href="#shop" class="shop-tab" id="shop" aria-label="Zum Shop">SHOP</a>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+      <span class="footer__line">KALIF STORCH · P147 · ERFURT</span>
+      <span class="footer__line footer__line--muted">FUNKTIONALER MONO-BRUTALISMUS · DEMO-POC</span>
+    </footer>
+
+  </body>
+</html>

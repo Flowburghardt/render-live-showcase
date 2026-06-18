@@ -135,6 +135,15 @@
       "desc": "WebGL-Canvas-Hero (Three.js Nebel/Berg) + SplitText-Treppen-Headline + rote Stat-Counter + Lenis Smooth-Scroll",
       "nightly": true,
       "built": "2026-06-17"
+    },
+    {
+      "slug": "poc-kalifstorch",
+      "title": "Kalifstorch",
+      "stage": "Nightly",
+      "effort": "quick",
+      "desc": "\"Live-Status-Bar (echtzeit-tickende Uhrzeit + Datum + Standort-Code im Header) gekoppelt an eine horizontale Datums-Index-Navigation, deren Einträge nach Recency in der Helligkeit abgestuft sind (heute #FFFFFF → bald #E0E0E0 → fern #8B8B8B), darunter eine reine Monospace-Event-Liste mit gelbem Bullet-Marker pro Zeile. Pures CSS + minimales JS (setInterval-Uhr, Datums-Mapping).\"",
+      "nightly": true,
+      "built": "2026-06-18"
     }
   ]
 }
