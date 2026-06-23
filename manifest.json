@@ -153,6 +153,15 @@
       "desc": "\"Brutalist Mega-Typo (Bricolage Grotesque 176px) auf #0A0A0A mit CSS-@keyframe cinematic-entrance/slideUpFade, getriggert per IntersectionObserver (KEIN GSAP/WebGL); statische 3D-Render-Planeten als Bild-Anker, Monospace-Tech-Labels + aura FxFilter Film-Grain-Overlay, einziger Emerald-Akzent #34D399\"",
       "nightly": true,
       "built": "2026-06-18"
+    },
+    {
+      "slug": "poc-solene",
+      "title": "Solene",
+      "stage": "Nightly",
+      "effort": "mid",
+      "desc": "\"Framer Scroll-Section mit horizontaler Achse („Scroll Horizontal“): vertikales Scrollen schiebt die Wellness-Benefit-Karten seitlich durch einen gepinnten Viewport (scroll-hijack horizontal), kombiniert mit Light-Weight-Mega-Typo (Be Vietnam Pro weight 300, letter-spacing ~-0.08em, bis 87px) über einer botanischen Foto-Sektion und einem Bento-Grid für die SOL-G7-Benefits.\"",
+      "nightly": true,
+      "built": "2026-06-23"
     }
   ]
 }
