@@ -162,6 +162,15 @@
       "desc": "\"Framer Scroll-Section mit horizontaler Achse („Scroll Horizontal“): vertikales Scrollen schiebt die Wellness-Benefit-Karten seitlich durch einen gepinnten Viewport (scroll-hijack horizontal), kombiniert mit Light-Weight-Mega-Typo (Be Vietnam Pro weight 300, letter-spacing ~-0.08em, bis 87px) über einer botanischen Foto-Sektion und einem Bento-Grid für die SOL-G7-Benefits.\"",
       "nightly": true,
       "built": "2026-06-23"
+    },
+    {
+      "slug": "poc-moshi",
+      "title": "Moshi",
+      "stage": "Nightly",
+      "effort": "quick",
+      "desc": "\"Terminal-Developer-Ästhetik als Gesamtsystem auf #0A0A0B: monospace `// section`-Kommentar-Eyebrows (green-500 #22C55E, uppercase, letter-spacing 1.2px) + `$ npx ...`-Shell-Command-Box mit Copy-Button + Terminal-Grün-Logo (#00FF41) + ASCII-Punkte-Grain-Hintergrund im Hero (Punkt-/Glyph-Raster als Noise-Textur), dazu ein einziger grüner Akzent durch die ganze Seite. Reine CSS/HTML-Umsetzung, kein WebGL/GSAP.\"",
+      "nightly": true,
+      "built": "2026-06-24"
     }
   ]
 }
