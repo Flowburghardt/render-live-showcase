@@ -171,6 +171,24 @@
       "desc": "\"Terminal-Developer-Ästhetik als Gesamtsystem auf #0A0A0B: monospace `// section`-Kommentar-Eyebrows (green-500 #22C55E, uppercase, letter-spacing 1.2px) + `$ npx ...`-Shell-Command-Box mit Copy-Button + Terminal-Grün-Logo (#00FF41) + ASCII-Punkte-Grain-Hintergrund im Hero (Punkt-/Glyph-Raster als Noise-Textur), dazu ein einziger grüner Akzent durch die ganze Seite. Reine CSS/HTML-Umsetzung, kein WebGL/GSAP.\"",
       "nightly": true,
       "built": "2026-06-24"
+    },
+    {
+      "slug": "poc-anamorph",
+      "title": "Anamorph",
+      "stage": "Nightly",
+      "effort": "quick",
+      "desc": "Cinematischer Timecode-Layer — laufender REC-Timer (setInterval, HH:MM:SS:FF-Frames, monospace) + horizontale Timeline-Scrubber-Leiste mit Tick-Labels (00:00→02:00) als Overlay über full-bleed Showreel-Video, plus Timecode-Kapitelmarker pro Section ((01)—(08), +00:0X:00:00). Dazu die 240px-Wortmarke als unten-sitzender Overflow-Anschnitt.",
+      "nightly": true,
+      "built": "2026-07-14"
+    },
+    {
+      "slug": "poc-pentagram",
+      "title": "Pentagram",
+      "stage": "Nightly",
+      "effort": "mid",
+      "desc": "Vollbild-three.js-Feld aus gekachelten Projekt-Thumbnails auf Schwarz, das per Trackpad-Scroll/Maus-Drag als Kamera-Pan mit Tiefen-Parallax durchschwenkt; zentrale Glassmorphism-Suchpille (backdrop-blur 20px, 34px-Radius) mit Typewriter-Placeholder 'Show me …', der Beispiel-Queries durchtippt und wieder löscht ('billboards in New York City' → 'business cards'); Enter re-arrangiert das Thumbnail-Feld nach semantischem ML-Treffer, 'Inspire me' würfelt zufällig.",
+      "nightly": true,
+      "built": "2026-07-14"
     }
   ]
 }

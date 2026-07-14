@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Anamorph — dark cinematic editing-suite design system PoC. Live REC-timecode, scroll-driven timeline scrubber, chapter markers, 240px overflow wordmark, single REC-orange accent."
+    />
+    <title>ANAMORPH — Cinematic Editing</title>
+    <script type="module" crossorigin src="./assets/index-CcAZI5Xi.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-COflwXNX.css">
+  </head>
+  <body>
+    <!-- Film-grain overlay (inline data URI, subpath-safe, frozen under reduced-motion) -->
+    <div class="grain" aria-hidden="true"></div>
+
+    <!-- Scroll-driven progress hairline, always visible at the very top -->
+    <div class="scroll-progress" aria-hidden="true"><span data-progress></span></div>
+
+    <!-- ============================ HEADER / LIVE-STATUS-BAR ============================ -->
+    <header class="site-header">
+      <div class="container nav" role="navigation" aria-label="Primary">
+        <a class="wordmark-sm" href="#top">Anamorph<span class="tm" aria-hidden="true">™</span></a>
+
+        <nav class="nav-links" aria-label="Sections">
+          <a href="#work">Work <span class="num" aria-hidden="true">01</span></a>
+          <a href="#services">Services <span class="num" aria-hidden="true">03</span></a>
+          <a href="#rates">Rates <span class="num" aria-hidden="true">06</span></a>
+          <a href="#booking">Booking <span class="num" aria-hidden="true">08</span></a>
+        </nav>
+
+        <div class="nav-right">
+          <!-- LIVE-STATUS-BAR: pulsing REC light + live-ticking timecode -->
+          <p class="rec mono" aria-hidden="true">
+            <span class="rec-dot"></span>
+            <span data-rec>REC 00:14:08:18</span>
+          </p>
+          <a class="btn btn--white" href="#booking">Book a call</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- ============================ HERO ============================ -->
+      <section class="hero" aria-labelledby="hero-title">
+        <!-- Full-bleed showreel placeholder (CSS grade block) + vignette scrim -->
+        <div class="showreel" aria-hidden="true">
+          <span class="showreel-label mono">SHOWREEL — REEL v2.4 · 2K · 24FPS</span>
+          <span class="crop crop--tl"></span><span class="crop crop--tr"></span>
+          <span class="crop crop--bl"></span><span class="crop crop--br"></span>
+        </div>
+        <div class="vignette" aria-hidden="true"></div>
+
+        <!-- SIGNATURE: Timeline-Scrubber over the showreel -->
+        <div class="timeline" aria-hidden="true">
+          <span class="timeline-play" data-playhead></span>
+          <span class="tick">00:00</span>
+          <span class="tick">00:30</span>
+          <span class="tick">01:00</span>
+          <span class="tick">01:30</span>
+          <span class="tick">02:00</span>
+        </div>
+
+        <div class="container hero-inner">
+          <div class="hero-meta">
+            <p class="eyebrow mono" data-reveal>(01) — Services</p>
+            <ul class="service-preview mono" data-reveal aria-label="Services">
+              <li>Long-form Edits</li>
+              <li>Short-form Reels</li>
+              <li>Colour Grade</li>
+              <li>Motion &amp; Titles</li>
+            </ul>
+            <p class="est mono" data-reveal>(EST. 2026 — REEL v2.4)</p>
+          </div>
+
+          <p class="hero-tagline" data-reveal>
+            Cinematic editing for premium creatives and brands — cut, graded and
+            titled so every frame feels like film, not content.
+          </p>
+        </div>
+
+        <!-- 240px wordmark, bottom-sitting, bleeds off the right edge (Overflow-Anschnitt) -->
+        <h1 id="hero-title" class="wordmark-hero" data-reveal>
+          <span class="sr-only">Anamorph — cinematic editing studio</span>
+          <span aria-hidden="true">Anamorph</span>
+        </h1>
+      </section>
+
+      <!-- ===================== EDITED FOR / STATEMENT ===================== -->
+      <section id="edited" class="section" aria-labelledby="statement-title">
+        <div class="container">
+          <p class="eyebrow mono" data-reveal>(02) — Edited For <span class="tc">+00:02:00:00</span></p>
+          <h2 id="statement-title" class="statement" data-reveal data-splittext>
+            The people who call when it has to feel like film, not content
+          </h2>
+        </div>
+
+        <!-- SIGNATURE: Marquee logo-ticker -->
+        <div class="marquee" aria-label="Trusted by">
+          <div class="marquee-track">
+            <span>Meridian</span><span class="sep">—</span><span>Citadel</span><span class="sep">—</span
+            ><span>Karama</span><span class="sep">—</span><span>Northwind</span><span class="sep">—</span
+            ><span>Halogen</span><span class="sep">—</span><span>Vanta</span><span class="sep">—</span
+            ><span>Ödland</span><span class="sep">—</span>
+            <!-- duplicate track for a seamless loop -->
+            <span aria-hidden="true">Meridian</span><span class="sep" aria-hidden="true">—</span
+            ><span aria-hidden="true">Citadel</span><span class="sep" aria-hidden="true">—</span
+            ><span aria-hidden="true">Karama</span><span class="sep" aria-hidden="true">—</span
+            ><span aria-hidden="true">Northwind</span><span class="sep" aria-hidden="true">—</span
+            ><span aria-hidden="true">Halogen</span><span class="sep" aria-hidden="true">—</span
+            ><span aria-hidden="true">Vanta</span><span class="sep" aria-hidden="true">—</span
+            ><span aria-hidden="true">Ödland</span><span class="sep" aria-hidden="true">—</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================ STATS STRIP ============================ -->
+      <section class="section stats-section" aria-label="Studio in numbers">
+        <div class="container stats">
+          <div class="stat" data-reveal>
+            <p class="stat-num" aria-hidden="true"><span data-count="120" data-suffix="+">0+</span></p>
+            <p class="stat-label mono">Projects delivered</p>
+            <p class="sr-only">120+ projects delivered.</p>
+          </div>
+          <div class="stat" data-reveal>
+            <p class="stat-num" aria-hidden="true"><span data-count="48" data-suffix="M+">0M+</span></p>
+            <p class="stat-label mono">Views generated</p>
+            <p class="sr-only">48 million plus views generated.</p>
+          </div>
+          <div class="stat" data-reveal>
+            <p class="stat-num" aria-hidden="true"><span data-count="98" data-suffix="%">0%</span></p>
+            <p class="stat-label mono">Rebook rate</p>
+            <p class="sr-only">98 percent rebook rate.</p>
+          </div>
+          <div class="stat" data-reveal>
+            <p class="stat-num" aria-hidden="true"><span data-count="24" data-suffix="H">0H</span></p>
+            <p class="stat-label mono">First-cut turnaround</p>
+            <p class="sr-only">24 hour first-cut turnaround.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================ SELECTED WORK ============================ -->
+      <section id="work" class="section" aria-labelledby="work-title">
+        <div class="container">
+          <p class="eyebrow mono" data-reveal>(03) — Selected Work <span class="tc">+00:03:00:00</span></p>
+          <h2 id="work-title" class="sr-only">Selected Work</h2>
+
+          <ul class="work-list">
+            <li class="work-item" data-reveal>
+              <!-- Video-frame placeholder with crop corners + giant-type marquee overlay -->
+              <div class="video-frame frame--meridian" aria-hidden="true">
+                <div class="giant-marquee">
+                  <div class="giant-track">
+                    <span>Meridian</span><span>Meridian</span><span>Meridian</span><span>Meridian</span>
+                  </div>
+                </div>
+                <span class="crop crop--tl"></span><span class="crop crop--tr"></span>
+                <span class="crop crop--bl"></span><span class="crop crop--br"></span>
+                <span class="frame-tc mono">TC 00:03:12:04</span>
+              </div>
+              <div class="work-meta">
+                <h3 class="work-name">Meridian</h3>
+                <p class="work-tags mono">BRAND FILM · COLOUR GRADE · 02:14</p>
+              </div>
+            </li>
+
+            <li class="work-item" data-reveal>
+              <div class="video-frame frame--citadel" aria-hidden="true">
+                <div class="giant-marquee">
+                  <div class="giant-track">
+                    <span>Citadel</span><span>Citadel</span><span>Citadel</span><span>Citadel</span>
+                  </div>
+                </div>
+                <span class="crop crop--tl"></span><span class="crop crop--tr"></span>
+                <span class="crop crop--bl"></span><span class="crop crop--br"></span>
+                <span class="frame-tc mono">TC 00:03:41:19</span>
+              </div>
+              <div class="work-meta">
+                <h3 class="work-name">Citadel</h3>
+                <p class="work-tags mono">DOC SERIES · LONG-FORM · 11:08</p>
+              </div>
+            </li>
+
+            <li class="work-item" data-reveal>
+              <div class="video-frame frame--karama" aria-hidden="true">
+                <div class="giant-marquee">
+                  <div class="giant-track">
+                    <span>Karama</span><span>Karama</span><span>Karama</span><span>Karama</span>
+                  </div>
+                </div>
+                <span class="crop crop--tl"></span><span class="crop crop--tr"></span>
+                <span class="crop crop--bl"></span><span class="crop crop--br"></span>
+                <span class="frame-tc mono">TC 00:03:58:02</span>
+              </div>
+              <div class="work-meta">
+                <h3 class="work-name">Karama</h3>
+                <p class="work-tags mono">SHORT-FORM REEL · MOTION · 00:34</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ============================ SERVICES ============================ -->
+      <section id="services" class="section" aria-labelledby="services-title">
+        <div class="container">
+          <p class="eyebrow mono" data-reveal>(04) — Services <span class="tc">+00:04:00:00</span></p>
+          <h2 id="services-title" class="sr-only">Services</h2>
+
+          <ul class="service-list">
+            <li class="service-row" data-reveal>
+              <span class="service-index mono" aria-hidden="true">01</span>
+              <h3 class="service-name">Long-form Edits</h3>
+              <p class="service-detail mono">Brand films · docs · interviews — story-first assembly &amp; sound.</p>
+            </li>
+            <li class="service-row" data-reveal>
+              <span class="service-index mono" aria-hidden="true">02</span>
+              <h3 class="service-name">Short-form Reels</h3>
+              <p class="service-detail mono">Vertical cut-downs tuned for retention &amp; the first 3 seconds.</p>
+            </li>
+            <li class="service-row" data-reveal>
+              <span class="service-index mono" aria-hidden="true">03</span>
+              <h3 class="service-name">Colour Grade</h3>
+              <p class="service-detail mono">Film-grade looks, matched shots, HDR-safe deliverables.</p>
+            </li>
+            <li class="service-row" data-reveal>
+              <span class="service-index mono" aria-hidden="true">04</span>
+              <h3 class="service-name">Motion &amp; Titles</h3>
+              <p class="service-detail mono">Kinetic type, lower-thirds and end-cards that match the cut.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ============================ RATES ============================ -->
+      <section id="rates" class="section" aria-labelledby="rates-title">
+        <div class="container">
+          <p class="eyebrow mono" data-reveal>(06) — Rates</p>
+          <h2 id="rates-title" class="statement statement--mid" data-reveal data-splittext>
+            Clear rates up front, no surprises later
+          </h2>
+
+          <div class="rate-cards">
+            <article class="rate-card" data-reveal>
+              <p class="rate-name mono">One Cut</p>
+              <p class="rate-price">$1,800</p>
+              <p class="rate-note mono">Single edit · one round of notes · graded master.</p>
+            </article>
+            <article class="rate-card rate-card--accent" data-reveal>
+              <p class="rate-name mono">Retainer</p>
+              <p class="rate-price">$6,400</p>
+              <p class="rate-note mono">Monthly · priority queue · unlimited reels &amp; revisions.</p>
+            </article>
+            <article class="rate-card" data-reveal>
+              <p class="rate-name mono">Day Rate</p>
+              <p class="rate-price">$850</p>
+              <p class="rate-note mono">On-site or remote suite · grading &amp; live edits.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================ BOOKING / CTA ============================ -->
+      <section id="booking" class="section booking" aria-labelledby="booking-title">
+        <div class="container">
+          <p class="eyebrow mono" data-reveal>(08) — Booking <span class="tc">+END OF REEL — 00:08:00:00</span></p>
+          <h2 id="booking-title" class="statement" data-reveal data-splittext>
+            Let's make something people actually finish
+          </h2>
+          <div class="booking-actions" data-reveal>
+            <a class="btn btn--accent" href="mailto:noah@anamorph.studio">
+              Send the brief <span aria-hidden="true">→</span>
+            </a>
+            <a class="booking-mail mono" href="mailto:noah@anamorph.studio">noah@anamorph.studio</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============================ FOOTER / STUDIO ============================ -->
+    <footer class="site-footer">
+      <div class="container">
+        <p class="eyebrow mono" data-reveal>(00) — Studio</p>
+        <p class="footer-copy" data-reveal>
+          A film-grade editing and motion studio. One person on every frame — cut,
+          graded and delivered from a dark room that never sleeps.
+        </p>
+        <div class="footer-row mono">
+          <a href="#top">Back to top ↑</a>
+          <p aria-hidden="true"><span class="rec-dot"></span> <span data-rec>REC 00:14:08:18</span></p>
+        </div>
+      </div>
+      <!-- Giant footer wordmark (bottom-sitting Overflow-Anschnitt) -->
+      <p class="wordmark-hero wordmark-hero--footer" aria-hidden="true">Anamorph</p>
+    </footer>
+
+  </body>
+</html>
