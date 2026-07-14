@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HAOQI — Technical-Editorial Hero (PoC)</title>
+    <meta
+      name="description"
+      content="Signature hero PoC after haoqi.design — a glossy inflated 3D balloon wordmark over a royal-blue fluid WebGL stage, white mega-bold headline and a monospace blueprint HUD with live clock and cursor readout."
+    />
+    <script type="module" crossorigin src="./assets/index-CIU0cX7A.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-vocrKOyR.css">
+  </head>
+  <body>
+    <section class="hero" id="hero">
+      <!-- WebGL stage: decorative, hidden from AT. The <h1> below carries the
+           semantic text alternative. -->
+      <canvas id="hero-canvas" class="hero__canvas" aria-hidden="true"></canvas>
+
+      <!-- Blueprint crosshair grid (decorative overlay) -->
+      <div class="blueprint" aria-hidden="true">
+        <span class="blueprint__v blueprint__v--1"></span>
+        <span class="blueprint__v blueprint__v--2"></span>
+        <span class="blueprint__h blueprint__h--1"></span>
+        <span class="blueprint__h blueprint__h--2"></span>
+        <span class="cross cross--tl">+</span>
+        <span class="cross cross--tr">+</span>
+        <span class="cross cross--bl">+</span>
+        <span class="cross cross--br">+</span>
+        <span class="cross cross--c">+</span>
+      </div>
+
+      <!-- HUD header -->
+      <header class="hud hud--top">
+        <span class="hud__brand">HAOQI.DESIGN</span>
+        <nav class="hud__nav" aria-label="Primary">
+          <a href="#hero">WORK</a>
+          <a href="#hero">CONTACT</a>
+          <span class="hud__toggle">THEME[A]</span>
+          <span class="hud__toggle">SOUND[-]</span>
+        </nav>
+      </header>
+
+      <!-- Hero content layer -->
+      <div class="hero__inner">
+        <p class="hero__eyebrow">Design &amp; Engineering — Thinking in systems, designing with care.</p>
+        <h1 class="hero__title">I bring craft &amp; taste to digital work</h1>
+      </div>
+
+      <!-- HUD footer: live status bar + cursor readout -->
+      <footer class="hud hud--bottom">
+        <span class="hud__status">
+          GMT+1 DE <span data-hud-clock aria-live="off">00:00:00</span> 18&deg;C
+        </span>
+        <span class="hud__readout">
+          X: <span data-hud-x>----</span> / Y: <span data-hud-y>----</span>
+        </span>
+      </footer>
+    </section>
+
+  </body>
+</html>

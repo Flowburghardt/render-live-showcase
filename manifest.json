@@ -189,6 +189,15 @@
       "desc": "Vollbild-three.js-Feld aus gekachelten Projekt-Thumbnails auf Schwarz, das per Trackpad-Scroll/Maus-Drag als Kamera-Pan mit Tiefen-Parallax durchschwenkt; zentrale Glassmorphism-Suchpille (backdrop-blur 20px, 34px-Radius) mit Typewriter-Placeholder 'Show me …', der Beispiel-Queries durchtippt und wieder löscht ('billboards in New York City' → 'business cards'); Enter re-arrangiert das Thumbnail-Feld nach semantischem ML-Treffer, 'Inspire me' würfelt zufällig.",
       "nightly": true,
       "built": "2026-07-14"
+    },
+    {
+      "slug": "poc-haoqi",
+      "title": "Haoqi",
+      "stage": "Award",
+      "effort": "award",
+      "desc": "Glossy 'inflated' 3D-Ballon-Schriftzug (Spline/three.js) der über einer animierten Royal-Blau-Fluid-WebGL-Bühne schwebt, während darüber weiße Mega-Bold-Headlines (bis 98px) sitzen; technisches Blueprint-Overlay mit Fadenkreuzen + monospace-HUD (Live-Zeit/Wetter/Ort + mausgekoppelter Cursor-Koordinaten-Readout 'X/Y'); Lenis-Smooth-Scroll; Theme- und Sound-Toggle.",
+      "nightly": true,
+      "built": "2026-07-14"
     }
   ]
 }
