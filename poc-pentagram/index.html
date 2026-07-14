@@ -8,8 +8,10 @@
       name="description"
       content="A dark-editorial WebGL PoC after Pentagram's Archive: a full-screen Three.js thumbnail field with camera-pan depth parallax and a conversational 'Show me …' search that re-arranges the grid by fuzzy semantic match."
     />
-    <script type="module" crossorigin src="./assets/index-CYrmbNc4.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-VMnk6Z38.css">
+    <script type="module" crossorigin src="./assets/main-CW7_13io.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/index-HXNzw9me.js">
+    <link rel="stylesheet" crossorigin href="./assets/index-BsATLV94.css">
+    <link rel="stylesheet" crossorigin href="./assets/main-CxSRmFoJ.css">
   </head>
   <body>
     <!-- Layer 0 — WebGL thumbnail field. Aria-hidden: the readable alternative
@@ -24,6 +26,10 @@
       <nav class="chrome__nav" aria-label="Primary">
         <a href="#welcome">About</a>
         <a href="#archive-region">pentagram.com</a>
+        <!-- Explicit DOM link (NOT a canvas raycast) so pointer-drag panning of
+             the WebGL field never triggers navigation. Relative href → survives
+             the /poc-pentagram/ deploy subpath. -->
+        <a class="chrome__cta" href="detail.html">View&nbsp;project&nbsp;→</a>
       </nav>
     </header>
 

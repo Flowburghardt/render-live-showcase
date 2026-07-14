@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kino Der Moderne — Archive (PoC)</title>
+    <meta
+      name="description"
+      content="Case-study detail page for the Pentagram Archive PoC: the deliberate DOM-only, zero-WebGL counterpart to the WebGL landing — a quiet 16px meta-card, clickable colour-palette chips, and a black 4-column masonry asset grid."
+    />
+    <script type="module" crossorigin src="./assets/detail-BjIu_JhY.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/index-HXNzw9me.js">
+    <link rel="stylesheet" crossorigin href="./assets/index-BsATLV94.css">
+    <link rel="stylesheet" crossorigin href="./assets/detail-BMDOTBHZ.css">
+  </head>
+  <body class="detail">
+    <!-- Same chrome as the landing. All nav links are RELATIVE → survive the
+         /poc-pentagram/ deploy subpath. -->
+    <header class="chrome">
+      <a class="chrome__mark" href="./">Archive</a>
+      <nav class="chrome__nav" aria-label="Primary">
+        <a href="#related">About</a>
+        <a href="./">pentagram.com</a>
+      </nav>
+    </header>
+
+    <main class="case" id="top">
+      <a class="case__back" href="./">← Archive</a>
+
+      <!-- Head: meta-card (left) + hero asset (right). Hierarchy is expressed
+           through COLOUR only (white vs #767676) — every line is 16px. -->
+      <div class="case__head">
+        <div class="meta-card">
+          <h1 class="meta-card__title">Kino Der Moderne</h1>
+          <p class="meta-card__line meta-card__designer">Justus Oehler</p>
+          <p class="meta-card__line">Brand Identity, Motion Graphics &amp; Film</p>
+          <p class="meta-card__line">Arts &amp; Culture</p>
+          <p class="meta-card__line">Berlin 2019</p>
+          <p class="meta-card__more">› Learn more about this project</p>
+        </div>
+
+        <div
+          class="case__hero"
+          role="img"
+          aria-label="Kino Der Moderne — hero billboard, Berlin 2019"
+        ></div>
+      </div>
+
+      <!-- Colour-palette chips: each hex is a clickable button that copies to
+           the clipboard. Feedback is announced via the aria-live region. -->
+      <section class="chips" aria-label="Project colour palette">
+        <div class="chips__row" id="chips-row"></div>
+        <p class="chips__status" id="chips-status" role="status" aria-live="polite">
+          Tap a colour to copy its hex.
+        </p>
+      </section>
+
+      <!-- Asset gallery: black 4-column masonry, procedural colour blocks. -->
+      <section aria-label="Project assets">
+        <div class="detail-grid" id="asset-grid"></div>
+      </section>
+
+      <!-- Related work — Endless Discovery, not a dead end. -->
+      <section class="related" id="related" aria-labelledby="related-title">
+        <h2 class="related__title" id="related-title">Related work</h2>
+        <div class="detail-grid detail-grid--related" id="related-grid"></div>
+        <p class="related__loading">Loading… — endless discovery</p>
+      </section>
+    </main>
+
+  </body>
+</html>
