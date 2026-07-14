@@ -198,6 +198,15 @@
       "desc": "Glossy 'inflated' 3D-Ballon-Schriftzug (Spline/three.js) der über einer animierten Royal-Blau-Fluid-WebGL-Bühne schwebt, während darüber weiße Mega-Bold-Headlines (bis 98px) sitzen; technisches Blueprint-Overlay mit Fadenkreuzen + monospace-HUD (Live-Zeit/Wetter/Ort + mausgekoppelter Cursor-Koordinaten-Readout 'X/Y'); Lenis-Smooth-Scroll; Theme- und Sound-Toggle.",
       "nightly": true,
       "built": "2026-07-14"
+    },
+    {
+      "slug": "poc-noomo",
+      "title": "Noomo",
+      "stage": "Award",
+      "effort": "award",
+      "desc": "\"Hero: weisse extrudierte Plus-Kreuz-Solids + organische 3D-Objekte (magenta Qualle) treiben maus-parallax durch einen vollflaechigen WebGL-Canvas, waehrend riesige Neue-Machina-Buzzwords (IMMERSIVE -> INTERACTIVE -> ENTERPRISE -> BESPOKE) im Vordergrund durchrotieren und die Objekte den Text durchdringen; neutraler Lavendel-Verlauf mit weichen Farb-Glows; Smooth-Scroll deckt von Light-Hero zu cinematic Dark-Case-Renders auf.\"",
+      "nightly": true,
+      "built": "2026-07-14"
     }
   ]
 }

@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Noomo — Immersive WebGL Hero (PoC)</title>
+    <meta
+      name="description"
+      content="Award-caliber Three.js hero after noomoagency.com: white extruded plus-cross solids and a magenta noise-blob parallax through a lavender WebGL stage while giant IMMERSIVE / INTERACTIVE / ENTERPRISE / BESPOKE buzzwords rotate and the 3D objects interpenetrate the letters."
+    />
+    <script type="module" crossorigin src="./assets/index-oAgSLOka.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-rUNTbG4c.css">
+  </head>
+  <body>
+    <!-- ===================== Header ===================== -->
+    <header class="site-header">
+      <a class="wordmark" href="#top" aria-label="noomo home">noomo<span aria-hidden="true">.</span></a>
+      <nav class="nav" aria-label="Primary">
+        <a href="#work">Work</a>
+        <a href="#work">Our story</a>
+        <a href="#work">Labs</a>
+        <a href="#work">Insights</a>
+        <a href="#connect">Connect</a>
+      </nav>
+      <a class="pill pill--dark" href="#connect">
+        Let&rsquo;s work together <span aria-hidden="true">&#8594;</span>
+      </a>
+    </header>
+
+    <main id="top">
+      <!-- ===================== Hero ===================== -->
+      <section class="hero" id="hero">
+        <canvas id="hero-canvas" class="hero__canvas" aria-hidden="true"></canvas>
+
+        <!-- Accessible text alternative for the WebGL stage. Visually hidden
+             while WebGL runs (the canvas shows it); the headline + rotating
+             concepts remain fully readable to assistive tech. -->
+        <div class="hero__sr sr-only">
+          <h1>Design that elevates your digital presence</h1>
+          <p>
+            Award-winning design agency building websites, activations, and
+            experiences that make people stop scrolling.
+          </p>
+          <p>Rotating themes: Immersive, Interactive, Enterprise, Bespoke.</p>
+        </div>
+
+        <!-- Readable fallback, revealed by CSS only when WebGL is unavailable. -->
+        <div class="hero__fallback" aria-hidden="true">
+          <p class="eyebrow">Immersive / 3D / Interactive</p>
+          <h2 class="hero__fallback-title">Design that elevates your digital presence</h2>
+          <ul class="hero__fallback-words">
+            <li>Immersive</li>
+            <li>Interactive</li>
+            <li>Enterprise</li>
+            <li>Bespoke</li>
+          </ul>
+        </div>
+
+        <!-- Always-visible overlay (context copy). The mega-typo is the canvas. -->
+        <div class="hero__overlay">
+          <p class="eyebrow">Immersive / 3D / Interactive</p>
+          <p class="hero__lead">
+            Award-winning design agency building websites, activations, and
+            experiences that make people stop&nbsp;scrolling.
+          </p>
+        </div>
+
+        <div class="hero__scroll" aria-hidden="true">
+          <span class="hero__scroll-text">Scroll</span>
+          <span class="hero__scroll-arrow">&#8595;</span>
+        </div>
+      </section>
+
+      <!-- ===================== Selected Work (dark) ===================== -->
+      <section class="cases" id="work">
+        <p class="eyebrow eyebrow--on-dark" data-reveal>Selected Work</p>
+        <h2 class="cases__intro" data-reveal>
+          3D storytelling websites &amp; immersive digital experiences.
+        </h2>
+
+        <div class="cases__grid">
+          <article class="case" data-reveal>
+            <div class="case__media case__media--a" aria-hidden="true"></div>
+            <div class="case__body">
+              <span class="case__tag">Immersive / 3D / Interactive</span>
+              <h3 class="case__title">Noomo Labs</h3>
+              <p class="case__desc">
+                A living WebGL playground where a magenta jellyfish drifts through
+                the interface.
+              </p>
+              <span class="pill pill--ghost">View project <span aria-hidden="true">&#8594;</span></span>
+            </div>
+          </article>
+
+          <article class="case" data-reveal>
+            <div class="case__media case__media--b" aria-hidden="true"></div>
+            <div class="case__body">
+              <span class="case__tag">Storytelling / 3D / Product</span>
+              <h3 class="case__title">Vision by Dandy</h3>
+              <p class="case__desc">
+                Cinematic product renders that turn an intraoral scanner into a hero.
+              </p>
+              <span class="pill pill--ghost">View project <span aria-hidden="true">&#8594;</span></span>
+            </div>
+          </article>
+
+          <article class="case" data-reveal>
+            <div class="case__media case__media--c" aria-hidden="true"></div>
+            <div class="case__body">
+              <span class="case__tag">Interactive / Editorial</span>
+              <h3 class="case__title">Vogue Business</h3>
+              <p class="case__desc">
+                An interactive editorial report built to make Gen&nbsp;Z stop and read.
+              </p>
+              <span class="pill pill--ghost">View project <span aria-hidden="true">&#8594;</span></span>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===================== Footer ===================== -->
+    <footer class="site-footer" id="connect">
+      <p class="site-footer__statement" data-reveal>
+        Let&rsquo;s grab some coffee.
+      </p>
+      <div class="site-footer__bar">
+        <a class="wordmark wordmark--sm" href="#top">noomo<span aria-hidden="true">.</span></a>
+        <nav class="site-footer__links" aria-label="Footer">
+          <a href="#work">Work</a>
+          <a href="#work">Our story</a>
+          <a href="#work">Insights</a>
+          <a href="#connect">Connect</a>
+        </nav>
+        <p class="site-footer__fine">
+          &copy; 2026 noomo — PoC. Noomo hero study, not the real agency.
+        </p>
+      </div>
+    </footer>
+
+  </body>
+</html>
