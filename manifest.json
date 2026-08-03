@@ -207,6 +207,24 @@
       "desc": "\"Hero: weisse extrudierte Plus-Kreuz-Solids + organische 3D-Objekte (magenta Qualle) treiben maus-parallax durch einen vollflaechigen WebGL-Canvas, waehrend riesige Neue-Machina-Buzzwords (IMMERSIVE -> INTERACTIVE -> ENTERPRISE -> BESPOKE) im Vordergrund durchrotieren und die Objekte den Text durchdringen; neutraler Lavendel-Verlauf mit weichen Farb-Glows; Smooth-Scroll deckt von Light-Hero zu cinematic Dark-Case-Renders auf.\"",
       "nightly": true,
       "built": "2026-07-14"
+    },
+    {
+      "slug": "poc-illoca",
+      "title": "Illoca",
+      "stage": "Nightly",
+      "effort": "mid",
+      "desc": "Passepartout-Rahmen aus 4 fixed clip-path-Layern mit Millimeterpapier-Grid + fluid-root-rem (100vw/120) + Lenis-Wrapper-Scroll mit Pin-Stacks",
+      "nightly": true,
+      "built": "2026-08-03"
+    },
+    {
+      "slug": "poc-normal-is-boring",
+      "title": "Normal-Is-Boring",
+      "stage": "Nightly",
+      "effort": "mid",
+      "desc": "Horizontale Home-Journey: komplette Startseite als EIN gepinnter Horizontal-Scroll (Wortmarken-Intro → Vollbild-Foto → Manifest-Zeilen → VALORES-Carousel → Werte-Begriffe, die pro Begriff die SCHRIFTART wechseln (Didone → Serif → Grotesk) und Pastell-Farbflächen aufziehen → nummerierte Projekt-Previews), danach nahtloser Drop in vertikale Beige-Sections; Char-Split-Rollover-Links + 180°-gedrehtes ‚BORING' in der Wortmarke",
+      "nightly": true,
+      "built": "2026-08-03"
     }
   ]
 }

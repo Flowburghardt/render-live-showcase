@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>illoca — Design at the speed of thought</title>
+    <meta
+      name="description"
+      content="PoC: Passepartout frame built from four fixed clip-path layers with a millimetre-paper grid, fluid root scaling and a Lenis wrapper scroll with pinned stacks."
+    />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#EADFC9" />
+    <script type="module" crossorigin src="./assets/index-Dc3T1aM8.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CWVWrTme.css">
+  </head>
+
+  <body>
+    <!-- (c) Skip-Link: der Lenis-Wrapper bricht den nativen Ankersprung, deshalb
+         fängt scroll.ts den Klick ab und scrollt den Wrapper + setzt den Fokus. -->
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- Duotone-Szene: prozedurales Canvas 2D statt WebGL. Liegt hinter allem,
+         die Passepartout-Layer rahmen es. -->
+    <canvas
+      id="scene"
+      class="scene"
+      role="img"
+      aria-label="Stylised isometric massing study: blueprint blocks on a paper sheet that shifts from paper beige to Klein blue while scrolling."
+    ></canvas>
+
+    <!-- (1) Passepartout: vier fixed Layer mit Millimeterpapier-Raster, jeder
+         per clip-path auf seinen Randstreifen beschnitten. -->
+    <div class="frame" aria-hidden="true">
+      <div class="frame__layer frame__layer--top"></div>
+      <div class="frame__layer frame__layer--bottom"></div>
+      <div class="frame__layer frame__layer--left"></div>
+      <div class="frame__layer frame__layer--right"></div>
+    </div>
+
+    <header class="site-header">
+      <div class="site-header__bar">
+        <a class="brand" href="#top">
+          <span class="brand__mark" aria-hidden="true"></span>
+          <span class="brand__word">illoca</span>
+        </a>
+
+        <nav class="site-nav" aria-label="Primary">
+          <ul class="site-nav__list">
+            <li>
+              <a class="roll" href="#feature-1">
+                <span class="roll__inner">
+                  <span class="roll__a">Features</span>
+                  <span class="roll__b" aria-hidden="true">Features</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="roll" href="#pricing">
+                <span class="roll__inner">
+                  <span class="roll__a">Pricing</span>
+                  <span class="roll__b" aria-hidden="true">Pricing</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="roll" href="#faq">
+                <span class="roll__inner">
+                  <span class="roll__a">FAQs</span>
+                  <span class="roll__b" aria-hidden="true">FAQs</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="roll" href="#letter">
+                <span class="roll__inner">
+                  <span class="roll__a">Letter</span>
+                  <span class="roll__b" aria-hidden="true">Letter</span>
+                </span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Der EINZIGE Navy-Primärbutton der ganzen Seite. -->
+        <a class="btn btn--primary" href="#pricing">
+          <span class="btn__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="14" height="14" focusable="false" aria-hidden="true">
+              <path d="M5 12h13M12 5l6 7-6 7" fill="none" stroke="currentColor" stroke-width="1.6" />
+            </svg>
+          </span>
+          <span class="btn__label">Try for free</span>
+        </a>
+
+        <a class="header-mail marker" href="#faq">hello@illoca.com</a>
+      </div>
+    </header>
+
+    <!-- Lenis-Wrapper: body/html sind overflow:hidden, der echte Scroll läuft hier. -->
+    <div class="scroll-wrapper" id="scroll-wrapper" tabindex="-1">
+      <div class="scroll-content" id="scroll-content">
+        <main id="main" tabindex="-1">
+          <!-- ============================ HERO ============================ -->
+          <section class="hero" id="top">
+            <div class="hero__pin">
+              <p class="hero__flank hero__flank--left marker">architectural</p>
+              <p class="hero__flank hero__flank--right marker">
+                <span aria-hidden="true">&#9671;</span> not software
+              </p>
+
+              <h1 class="display hero__title" data-split>Design at the speed of thought</h1>
+
+              <p class="hero__sub">
+                The intelligent canvas that thinks with you, not for you.
+              </p>
+
+              <a class="chinstrap" href="#feature-1">
+                <span aria-hidden="true">&#9662;</span> explore features
+              </a>
+            </div>
+            <div class="spacer spacer--hero" aria-hidden="true"></div>
+          </section>
+
+          <!-- ========================== FEATURES ========================== -->
+          <div id="features">
+            <section class="feature feature--right" id="feature-1" tabindex="-1">
+              <div class="feature__pin">
+                <article class="paper-card feature__card reveal">
+                  <p class="eyebrow marker"><span class="eyebrow__no">1</span> Intents, Translated!</p>
+                  <h2 class="display feature__title" data-split>Augmented Sketch</h2>
+                  <p class="body">
+                    Draw the way you always have. The canvas reads the line while it is still
+                    wet and answers with geometry — no import, no round trip, no re-drawing.
+                  </p>
+                  <a class="btn btn--paper" href="#letter">
+                    <span class="btn__icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="14" height="14" focusable="false" aria-hidden="true">
+                        <path d="M8 5l11 7-11 7z" fill="currentColor" />
+                      </svg>
+                    </span>
+                    <span class="btn__label">Watch the demo</span>
+                  </a>
+                </article>
+              </div>
+              <div class="spacer spacer--feature" aria-hidden="true"></div>
+            </section>
+
+            <section class="feature feature--left" id="feature-2" tabindex="-1">
+              <div class="feature__pin">
+                <article class="paper-card feature__card reveal">
+                  <p class="eyebrow marker"><span class="eyebrow__no">2</span> Ideas, Shaped!</p>
+                  <h2 class="display feature__title" data-split>Adaptive Massing</h2>
+                  <p class="body">
+                    Volumes negotiate with the plot instead of ignoring it. Setbacks, envelope
+                    and orientation are constraints the model already knows about.
+                  </p>
+                  <p class="mono-note">envelope · setback · solar · yield</p>
+                </article>
+              </div>
+              <div class="spacer spacer--feature" aria-hidden="true"></div>
+            </section>
+
+            <section class="feature feature--right" id="feature-3" tabindex="-1">
+              <div class="feature__pin">
+                <article class="paper-card feature__card reveal">
+                  <p class="eyebrow marker"><span class="eyebrow__no">3</span> Iteration, Orchestrated!</p>
+                  <h2 class="display feature__title" data-split>Prompted Plans</h2>
+                  <p class="body">
+                    Describe the brief in a sentence and get a floor plan that respects the
+                    core, the grid and the fire code — then keep editing it by hand.
+                  </p>
+                  <p class="mono-note">brief → plan → redline → plan</p>
+                </article>
+              </div>
+              <div class="spacer spacer--feature" aria-hidden="true"></div>
+            </section>
+
+            <section class="feature feature--left" id="feature-4" tabindex="-1">
+              <div class="feature__pin">
+                <article class="paper-card feature__card reveal">
+                  <p class="eyebrow marker"><span class="eyebrow__no">4</span> Options, Multiplied!</p>
+                  <h2 class="display feature__title feature__title--long" data-split>
+                    Agentic Refinement
+                  </h2>
+                  <p class="body">
+                    Twelve viable variants while you take a call. Each one carries its own
+                    reasoning, so review stays an argument and not a guess.
+                  </p>
+                  <p class="mono-note">12 variants · 1 rationale each</p>
+                </article>
+              </div>
+              <div class="spacer spacer--feature" aria-hidden="true"></div>
+            </section>
+
+            <section class="feature feature--right" id="feature-5" tabindex="-1">
+              <div class="feature__pin">
+                <article class="paper-card feature__card reveal">
+                  <p class="eyebrow marker"><span class="eyebrow__no">5</span> Imagination, Realized!</p>
+                  <h2 class="display feature__title" data-split>Instant Facades</h2>
+                  <p class="body">
+                    Rhythm, depth and material studied on the elevation directly. The facade
+                    explorer stays parametric all the way into the drawing set.
+                  </p>
+                  <p class="mono-note">bay · reveal · mullion · shade</p>
+                </article>
+              </div>
+              <div class="spacer spacer--feature" aria-hidden="true"></div>
+            </section>
+          </div>
+
+          <!-- ========================= OPEN LETTER ========================= -->
+          <section class="letter" id="letter" tabindex="-1">
+            <div class="letter__pin">
+              <div class="letter__field">
+                <div class="letter__inner">
+                  <p class="eyebrow eyebrow--inverse marker">to those who shape the world</p>
+                  <h2 class="display letter__title" data-split>An Open Letter</h2>
+
+                  <article class="paper-sheet">
+                    <p>
+                      We did not build this for the people who want fewer architects. We built
+                      it for the ones who still keep a pencil on the desk and a plan on the
+                      wall — because the drawing is where the thinking happens, and the
+                      thinking is the job.
+                    </p>
+                    <p>
+                      Every tool before this one asked you to translate. Sketch to model,
+                      model to plan, plan back to sketch. The translation cost more than the
+                      design. So we removed it.
+                    </p>
+                    <p>
+                      What is left is a table, a sheet of tracing paper, and something that
+                      keeps up with you.
+                    </p>
+                    <p class="paper-sheet__sign marker">— the illoca studio</p>
+                  </article>
+                </div>
+              </div>
+            </div>
+            <div class="spacer spacer--letter" aria-hidden="true"></div>
+          </section>
+
+          <!-- =========================== PRICING =========================== -->
+          <section class="section pricing" id="pricing" tabindex="-1">
+            <div class="section__head">
+              <p class="eyebrow marker">Pricing</p>
+              <h2 class="h3 pricing__lead">
+                Get 1,000 starter credits when you sign up today.
+              </h2>
+            </div>
+
+            <div class="folder">
+              <span class="folder__tab marker" aria-hidden="true">rates · 2026</span>
+              <ul class="deck">
+                <li class="paper-card card card--a">
+                  <h3 class="card__name">Explore</h3>
+                  <p class="card__price"><strong>0</strong> <span class="card__unit">/ month</span></p>
+                  <p class="card__note">For the first plan. 1,000 credits, one seat, full canvas.</p>
+                  <ul class="card__list">
+                    <li>Sketch &amp; massing</li>
+                    <li>2 exports per week</li>
+                    <li>Community support</li>
+                  </ul>
+                  <a class="btn btn--paper btn--block" href="#faq">
+                    <span class="btn__label">Sign up</span>
+                  </a>
+                </li>
+
+                <li class="paper-card card card--b">
+                  <span class="card__flag" aria-hidden="true"></span>
+                  <h3 class="card__name">Team</h3>
+                  <p class="card__price"><strong>32</strong> <span class="card__unit">/ seat / month</span></p>
+                  <p class="card__note">For the studio. Shared sheets, shared history, shared credits.</p>
+                  <ul class="card__list">
+                    <li>Everything in Explore</li>
+                    <li>Unlimited exports</li>
+                    <li>Version history</li>
+                  </ul>
+                  <a class="btn btn--paper btn--block" href="#faq">
+                    <span class="btn__label">Join waitlist</span>
+                  </a>
+                </li>
+
+                <li class="paper-card card card--c">
+                  <h3 class="card__name">Enterprise</h3>
+                  <p class="card__price"><strong>Talk</strong> <span class="card__unit">/ to us</span></p>
+                  <p class="card__note">For the practice. On-prem models, audit trail, SSO.</p>
+                  <ul class="card__list">
+                    <li>Everything in Team</li>
+                    <li>Private model hosting</li>
+                    <li>Named support</li>
+                  </ul>
+                  <a class="btn btn--paper btn--block" href="#faq">
+                    <span class="btn__label">Contact us</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- ============================= FAQ ============================= -->
+          <section class="section faq" id="faq" tabindex="-1">
+            <div class="section__head">
+              <p class="eyebrow marker">FAQs &middot; need help?</p>
+              <h2 class="display faq__title" data-split>Frequently Asked Questions</h2>
+            </div>
+
+            <div class="faq__list">
+              <details class="faq__item">
+                <summary class="faq__q">
+                  <span>Is illoca a CAD replacement?</span>
+                  <span class="faq__sign" aria-hidden="true"></span>
+                </summary>
+                <div class="faq__a body-sm">
+                  No. It sits in front of your CAD, at the stage where the drawing is still an
+                  argument. Everything leaves as IFC, DWG or a plain SVG sheet.
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary class="faq__q">
+                  <span>What happens to my drawings?</span>
+                  <span class="faq__sign" aria-hidden="true"></span>
+                </summary>
+                <div class="faq__a body-sm">
+                  They stay yours, and they stay out of training runs. Studio plans can pin the
+                  model to their own tenancy.
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary class="faq__q">
+                  <span>Does it run on a laptop?</span>
+                  <span class="faq__sign" aria-hidden="true"></span>
+                </summary>
+                <div class="faq__a body-sm">
+                  The canvas is local and cheap; the heavy passes run remotely. A four year old
+                  machine is fine.
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary class="faq__q">
+                  <span>Can I keep drawing by hand?</span>
+                  <span class="faq__sign" aria-hidden="true"></span>
+                </summary>
+                <div class="faq__a body-sm">
+                  That is the entire point. Pen input is the first-class input; the prompt bar is
+                  the fallback, not the other way round.
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary class="faq__q">
+                  <span>How do the credits work?</span>
+                  <span class="faq__sign" aria-hidden="true"></span>
+                </summary>
+                <div class="faq__a body-sm">
+                  One credit per generated variant. Sketch, edit and export cost nothing — you only
+                  pay when the machine proposes something.
+                </div>
+              </details>
+            </div>
+
+            <p class="faq__contact">
+              Still stuck?
+              <a class="link" href="#top">Write to the studio</a>
+            </p>
+          </section>
+        </main>
+
+        <!-- ============================ FOOTER ============================ -->
+        <footer class="site-footer">
+          <div class="site-footer__top">
+            <p class="site-footer__claim">
+              AI-native design tools for 2D drafting &amp; 3D modeling.
+            </p>
+
+            <div class="site-footer__cols">
+              <div class="site-footer__col">
+                <h2 class="site-footer__coltitle">Product</h2>
+                <ul>
+                  <li><a class="link link--inverse" href="#feature-1">Features</a></li>
+                  <li><a class="link link--inverse" href="#pricing">Pricing</a></li>
+                  <li><a class="link link--inverse" href="#faq">FAQs</a></li>
+                </ul>
+              </div>
+              <div class="site-footer__col">
+                <h2 class="site-footer__coltitle">Studio</h2>
+                <ul>
+                  <li><a class="link link--inverse" href="#letter">Open Letter</a></li>
+                  <li><a class="link link--inverse" href="#top">Back to top</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <p class="wordmark" aria-hidden="true">illoca</p>
+
+          <p class="site-footer__legal">
+            &copy; 2026 illoca — design-system PoC, render-live-workshop. Not affiliated with
+            illoca.com.
+          </p>
+        </footer>
+      </div>
+    </div>
+
+    <!-- (7) CAD-Statuszeile. Wird nur bei (pointer: fine) aktiviert. -->
+    <output class="coords" id="coords" aria-hidden="true">X 0.00&nbsp; Y 0.00</output>
+
+    <!-- Scroll-Fortschritt im rechten Rahmenstreifen (ersetzt die ausgeblendete
+         native Scrollbar des Lenis-Wrappers). -->
+    <div class="progress" aria-hidden="true"><span class="progress__bar" id="progress-bar"></span></div>
+
+    <!-- (6) Grain: inline feTurbulence als data-URI, kein externes Bild. -->
+    <div class="grain" aria-hidden="true"></div>
+  </body>
+</html>

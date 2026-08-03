@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Normal is Boring&reg; &mdash; Journey horizontal (PoC)</title>
+    <meta
+      name="description"
+      content="PoC: la home completa como un unico scroll horizontal fijado — intro, foto, manifiesto, carrusel VALORES y los valores con cambio de tipografia, seguido de secciones verticales en beige."
+    />
+    <script type="module" crossorigin src="./assets/index-CHa91Kjz.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-D5RyrpCG.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <!-- ==================== Header fijo (wortmarke + menu + progreso) ======= -->
+    <header class="header">
+      <a class="header__mark header__mark--normal t-grotesk" href="#contenido">NORMAL</a>
+
+      <button
+        class="header__pill"
+        type="button"
+        id="menu-toggle"
+        aria-expanded="false"
+        aria-controls="menu"
+      >
+        Men&uacute;
+      </button>
+
+      <!-- „is BORING®" — BORING steht 180° auf dem Kopf (Marken-Witz).
+           Echter Text, damit Screenreader ihn normal vorlesen. -->
+      <p class="header__mark header__mark--boring">
+        <span class="header__is t-didone-italic">is</span>
+        <span class="header__boring t-grotesk">BORING&reg;</span>
+      </p>
+
+      <!-- Kapitel-Progress. aria-live="off": der Fortschritt darf beim Scrollen
+           nicht dauernd angesagt werden; die Nummer ist rein dekorativ. -->
+      <div class="progress">
+        <span class="progress__ring" aria-hidden="true"><span class="progress__fill"></span></span>
+        <p class="progress__label" aria-live="off">
+          <span class="progress__num t-grotesk" aria-hidden="true" id="progress-num">01</span>
+          <span class="progress__name" id="progress-name">La Urbanizaci&oacute;n</span>
+        </p>
+      </div>
+    </header>
+
+    <!-- ==================== Men&uacute;-Overlay ============================= -->
+    <div class="menu" id="menu" hidden>
+      <div class="menu__inner">
+        <button class="menu__close" type="button" id="menu-close" aria-label="Cerrar men&uacute;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h2 class="sr-only">Men&uacute; principal</h2>
+        <ul class="menu__list">
+          <li>
+            <a href="#proyectos"><span class="menu__num t-grotesk">(1)</span> La Solana</a>
+          </li>
+          <li>
+            <a href="#proyectos"><span class="menu__num t-grotesk">(2)</span> Icaria IV</a>
+          </li>
+          <li>
+            <a href="#proyectos"><span class="menu__num t-grotesk">(3)</span> Casa Marea</a>
+          </li>
+          <li>
+            <a href="#contacto"><span class="menu__num t-grotesk">(4)</span> Contacto</a>
+          </li>
+        </ul>
+        <p class="menu__legal t-grotesk">Normal is Boring&reg; &mdash; Promotora, Galicia</p>
+      </div>
+    </div>
+
+    <main id="contenido">
+      <!-- ================= 1 — Journey horizontal (6 paneles) ============== -->
+      <section class="journey" id="journey" aria-label="Recorrido horizontal de la marca">
+        <div class="journey__pin">
+          <div class="journey__track">
+            <!-- ---------- Panel 1: Intro ---------- -->
+            <article class="panel panel--intro" aria-label="Intro">
+              <div class="panel__col">
+                <h1 class="claim">
+                  <span class="sr-only">Espacios de vida que desaf&iacute;an lo ordinario</span>
+                  <span class="claim__visual" aria-hidden="true">
+                    <span class="claim__row">
+                      <span class="lm" style="--i: 0"><span class="line">ESPACIOS</span></span>
+                      <span class="lm lm--push" style="--i: 1"><span class="line">QUE</span></span>
+                    </span>
+                    <span class="claim__row">
+                      <span class="lm" style="--i: 1"><span class="line">DE VIDA</span></span>
+                      <span class="lm lm--push" style="--i: 2"><span class="line">DESAF&Iacute;AN</span></span>
+                    </span>
+                    <span class="claim__row">
+                      <span class="lm" style="--i: 3"><span class="line">LO</span></span>
+                    </span>
+                    <span class="claim__row">
+                      <span class="lm" style="--i: 4"
+                        ><span class="line t-didone-italic">ORDINARIO</span></span
+                      >
+                    </span>
+                  </span>
+                </h1>
+                <p class="panel__lead">
+                  Promotora de obra nueva en Galicia. Casas que respiran: luz natural, materiales
+                  honestos y una idea fija.
+                </p>
+              </div>
+
+              <!-- Foto-Streifen schiebt aus dem rechten Panel-Rand herein -->
+              <figure class="strip" data-fallback>
+                <img
+                  src="https://picsum.photos/seed/nib-intro/640/1200"
+                  alt="Terraza de una vivienda con luz de tarde"
+                  width="640"
+                  height="1200"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </figure>
+            </article>
+
+            <!-- ---------- Panel 2: Foto a pantalla completa ---------- -->
+            <article class="panel panel--photo" aria-label="El entorno">
+              <figure class="photo" data-fallback>
+                <img
+                  src="https://picsum.photos/seed/nib-hero/1800/1100"
+                  alt="Vista exterior de la urbanizaci&oacute;n al atardecer"
+                  width="1800"
+                  height="1100"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </figure>
+            </article>
+
+            <!-- ---------- Panel 3: Manifiesto ---------- -->
+            <article class="panel panel--manifest" aria-label="Manifiesto">
+              <h2 class="manifest">
+                <span class="sr-only">Casas que invitan a detener el tiempo y desconectar</span>
+                <span class="manifest__visual t-serif" aria-hidden="true">
+                  <span class="lm" style="--i: 0"><span class="line">CASAS QUE INVITAN</span></span>
+                  <span class="lm" style="--i: 1"
+                    ><span class="line">A DETENER EL TIEMPO</span></span
+                  >
+                  <span class="lm" style="--i: 2"><span class="line">Y DESCONECTAR</span></span>
+                </span>
+              </h2>
+              <p class="manifest__mark t-grotesk" aria-hidden="true">&#10035;</p>
+            </article>
+
+            <!-- ---------- Panel 4: Carrusel VALORES ---------- -->
+            <article class="panel panel--valores" aria-label="Valores">
+              <h2 class="sr-only">Valores: elegancia, autenticidad, funcionalidad</h2>
+              <div class="marquee marquee--valores">
+                <div class="marquee__shift">
+                  <div class="marquee__row">
+                    <span class="marquee__seq" aria-hidden="true">
+                      <span class="t-grotesk">VALORES</span><span class="ast">&#10035;</span>
+                      <span class="t-serif">ELEGANCIA</span><span class="ast">&#10035;</span>
+                      <span class="t-grotesk">AUTENTICIDAD</span><span class="ast">&#10035;</span>
+                      <span class="t-serif">FUNCIONALIDAD</span><span class="ast">&#10035;</span>
+                    </span>
+                    <span class="marquee__seq" aria-hidden="true">
+                      <span class="t-grotesk">VALORES</span><span class="ast">&#10035;</span>
+                      <span class="t-serif">ELEGANCIA</span><span class="ast">&#10035;</span>
+                      <span class="t-grotesk">AUTENTICIDAD</span><span class="ast">&#10035;</span>
+                      <span class="t-serif">FUNCIONALIDAD</span><span class="ast">&#10035;</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <p class="panel__note t-grotesk" aria-hidden="true">(Tres palabras, tres letras)</p>
+            </article>
+
+            <!-- ---------- Panel 5: Valores — Schriftwechsel + Farbfl&auml;chen -->
+            <article class="panel panel--values" aria-label="Los tres valores">
+              <div class="values__planes" aria-hidden="true">
+                <span class="values__plane values__plane--rose"></span>
+                <span class="values__plane values__plane--lightblue"></span>
+                <span class="values__plane values__plane--coral"></span>
+              </div>
+              <ul class="values__list">
+                <li class="value value--rose">
+                  <h3 class="value__word t-didone">ELEGANCIA</h3>
+                  <p class="value__meta t-grotesk">(01) Editorial &mdash; Didone</p>
+                </li>
+                <li class="value value--lightblue">
+                  <h3 class="value__word t-serif">AUTENTICIDAD</h3>
+                  <p class="value__meta t-grotesk">(02) Serif c&aacute;lida</p>
+                </li>
+                <li class="value value--coral">
+                  <h3 class="value__word t-grotesk">FUNCIONALIDAD</h3>
+                  <p class="value__meta t-grotesk">(03) Grotesca</p>
+                </li>
+              </ul>
+            </article>
+
+            <!-- ---------- Panel 6: Previews de proyectos (BG beige = Drop) --- -->
+            <article class="panel panel--projects" id="proyectos" aria-label="Proyectos">
+              <h2 class="panel__kicker t-grotesk">Proyectos</h2>
+              <ul class="previews">
+                <li class="preview" style="--i: 0">
+                  <a class="preview__link" href="#contacto">
+                    <span class="preview__num t-grotesk" aria-hidden="true">(1)</span>
+                    <span class="preview__name t-serif">LA SOLANA</span>
+                    <span class="preview__meta t-grotesk">Oleiros &middot; 2024</span>
+                  </a>
+                  <figure class="preview__media" data-fallback>
+                    <img
+                      src="https://picsum.photos/seed/nib-solana/420/300"
+                      alt="Fachada de La Solana"
+                      width="420"
+                      height="300"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </figure>
+                </li>
+                <li class="preview" style="--i: 1">
+                  <a class="preview__link" href="#contacto">
+                    <span class="preview__num t-grotesk" aria-hidden="true">(2)</span>
+                    <span class="preview__name t-serif">ICARIA IV</span>
+                    <span class="preview__meta t-grotesk">Oleiros &middot; 2025</span>
+                  </a>
+                  <figure class="preview__media" data-fallback>
+                    <img
+                      src="https://picsum.photos/seed/nib-icaria/420/300"
+                      alt="Patio interior de Icaria IV"
+                      width="420"
+                      height="300"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </figure>
+                </li>
+                <li class="preview" style="--i: 2">
+                  <a class="preview__link" href="#contacto">
+                    <span class="preview__num t-grotesk" aria-hidden="true">(3)</span>
+                    <span class="preview__name t-serif">CASA MAREA</span>
+                    <span class="preview__meta t-grotesk">Sada &middot; 2026</span>
+                  </a>
+                  <figure class="preview__media" data-fallback>
+                    <img
+                      src="https://picsum.photos/seed/nib-marea/420/300"
+                      alt="Sal&oacute;n de Casa Marea con vistas al mar"
+                      width="420"
+                      height="300"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </figure>
+                </li>
+              </ul>
+              <p class="quote t-didone-italic">El lujo no se grita, se reconoce.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 2 — Secciones verticales (beige) ================= -->
+      <section class="mod mod-title--chapter" aria-labelledby="cap-desbloquea">
+        <div class="wrapper">
+          <h2 class="mega t-serif" id="cap-desbloquea" data-reveal>
+            <span class="sr-only">Desbloquea tu sue&ntilde;o</span>
+            <span class="mega__visual" aria-hidden="true" data-split-chars>DESBLOQUEA TU SUE&Ntilde;O</span>
+          </h2>
+          <p class="chapter__anchor" data-reveal>
+            <a class="link" href="#contacto" data-rollover>(Contacta)</a>
+          </p>
+        </div>
+      </section>
+
+      <section class="mod mod-media--double" aria-label="Im&aacute;genes del proyecto">
+        <div class="wrapper media-double">
+          <figure class="media" data-reveal data-fallback>
+            <img
+              src="https://picsum.photos/seed/nib-int-a/900/1100"
+              alt="Cocina abierta con isla de piedra"
+              width="900"
+              height="1100"
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption class="t-grotesk">(01) Interior &mdash; La Solana</figcaption>
+          </figure>
+          <figure class="media media--offset" data-reveal data-fallback>
+            <img
+              src="https://picsum.photos/seed/nib-int-b/900/1100"
+              alt="Dormitorio con ventanal al jard&iacute;n"
+              width="900"
+              height="1100"
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption class="t-grotesk">(02) Interior &mdash; Icaria IV</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="mod mod-title--lines" aria-labelledby="tit-exclusividad">
+        <div class="wrapper">
+          <h2 class="section-title t-serif" id="tit-exclusividad" data-lines data-reveal>
+            <span class="sr-only">Exclusividad en su m&aacute;xima expresi&oacute;n</span>
+            <span class="section-title__visual" aria-hidden="true">
+              <span class="lm" style="--i: 0"><span class="line">EXCLUSIVIDAD EN SU</span></span>
+              <span class="lm" style="--i: 1"><span class="line">M&Aacute;XIMA EXPRESI&Oacute;N</span></span>
+            </span>
+          </h2>
+        </div>
+      </section>
+
+      <section class="mod mod-content--cols" aria-label="Sobre Normal is Boring">
+        <div class="wrapper cols">
+          <p data-reveal>
+            En Normal is Boring, nuestra prioridad es el detalle que no se ve: la orientaci&oacute;n
+            de cada estancia, el paso de la luz a lo largo del d&iacute;a y los materiales que
+            envejecen bien. Promovemos pocas viviendas al a&ntilde;o para poder cuidarlas todas.
+          </p>
+          <p data-reveal>
+            Trabajamos con estudios de arquitectura gallegos y con industriales de la zona. Cada
+            proyecto empieza por el lugar &mdash; nunca por el plano tipo &mdash; y termina cuando la
+            casa deja de parecer una promoci&oacute;n y empieza a parecer un hogar.
+          </p>
+        </div>
+      </section>
+
+      <section class="mod mod-content--center" id="contacto" aria-label="Contacto">
+        <div class="wrapper center">
+          <p class="cta" data-reveal>
+            <a class="link" href="#contacto" data-rollover>Solicitar informaci&oacute;n</a>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <!-- ================= Footer =========================================== -->
+    <footer class="mod mod-footer" aria-label="Pie de p&aacute;gina">
+      <!-- Rein dekoratives Laufband — der echte Link steht unten im Kontakt-Block. -->
+      <div class="marquee marquee--footer" data-reveal aria-hidden="true">
+        <div class="marquee__row marquee__row--slow">
+          <span class="marquee__seq t-serif">
+            <span class="pill-ghost">INSTAGRAM</span><span class="ast">&#10035;</span>
+            <span class="pill-ghost">INSTAGRAM</span><span class="ast">&#10035;</span>
+            <span class="pill-ghost">INSTAGRAM</span><span class="ast">&#10035;</span>
+          </span>
+          <span class="marquee__seq t-serif">
+            <span class="pill-ghost">INSTAGRAM</span><span class="ast">&#10035;</span>
+            <span class="pill-ghost">INSTAGRAM</span><span class="ast">&#10035;</span>
+            <span class="pill-ghost">INSTAGRAM</span><span class="ast">&#10035;</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="wrapper footer__grid">
+        <div class="footer__contact">
+          <h2 class="footer__title t-serif">Hablemos</h2>
+          <p class="footer__mail">
+            <a class="link" href="mailto:hola@normalisboring.es" data-rollover
+              >hola@normalisboring.es</a
+            >
+          </p>
+          <p class="footer__social t-grotesk">
+            <a href="https://www.instagram.com/" rel="noopener noreferrer" target="_blank"
+              >Instagram</a
+            >
+          </p>
+        </div>
+
+        <article class="card" data-reveal>
+          <figure class="card__media" data-fallback>
+            <img
+              src="https://picsum.photos/seed/nib-card/600/420"
+              alt="La Solana, vista general"
+              width="600"
+              height="420"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+          <h3 class="card__title t-serif">LA SOLANA <span class="t-grotesk">(2024)</span></h3>
+        </article>
+      </div>
+
+      <div class="wrapper legal t-grotesk">
+        <p>&copy; 2026 Normal is Boring&reg; &mdash; PoC sin fines comerciales</p>
+        <p>Aviso legal &middot; Privacidad &middot; Cookies</p>
+      </div>
+    </footer>
+
+  </body>
+</html>
