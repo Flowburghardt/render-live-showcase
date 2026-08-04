@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bleibtgleich &mdash; Single-Scale Typo (PoC)</title>
+    <meta
+      name="description"
+      content="PoC after bleibtgleich.dev: one typeface, one weight, exactly two type sizes and no accent colour. Hierarchy comes from grid indentation, order and motion — plus a live clock ticking inside the footer sentence."
+    />
+    <script type="module" crossorigin src="./assets/index-FaqemwYo.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-Cy10fyzJ.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- ================================================================== -->
+    <!-- Shell: alles ausser dem Case-Overlay. Wird beim Oeffnen des         -->
+    <!-- Overlays per `inert` stillgelegt (Fokus + AT bleiben im Dialog).    -->
+    <!-- ================================================================== -->
+    <div id="shell">
+      <!-- ---------------- Fixed Chrome ---------------------------------- -->
+      <header class="chrome">
+        <a class="chrome__logo" href="#main">
+          <span class="sr-only">bleibtgleich &mdash; back to top</span>
+          <!-- Inline-SVG: der organische Blob ist das einzige Bildzeichen der
+               Marke. Inline statt externem Pfad — subpfad-sicher. -->
+          <svg
+            class="blob"
+            viewBox="0 0 95 160"
+            width="95"
+            height="160"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              fill="currentColor"
+              d="M47 2C70 2 92 22 93 48C94 74 78 90 74 112C70 132 80 144 68 152C56 160 38 154 26 140C14 126 12 106 14 86C16 66 4 54 2 38C0 22 24 2 47 2Z"
+            />
+          </svg>
+        </a>
+
+        <p class="chrome__meta meta">
+          Designer &amp; Developer<br />
+          Based in Kyiv<br />
+          Working w/ TFTL
+        </p>
+
+        <button
+          class="menu-pill"
+          type="button"
+          id="menu-toggle"
+          aria-expanded="false"
+          aria-controls="menu-overlay"
+          aria-label="Menu"
+        >
+          <span class="menu-pill__label" data-chars>Menu</span>
+        </button>
+      </header>
+
+      <!-- ---------------- Fullscreen-Menu-Overlay ----------------------- -->
+      <div class="menu-overlay" id="menu-overlay" inert>
+        <nav class="menu-overlay__inner" aria-label="Main">
+          <h2 class="sr-only">Menu</h2>
+          <ul class="menu-list">
+            <li>
+              <a href="#main"><span class="menu-list__num" aria-hidden="true">1</span>Home</a>
+            </li>
+            <li>
+              <a href="#work"><span class="menu-list__num" aria-hidden="true">2</span>Work</a>
+            </li>
+            <li>
+              <a href="#contact"><span class="menu-list__num" aria-hidden="true">3</span>Contact</a>
+            </li>
+            <li><a href="#awards">Experiments</a></li>
+          </ul>
+          <button class="menu-close" type="button" id="menu-close">Close menu</button>
+        </nav>
+      </div>
+
+      <!-- ---------------- Fixed Marken-Randwoerter ---------------------- -->
+      <!-- „bleibt | gleich" — das Marken-Wort als Passepartout am Viewport- -->
+      <!-- rand. Reines Ornament, deshalb aria-hidden: der volle Name steht  -->
+      <!-- lesbar im Kleingedruckten unten rechts.                          -->
+      <span class="brand-edge brand-edge--left h1" aria-hidden="true">bleibt</span>
+      <span class="brand-edge brand-edge--right h1" aria-hidden="true">gleich</span>
+
+      <!-- Scroll-Prozent in der Display-Stufe — Zustand, kein Inhalt. -->
+      <span class="scroll-percent h1" id="scroll-percent" aria-hidden="true">0%</span>
+
+      <p class="fineprint meta">
+        bleibtgleich &rsquo;26 &copy; All Rights Reserved<br />
+        made w/ hate
+      </p>
+
+      <main id="main">
+        <!-- ============== 1. Intro / Hero — Treppen-Typo ================= -->
+        <section class="hero" aria-labelledby="hero-name">
+          <!-- Lage 0: Wash-Flaeche als Ersatz fuer den three.js-Fluid-Canvas
+               des Originals. Der Blob darin folgt der Maus (nur ohne
+               prefers-reduced-motion). -->
+          <div class="hero__wash" aria-hidden="true">
+            <span class="hero__blob" data-parallax></span>
+          </div>
+
+          <h1 class="cluster cluster--name" id="hero-name" data-reveal-group>
+            <span class="sr-only">Maksym Bleibtgleich</span>
+            <span class="h1 h1--col4" aria-hidden="true" data-split>Maksym</span>
+            <span class="h1 h1--col4" aria-hidden="true" data-split>Bleibtgleich</span>
+          </h1>
+
+          <h2 class="cluster cluster--discipline" data-reveal-group>
+            <span class="sr-only">Design digital products, UX/UI &amp; Webflow dev.</span>
+            <!-- Silbentrennung „&amp; Web- / flow" ist Gestaltung, kein Zufall —
+                 genau so aus dem Original uebernommen. -->
+            <span class="h1 h1--col3" aria-hidden="true" data-split>Design</span>
+            <span class="h1 h1--col3" aria-hidden="true" data-split>Digital</span>
+            <span class="h1 h1--col3" aria-hidden="true" data-split>Products,</span>
+            <span class="h1 h1--col4" aria-hidden="true" data-split>UX/UI</span>
+            <span class="h1 h1--col4" aria-hidden="true" data-split>&amp; Web-</span>
+            <span class="h1 h1--col4" aria-hidden="true" data-split>flow</span>
+            <span class="h1 h1--col4" aria-hidden="true" data-split>dev.</span>
+          </h2>
+
+          <h2 class="cluster cluster--manifest" data-reveal-group>
+            <span class="sr-only">The best ideas deserve execution.</span>
+            <span class="h1 h1--col2" aria-hidden="true" data-split>the</span>
+            <span class="h1 h1--col4" aria-hidden="true" data-split>best</span>
+            <span class="h1 h1--col3" aria-hidden="true" data-split>ideas deserve</span>
+            <span class="h1 h1--col3" aria-hidden="true" data-split>execution.</span>
+          </h2>
+        </section>
+
+        <!-- ============== 2. Featured Work — Scatter-Collage ============= -->
+        <section class="work" id="work" aria-labelledby="work-title">
+          <h2 class="cluster cluster--work" id="work-title" data-reveal-group>
+            <span class="sr-only">Featured work 2024&ndash;2026 &mdash; all works</span>
+            <span class="h1 h1--col2" aria-hidden="true" data-split>Work</span>
+            <span class="h1 h1--col4" aria-hidden="true" data-split>24-26</span>
+            <span class="h1 h1--col3" aria-hidden="true" data-split>All Works</span>
+          </h2>
+
+          <div class="scatter">
+            <button
+              class="card"
+              type="button"
+              style="--x: 4%; --y: 1%; --w: 26%; --r: -2.4deg"
+              data-case="velor"
+              data-case-title="Velor Dating App"
+              data-case-info="A dual-mode dating app that lets people switch between an Angel and a Demon experience — two visual systems inside one product."
+              data-case-services="UX/UI Design, Design System, Prototyping"
+            >
+              <span class="card__frame">
+                <img
+                  src="https://picsum.photos/seed/velor/800/600"
+                  alt="Velor dating app cover"
+                  width="800"
+                  height="600"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </span>
+              <span class="card__meta">
+                <span class="card__title">Velor</span>
+                <span class="card__tag">UX/UI Design &mdash; open case</span>
+              </span>
+            </button>
+
+            <button
+              class="card card--surface card--light"
+              type="button"
+              style="--x: 38%; --y: 8%; --w: 21%; --r: 1.8deg"
+              data-case="jds"
+              data-case-title="JDS Studio"
+              data-case-info="Studio site for a small architecture practice — a quiet grid, oversized type and nothing else."
+              data-case-services="Art Direction, Webflow Development"
+            >
+              <span class="card__frame" aria-hidden="true"></span>
+              <span class="card__meta">
+                <span class="card__title">JDS</span>
+                <span class="card__tag">Webflow &mdash; open case</span>
+              </span>
+            </button>
+
+            <button
+              class="card"
+              type="button"
+              style="--x: 66%; --y: 1%; --w: 28%; --r: -1.2deg"
+              data-case="nabil-issa"
+              data-case-title="Nabil Issa Portfolio"
+              data-case-info="Photographer portfolio built around one rule: the image is the only colour on the page."
+              data-case-services="UX/UI Design, Front-end"
+            >
+              <span class="card__frame">
+                <img
+                  src="https://picsum.photos/seed/nabilissa/800/600"
+                  alt="Nabil Issa portfolio cover"
+                  width="800"
+                  height="600"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </span>
+              <span class="card__meta">
+                <span class="card__title">Nabil Issa</span>
+                <span class="card__tag">Portfolio &mdash; open case</span>
+              </span>
+            </button>
+
+            <button
+              class="card card--surface card--mid"
+              type="button"
+              style="--x: 10%; --y: 26%; --w: 22%; --r: 2.6deg"
+              data-case="grabl"
+              data-case-title="Grabl"
+              data-case-info="Delivery product for local grocers — an interface that had to survive on cheap Android phones."
+              data-case-services="Product Design, Design System"
+            >
+              <span class="card__frame" aria-hidden="true"></span>
+              <span class="card__meta">
+                <span class="card__title">Grabl</span>
+                <span class="card__tag">Product Design &mdash; open case</span>
+              </span>
+            </button>
+
+            <button
+              class="card"
+              type="button"
+              style="--x: 40%; --y: 32%; --w: 30%; --r: -1.6deg"
+              data-case="fool"
+              data-case-title="Fool Agency"
+              data-case-info="Agency site with a single joke carried through every page — restraint everywhere else."
+              data-case-services="Art Direction, Webflow Development"
+            >
+              <span class="card__frame">
+                <img
+                  src="https://picsum.photos/seed/foolagency/800/600"
+                  alt="Fool agency cover"
+                  width="800"
+                  height="600"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </span>
+              <span class="card__meta">
+                <span class="card__title">Fool</span>
+                <span class="card__tag">Agency &mdash; open case</span>
+              </span>
+            </button>
+
+            <button
+              class="card card--surface card--wash"
+              type="button"
+              style="--x: 74%; --y: 27%; --w: 20%; --r: 3.2deg"
+              data-case="metrics"
+              data-case-title="Metrics Dashboard"
+              data-case-info="Analytics dashboard for a two-person SaaS — twelve screens, no chart junk."
+              data-case-services="UX/UI Design"
+            >
+              <span class="card__frame" aria-hidden="true"></span>
+              <span class="card__meta">
+                <span class="card__title">Metrics</span>
+                <span class="card__tag">Dashboard &mdash; open case</span>
+              </span>
+            </button>
+
+            <button
+              class="card"
+              type="button"
+              style="--x: 6%; --y: 52%; --w: 27%; --r: 1.4deg"
+              data-case="do-lorem"
+              data-case-title="Do-Lorem"
+              data-case-info="A writing tool that refuses to autocomplete for you — placeholder text as a design position."
+              data-case-services="Product Design, Front-end"
+            >
+              <span class="card__frame">
+                <img
+                  src="https://picsum.photos/seed/dolorem/800/600"
+                  alt="Do-Lorem writing tool cover"
+                  width="800"
+                  height="600"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </span>
+              <span class="card__meta">
+                <span class="card__title">Do-Lorem</span>
+                <span class="card__tag">Product &mdash; open case</span>
+              </span>
+            </button>
+
+            <button
+              class="card card--surface card--deep"
+              type="button"
+              style="--x: 40%; --y: 60%; --w: 24%; --r: -2.8deg"
+              data-case="cyber"
+              data-case-title="Cyber Report"
+              data-case-info="Annual security report as a scrollable document — 90 pages compressed into one page."
+              data-case-services="Editorial Design, Front-end"
+            >
+              <span class="card__frame" aria-hidden="true"></span>
+              <span class="card__meta">
+                <span class="card__title">Cyber</span>
+                <span class="card__tag">Editorial &mdash; open case</span>
+              </span>
+            </button>
+
+            <button
+              class="card"
+              type="button"
+              style="--x: 68%; --y: 54%; --w: 26%; --r: 2deg"
+              data-case="xpm"
+              data-case-title="XPM Exchange"
+              data-case-info="Trading interface where every number sits on the same baseline grid as the headline."
+              data-case-services="UX/UI Design, Design System"
+            >
+              <span class="card__frame">
+                <img
+                  src="https://picsum.photos/seed/xpmexchange/800/600"
+                  alt="XPM exchange cover"
+                  width="800"
+                  height="600"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </span>
+              <span class="card__meta">
+                <span class="card__title">XPM</span>
+                <span class="card__tag">Exchange &mdash; open case</span>
+              </span>
+            </button>
+          </div>
+        </section>
+
+        <!-- ============== 3. Awards & Recognitions ======================= -->
+        <section class="awards" id="awards" aria-labelledby="awards-title">
+          <h2 class="cluster cluster--awards" id="awards-title" data-reveal-group>
+            <span class="sr-only">Awards &amp; recognitions</span>
+            <span class="h1 h1--col2" aria-hidden="true" data-split>Awards</span>
+            <span class="h1 h1--col3" aria-hidden="true" data-split>&amp;</span>
+            <!-- „Recog- / nitions": manueller Umbruch mitten im Wort, wie im
+                 Original. Der lesbare Text steht oben im .sr-only-Span. -->
+            <span class="h1 h1--col3" aria-hidden="true" data-split>Recog-</span>
+            <span class="h1 h1--col4" aria-hidden="true" data-split>nitions</span>
+          </h2>
+
+          <div class="wrap">
+            <dl class="awards-list">
+              <div class="awards-row">
+                <dt><span class="awards-year">2025</span> bleibtgleich&rsquo;25</dt>
+                <dd>CSS Winner SOTD</dd>
+                <dd>GSAP Site of the Day</dd>
+                <dd>Awwwards Portfolio Honors</dd>
+                <dd>Awwwards Developer Award</dd>
+                <dd>Awwwards SOTD</dd>
+                <dd>CSSDA WOTD</dd>
+              </div>
+              <div class="awards-row">
+                <dt><span class="awards-year">2024</span> insta.gallery</dt>
+                <dd>Awwwards Typography Honor</dd>
+              </div>
+              <div class="awards-row">
+                <dt><span class="awards-year">2023</span> bleibtgleich&rsquo;23</dt>
+                <dd>Behance Features</dd>
+              </div>
+            </dl>
+          </div>
+        </section>
+      </main>
+
+      <!-- ============== 4. Footer — Gedicht mit Live-Uhr ================= -->
+      <footer class="footer" id="contact">
+        <p class="cluster cluster--poem" data-reveal-group>
+          <!-- Der Satz bleibt ohne Uhr grammatikalisch vollstaendig — deshalb
+               darf die Uhr komplett aus dem AT-Baum verschwinden. -->
+          <span class="sr-only"
+            >Everything that exists had first existed as nothing more than a sentence.</span
+          >
+          <span class="h1 h1--col2" aria-hidden="true" data-split>Everything</span>
+          <span class="h1 h1--col3" aria-hidden="true" data-split>that exists</span>
+          <span class="h1 h1--col3" aria-hidden="true" data-split>had first</span>
+          <span class="h1 h1--col4" aria-hidden="true" data-split>existed as</span>
+          <span class="h1 h1--col4" aria-hidden="true">
+            <span class="split-mask">
+              <time class="split-line clock" id="clock" datetime="00:00:00"
+                >(&thinsp;<span data-clock="h">00</span>&thinsp;:&thinsp;<span data-clock="m"
+                  >00</span
+                >&thinsp;:&thinsp;<span data-clock="s">00</span>&thinsp;)</time
+              >
+            </span>
+          </span>
+          <span class="h1 h1--col3" aria-hidden="true" data-split>nothing</span>
+          <span class="h1 h1--col2" aria-hidden="true" data-split>more</span>
+          <span class="h1 h1--col2" aria-hidden="true" data-split>than a</span>
+          <span class="h1 h1--col1" aria-hidden="true" data-split>sentence.</span>
+        </p>
+
+        <div class="wrap footer__foot">
+          <figure class="footer__figure">
+            <img
+              src="https://picsum.photos/seed/bleibtgleich-studio/900/1200"
+              alt="Studio desk, black and white"
+              width="900"
+              height="1200"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+
+          <div class="footer__contact">
+            <p class="meta footer__status">Available for work</p>
+            <p class="meta">
+              <a class="link" href="mailto:hi.bleibtgleich@gmail.com">hi.bleibtgleich@gmail.com</a>
+            </p>
+            <ul class="socials meta">
+              <li>
+                <a
+                  class="link"
+                  href="https://www.linkedin.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >LinkedIn</a
+                >
+              </li>
+              <li>
+                <a
+                  class="link"
+                  href="https://www.behance.net/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Behance</a
+                >
+              </li>
+              <li>
+                <a
+                  class="link"
+                  href="https://www.instagram.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Instagram</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <!-- /#shell -->
+
+    <!-- ============== 5. Case-Study-Overlay (die „Dualitaet") ============ -->
+    <!-- Bewusst technik-arm: kein Routing, kein WebGL, kein Scatter — nur    -->
+    <!-- identische Typo-Skala und ein strenger 4-Spalten-Bildstapel.        -->
+    <div
+      class="case"
+      id="case-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="case-title"
+      inert
+    >
+      <div class="case__bar">
+        <p class="meta">Case study</p>
+        <button class="case__close" type="button" id="case-close">Close</button>
+      </div>
+
+      <div class="case__scroll" data-lenis-prevent>
+        <h2 class="cluster" id="case-title">
+          <!-- Der lesbare Titel steht hier; der Display-Span daneben ist die
+               visuelle Verdopplung in identischer Skala (aria-hidden). -->
+          <span class="sr-only" data-slot="name">Case study</span>
+          <span class="h1 h1--col1" aria-hidden="true" data-slot="display">&nbsp;</span>
+        </h2>
+
+        <div class="wrap">
+          <dl class="case__meta meta">
+            <dt>Info</dt>
+            <dd data-slot="info"></dd>
+            <dt>Services</dt>
+            <dd data-slot="services"></dd>
+          </dl>
+
+          <div class="case__grid" data-slot="grid"></div>
+
+          <p class="case__back meta">
+            <button class="link" type="button" data-case-dismiss>&larr; back to all works</button>
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

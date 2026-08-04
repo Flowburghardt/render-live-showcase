@@ -225,6 +225,15 @@
       "desc": "Horizontale Home-Journey: komplette Startseite als EIN gepinnter Horizontal-Scroll (Wortmarken-Intro → Vollbild-Foto → Manifest-Zeilen → VALORES-Carousel → Werte-Begriffe, die pro Begriff die SCHRIFTART wechseln (Didone → Serif → Grotesk) und Pastell-Farbflächen aufziehen → nummerierte Projekt-Previews), danach nahtloser Drop in vertikale Beige-Sections; Char-Split-Rollover-Links + 180°-gedrehtes ‚BORING' in der Wortmarke",
       "nightly": true,
       "built": "2026-08-03"
+    },
+    {
+      "slug": "poc-bleibtgleich",
+      "title": "Bleibtgleich",
+      "stage": "Nightly",
+      "effort": "mid",
+      "desc": "Single-Scale-Typo-System: EINE Display-Stufe (90px = 6.25vw, Medium, −5 % Tracking, LH 0.88) trägt ALLES — Hero, Work-Titel, Awards-Headline und das Footer-Gedicht. H1-Zeilen treppen sich pro Zeile um Grid-Spalten ein (8-col, 162px+16px), SplitText-Line-Reveal beim Scroll, Marken-Wort „bleibt|gleich' als fixierte Viewport-Rand-Wörter, im Footer-Satz tickt eine Live-Uhr als H1-Ziffern mit",
+      "nightly": true,
+      "built": "2026-08-04"
     }
   ]
 }
