@@ -234,6 +234,15 @@
       "desc": "Single-Scale-Typo-System: EINE Display-Stufe (90px = 6.25vw, Medium, −5 % Tracking, LH 0.88) trägt ALLES — Hero, Work-Titel, Awards-Headline und das Footer-Gedicht. H1-Zeilen treppen sich pro Zeile um Grid-Spalten ein (8-col, 162px+16px), SplitText-Line-Reveal beim Scroll, Marken-Wort „bleibt|gleich' als fixierte Viewport-Rand-Wörter, im Footer-Satz tickt eine Live-Uhr als H1-Ziffern mit",
       "nightly": true,
       "built": "2026-08-04"
+    },
+    {
+      "slug": "fluid-ink-reveal",
+      "title": "Fluid-Ink-Reveal",
+      "stage": "Manual",
+      "effort": "mid",
+      "desc": "Cursor-Ink-Reveal nach bleibtgleich.dev: WebGL2-Tintenfeld legt das Bild darunter frei (Dunkelkammer-Metapher), Tusche/Nebel-Modi per edge-smoothstep",
+      "nightly": true,
+      "built": "2026-08-04"
     }
   ]
 }

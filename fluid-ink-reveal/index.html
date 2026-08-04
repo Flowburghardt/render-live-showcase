@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fluid-Ink-Reveal — PoC</title>
+  <script type="module" crossorigin src="./assets/index-DBPreqy5.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-D6qKCNRM.css">
+</head>
+<body>
+  <header class="head">
+    <h1>Entwickeln.</h1>
+    <p class="sub">
+      Fluid-Ink-Reveal — das Bild entsteht unter dem Cursor wie ein Abzug in der
+      Dunkelkammer. Re-Implementation des bleibtgleich.dev-Effekts: pures WebGL2,
+      ein Simulationsfeld, drei Shader-P&auml;sse, kein Framework.
+    </p>
+    <div class="modes" role="group" aria-label="Kanten-Charakter">
+      <button type="button" data-mode="tusche" class="is-active" aria-pressed="true">Tusche</button>
+      <button type="button" data-mode="nebel" aria-pressed="false">Nebel</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="stage" data-fluid-reveal aria-label="Interaktives Bild-Reveal">
+      <img
+        class="stage-img"
+        src="https://picsum.photos/seed/darkroom/1600/1000"
+        alt="Testmotiv, das durch die Tinten-Spur freigelegt wird"
+        crossorigin="anonymous"
+      />
+      <canvas class="stage-canvas" data-fluid-canvas aria-hidden="true"></canvas>
+      <p class="hint" data-hint>Maus bewegen &mdash; Bild freilegen</p>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>
+      Quelle der Analyse: bleibtgleich.dev (Slater-Bundle, dekompiliert 2026-08-04).
+      Der Look steckt in einer Zeile: <code>1.0 - smoothstep(0.39, 0.40, d)</code> &mdash;
+      enge Kante = Tusche, weite Kante = Nebel.
+    </p>
+  </footer>
+
+</body>
+</html>
