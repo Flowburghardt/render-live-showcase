@@ -240,7 +240,7 @@
       "title": "Fluid-Ink-Reveal",
       "stage": "Manual",
       "effort": "mid",
-      "desc": "Cursor-Ink-Reveal nach bleibtgleich.dev: WebGL2-Tintenfeld legt das Bild darunter frei (Dunkelkammer-Metapher), Tusche/Nebel-Modi per edge-smoothstep",
+      "desc": "Alle 3 Bausteine des bleibtgleich-Intros: Logo-Morph (MorphSVG Rechteck->Klumpen), Schrift aus Tinte (Feld-Stempel, eigenes Wort eintippbar), Bild-Reveal unter der Deckflaeche",
       "nightly": true,
       "built": "2026-08-04"
     }
