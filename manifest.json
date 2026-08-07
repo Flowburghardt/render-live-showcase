@@ -243,6 +243,15 @@
       "desc": "Alle 3 Bausteine des bleibtgleich-Intros: Logo-Morph (MorphSVG Rechteck->Klumpen), Schrift aus Tinte (Feld-Stempel, eigenes Wort eintippbar), Bild-Reveal unter der Deckflaeche",
       "nightly": true,
       "built": "2026-08-04"
+    },
+    {
+      "slug": "poc-bolddesign",
+      "title": "Bolddesign",
+      "stage": "Nightly",
+      "effort": "quick",
+      "desc": "\"Bildkacheln als Wörter im Satz: Mega-Headline-Zeilen (Anton 170–180px, uppercase) laufen als inline-flex-Reihe, in der zwischen den Wörtern Bild-Divs mit Cap-Height-Höhe (≈149px) und 30px-Radius stehen — `REME▮MBER.` im Hero, `NOBODY ▮ / ▮ REMEMBERS ▮ / ▮ POLITE` treppenartig eingerückt, `LET'S GET / RIGHT ▮CONTACT▮ NOW / IN TOUCH`; die Kacheln blenden beim Scroll-in ein, der Platz ist vorher schon reserviert. Dazu die Vorhang-Mechanik: die Hero-Sektion steht auf `position:sticky; top:0` über volle 900px, während das Projekt-Feed (2.184px) sich darüber schiebt, und ein zweiter sticky-Center-Bereich (4.512px) lässt vier zweigeteilte Farbkarten (Nummernblock 293×260 + Textblock 293×400, gleiche Farbe, 30px Radius) versetzt durch die Bildmitte wandern. Alles reine CSS-sticky + Reveal-Einblendung — kein WebGL, kein Scroll-Framework.\"",
+      "nightly": true,
+      "built": "2026-08-07"
     }
   ]
 }
