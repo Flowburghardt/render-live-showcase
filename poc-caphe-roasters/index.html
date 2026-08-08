@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Càphê Roasters — One motif, three roles (PoC)</title>
+    <meta
+      name="description"
+      content="PoC nach Caphe-Roasters/DESIGN.md: ein SVG-Data-URI als Wellen-Unterstreichung (mask-image + currentcolor), als Sektionskante und als clip-path-Oktagon."
+    />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#FDFAF3" />
+
+    <!--
+      Progressive Enhancement für Reveal und Bild-Fade.
+      Beide verstecken ihr Ziel im Ausgangszustand — das darf NUR passieren,
+      wenn auch wirklich JS läuft, das es wieder einblendet. Sonst rendert die
+      Seite (Chunk-404 im Subpfad-Deploy, Syntaxfehler, JS aus) als leere
+      Cream-Hülle mit Löchern.
+
+      Zwei Stufen:
+      1. Die Klasse wird sofort beim Parsen gesetzt → kein Aufblitzen.
+      2. Bootet das Modul nicht (es setzt data-booted zu Beginn), wird das
+         Verstecken nach 3s zurückgenommen. Failsafe ist „sichtbar".
+    -->
+    <script>
+      document.documentElement.classList.add('js')
+      window.setTimeout(function () {
+        if (!document.documentElement.hasAttribute('data-booted')) {
+          document.documentElement.classList.remove('js')
+        }
+      }, 3000)
+    </script>
+    <script type="module" crossorigin src="./assets/index-BBy92oau.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-hvvEKANs.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <!-- 1 — Zebra-Leiste: 20 Divs, alternierend Pink/Rot, rein dekorativ, ab 1024px -->
+    <div class="zebra" aria-hidden="true">
+      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+    </div>
+
+    <!-- 2 — Header 97px, sticky, Hide-on-Scroll -->
+    <header class="header" data-header>
+      <nav class="header__nav header__nav--left" aria-label="Primary">
+        <a class="wavy type-eyebrow" href="#lab">Menu</a>
+        <a class="wavy type-eyebrow" href="#scroller">Shop</a>
+        <a class="wavy type-eyebrow" href="#footer">Visit us</a>
+      </nav>
+      <a class="header__mark" href="#top">Càphê</a>
+      <nav class="header__nav header__nav--right" aria-label="Secondary">
+        <a class="wavy type-eyebrow" href="#cta">Wholesale</a>
+        <a class="wavy type-eyebrow" href="#intro">Story</a>
+        <a class="wavy type-eyebrow" href="#cta">Cart (0)</a>
+      </nav>
+    </header>
+
+    <!-- tabindex="-1": ohne das landet der Skip-Link-Sprung in manchen Browsern
+         nicht wirklich im Fokus, sondern scrollt nur. -->
+    <main id="main" tabindex="-1">
+      <!--
+        Die Quelle hat auf der Startseite KEIN <h1> — das Foto ist die Headline.
+        Das DESIGN.md nennt die Lösung ausdrücklich: <h1> als sr-only setzen.
+        Optisch bleibt der Hero headline-los, Screenreader und SEO bekommen sie.
+      -->
+      <h1 class="sr-only">Càphê Roasters — Philadelphia's first Vietnamese specialty coffee roastery</h1>
+
+      <!-- 3 — Hero: 3-Spalten-Grid, oktagonales Foto, rotiertes Stempel-Badge -->
+      <section class="hero" id="top" aria-label="Hero">
+        <p class="hero__flank type-h5" data-reveal>From Vietnam</p>
+
+        <div class="hero__stage">
+          <figure class="hero__figure chamfered" data-reveal>
+            <img
+              src="https://picsum.photos/seed/caphe-hero/800/840"
+              alt="Roaster pouring freshly ground Vietnamese coffee into a filter"
+              width="800"
+              height="840"
+              decoding="async"
+              fetchpriority="high"
+            />
+          </figure>
+
+          <!-- Stempel-Badge: 16° gedreht, Text auf Kreispfad. aria-hidden, weil
+               der Markenname bereits im sr-only-<h1> und in der Wortmarke steht. -->
+          <svg class="hero__badge" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+            <defs>
+              <path
+                id="badge-ring"
+                fill="none"
+                d="M100,100 m-74,0 a74,74 0 1,1 148,0 a74,74 0 1,1 -148,0"
+              />
+            </defs>
+            <!-- Rot als FLÄCHE (Scheibe), Schrift in Cream darauf — die
+                 AA-Regel der Quelle, siehe .hero__badge im CSS. -->
+            <circle class="hero__badge-disc" cx="100" cy="100" r="98" />
+            <circle class="hero__badge-line" cx="100" cy="100" r="60" stroke-width="1.5" />
+            <text font-size="17">
+              <textPath href="#badge-ring" startOffset="0">
+                CÀPHÊ ROASTERS · PHILADELPHIA ·
+              </textPath>
+            </text>
+            <text x="100" y="118" font-size="58" font-weight="700" text-anchor="middle">À</text>
+          </svg>
+        </div>
+
+        <p class="hero__flank hero__flank--right type-h5" data-reveal>For the world</p>
+      </section>
+
+      <!-- 4 — Intro-Statement -->
+      <section class="section intro" id="intro" aria-labelledby="intro-h" data-reveal>
+        <div class="wrap">
+          <h2 class="sr-only" id="intro-h">About Càphê Roasters</h2>
+          <p class="intro__text type-body-xl">
+            Càphê simply means coffee. We roast single-origin robusta and arabica from Lâm Đồng in
+            small batches in Kensington, Philadelphia — and we brew it the way it is brewed at home:
+            slow, sweet and strong enough to matter.
+          </p>
+          <p style="margin-top: var(--space-gap-lg)">
+            <a class="wavy type-eyebrow" href="#lab">Read our story</a>
+          </p>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           5 — DAS WELLEN-LABOR: ein Motiv, drei Rollen, live steuerbar
+           =================================================================== -->
+      <section class="section lab" id="lab" aria-labelledby="lab-h" data-lab>
+        <div class="wrap">
+          <div class="lab__head">
+            <div>
+              <p class="type-eyebrow-mono">Fig. 01 — motif system</p>
+              <h2 class="type-h2" id="lab-h" style="margin-top: 12px">One motif · three roles</h2>
+            </div>
+            <p class="type-body-sm" lang="de" style="max-width: 44ch">
+              Zwei SVG-Data-URIs, je einmal in <code>:root</code> definiert. Keine Bilddatei, kein
+              Icon-Font, kein Farbwert pro Kontext — die Welle erbt alles über
+              <code>currentcolor</code>.
+            </p>
+          </div>
+
+          <div class="lab__grid">
+            <!-- Rolle 1 -->
+            <div class="lab__card">
+              <p class="type-eyebrow-mono">Role 1 — mask-image underline</p>
+              <div class="lab__demo">
+                <span class="wavy wavy--always type-h4">Càphê Roasters</span>
+              </div>
+              <p class="type-body-sm" lang="de">
+                <code>background-color: currentcolor</code> +
+                <code>mask-image: var(--wave-uri)</code>. Die Welle nimmt die Textfarbe an, ohne
+                dass irgendwo eine Farbe gesetzt wird.
+              </p>
+            </div>
+
+            <!-- Rolle 2 -->
+            <div class="lab__card">
+              <p class="type-eyebrow-mono">Role 2 — section edge, repeat-x</p>
+              <div class="lab__demo">
+                <div class="lab__edge-demo">
+                  <div class="wave-edge"></div>
+                  <div class="wave-edge" style="margin-top: 18px"></div>
+                  <div class="wave-edge" style="margin-top: 18px"></div>
+                </div>
+              </div>
+              <p class="type-body-sm" lang="de">
+                Dieselbe Mechanik eine Größe größer (120 × 10 px). Die Quelle nutzt hier
+                <code>background-image</code> mit hartkodierter Farbe — auf
+                <code>mask-image</code> umgebaut trägt die Kachel jede Farbe.
+              </p>
+            </div>
+
+            <!-- Rolle 3 -->
+            <div class="lab__card">
+              <p class="type-eyebrow-mono">Role 3 — clip-path octagon</p>
+              <div class="lab__demo">
+                <figure class="lab__chamfer chamfered">
+                  <img
+                    src="https://picsum.photos/seed/caphe-lab/400/400"
+                    alt="Green coffee beans in a burlap sack"
+                    width="400"
+                    height="400"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </figure>
+              </div>
+              <p class="type-body-sm" lang="de">
+                Acht Punkte, vier 45°-Fasen. Die Demo-Kachel ist quadratisch — nur deshalb darf die
+                Fase hier in Prozent stehen (siehe CSS-Kommentar).
+              </p>
+            </div>
+          </div>
+
+          <div class="lab__controls">
+            <div class="lab__control">
+              <label class="type-eyebrow-mono" for="lab-offset">Wave offset — mask-position X</label>
+              <div class="lab__control-row">
+                <input id="lab-offset" type="range" min="0" max="120" step="1" value="0" data-lab-offset />
+                <output for="lab-offset" data-lab-offset-out>0px</output>
+              </div>
+            </div>
+
+            <div class="lab__control">
+              <label class="type-eyebrow-mono" for="lab-fase">Chamfer — clip-path fase</label>
+              <div class="lab__control-row">
+                <input id="lab-fase" type="range" min="0" max="14" step="0.1" value="7.9" data-lab-fase />
+                <output for="lab-fase" data-lab-fase-out>7.9%</output>
+              </div>
+            </div>
+
+            <button class="lab__swap" type="button" data-lab-swap>Swap surface color</button>
+          </div>
+
+          <p class="sr-only" role="status" aria-live="polite" data-lab-status></p>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           6 — Presse-Slider. Die Wellenkante darüber liest dieselbe
+           --slide-color wie die Sektion → sie wechselt die Farbe mit.
+           =================================================================== -->
+      <div class="press-block" data-press>
+        <div class="wave-edge wave-edge--seam wave-edge--slide" data-wave-edge aria-hidden="true"></div>
+
+        <section class="press" aria-labelledby="press-h">
+          <h2 class="sr-only" id="press-h">Press</h2>
+
+          <div class="press__col">
+            <div class="press__panels">
+              <div class="press__panel is-active" id="press-panel-0" role="tabpanel" aria-labelledby="press-tab-0">
+                <p class="type-eyebrow-mono">2024 · James Beard Foundation</p>
+                <p class="type-h2">“A semifinalist that rewrote what a Philadelphia café can be.”</p>
+                <a class="wavy type-eyebrow" href="#press-h">Read the feature</a>
+              </div>
+              <div class="press__panel" id="press-panel-1" role="tabpanel" aria-labelledby="press-tab-1" inert aria-hidden="true">
+                <p class="type-eyebrow-mono">Baby's Kusina &amp; Market</p>
+                <p class="type-h2">“The cà phê sữa đá alone is worth the trip across the river.”</p>
+                <a class="wavy type-eyebrow" href="#press-h">Read the feature</a>
+              </div>
+              <div class="press__panel" id="press-panel-2" role="tabpanel" aria-labelledby="press-tab-2" inert aria-hidden="true">
+                <p class="type-eyebrow-mono">Philadelphia Magazine</p>
+                <p class="type-h2">“One of Philly's 76 most iconic foods — and the youngest on the list.”</p>
+                <a class="wavy type-eyebrow" href="#press-h">Read the feature</a>
+              </div>
+              <div class="press__panel" id="press-panel-3" role="tabpanel" aria-labelledby="press-tab-3" inert aria-hidden="true">
+                <p class="type-eyebrow-mono">The Infatuation</p>
+                <p class="type-h2">“The best bánh mì in the city happens to come with the best coffee.”</p>
+                <a class="wavy type-eyebrow" href="#press-h">Read the feature</a>
+              </div>
+            </div>
+
+            <!-- Blütenförmige Dots als echtes Tab-Pattern (Pfeiltasten in press-slider.ts) -->
+            <div class="press__tabs" role="tablist" aria-label="Press quotes">
+              <button class="press__dot" id="press-tab-0" type="button" role="tab" aria-selected="true"
+                      aria-controls="press-panel-0" data-slide-color="var(--slide-1)">
+                <span class="sr-only">James Beard Foundation</span>
+                <svg viewBox="0 0 19 19" aria-hidden="true" focusable="false">
+                  <path d="M9.5 0c1 2.6 1.9 3.9 3.2 4.4 1.3.5 2.9.2 5.4-.7-1.6 2.2-2.2 3.7-1.9 5 .3 1.3 1.4 2.5 3.6 4-2.7.2-4.2.7-5 1.8-.8 1.1-.9 2.7-.6 5.5-1.8-2-3.1-3-4.7-3s-2.9 1-4.7 3c.3-2.8.2-4.4-.6-5.5-.8-1.1-2.3-1.6-5-1.8 2.2-1.5 3.3-2.7 3.6-4 .3-1.3-.3-2.8-1.9-5 2.5.9 4.1 1.2 5.4.7C7.6 3.9 8.5 2.6 9.5 0Z"/>
+                </svg>
+              </button>
+              <button class="press__dot" id="press-tab-1" type="button" role="tab" aria-selected="false"
+                      tabindex="-1" aria-controls="press-panel-1" data-slide-color="var(--slide-2)">
+                <span class="sr-only">Baby's Kusina &amp; Market</span>
+                <svg viewBox="0 0 19 19" aria-hidden="true" focusable="false">
+                  <path d="M9.5 0c1 2.6 1.9 3.9 3.2 4.4 1.3.5 2.9.2 5.4-.7-1.6 2.2-2.2 3.7-1.9 5 .3 1.3 1.4 2.5 3.6 4-2.7.2-4.2.7-5 1.8-.8 1.1-.9 2.7-.6 5.5-1.8-2-3.1-3-4.7-3s-2.9 1-4.7 3c.3-2.8.2-4.4-.6-5.5-.8-1.1-2.3-1.6-5-1.8 2.2-1.5 3.3-2.7 3.6-4 .3-1.3-.3-2.8-1.9-5 2.5.9 4.1 1.2 5.4.7C7.6 3.9 8.5 2.6 9.5 0Z"/>
+                </svg>
+              </button>
+              <button class="press__dot" id="press-tab-2" type="button" role="tab" aria-selected="false"
+                      tabindex="-1" aria-controls="press-panel-2" data-slide-color="var(--slide-3)">
+                <span class="sr-only">Philadelphia Magazine</span>
+                <svg viewBox="0 0 19 19" aria-hidden="true" focusable="false">
+                  <path d="M9.5 0c1 2.6 1.9 3.9 3.2 4.4 1.3.5 2.9.2 5.4-.7-1.6 2.2-2.2 3.7-1.9 5 .3 1.3 1.4 2.5 3.6 4-2.7.2-4.2.7-5 1.8-.8 1.1-.9 2.7-.6 5.5-1.8-2-3.1-3-4.7-3s-2.9 1-4.7 3c.3-2.8.2-4.4-.6-5.5-.8-1.1-2.3-1.6-5-1.8 2.2-1.5 3.3-2.7 3.6-4 .3-1.3-.3-2.8-1.9-5 2.5.9 4.1 1.2 5.4.7C7.6 3.9 8.5 2.6 9.5 0Z"/>
+                </svg>
+              </button>
+              <button class="press__dot" id="press-tab-3" type="button" role="tab" aria-selected="false"
+                      tabindex="-1" aria-controls="press-panel-3" data-slide-color="var(--slide-4)">
+                <span class="sr-only">The Infatuation</span>
+                <svg viewBox="0 0 19 19" aria-hidden="true" focusable="false">
+                  <path d="M9.5 0c1 2.6 1.9 3.9 3.2 4.4 1.3.5 2.9.2 5.4-.7-1.6 2.2-2.2 3.7-1.9 5 .3 1.3 1.4 2.5 3.6 4-2.7.2-4.2.7-5 1.8-.8 1.1-.9 2.7-.6 5.5-1.8-2-3.1-3-4.7-3s-2.9 1-4.7 3c.3-2.8.2-4.4-.6-5.5-.8-1.1-2.3-1.6-5-1.8 2.2-1.5 3.3-2.7 3.6-4 .3-1.3-.3-2.8-1.9-5 2.5.9 4.1 1.2 5.4.7C7.6 3.9 8.5 2.6 9.5 0Z"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <figure class="press__media">
+            <img
+              src="https://picsum.photos/seed/caphe-press/900/1000"
+              alt="Barista handing a glass of iced Vietnamese coffee across the counter"
+              width="900"
+              height="1000"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+        </section>
+      </div>
+
+      <!-- 7 — Zickzack-Scroller mit Fortschrittsanzeige -->
+      <section id="scroller" aria-labelledby="scroller-h" style="padding-block: var(--pad-y)">
+        <div class="scroller-head">
+          <div>
+            <p class="type-eyebrow-mono">Fig. 02 — sourcing</p>
+            <h2 class="type-h2" id="scroller-h" style="margin-top: 12px">From farm to filter</h2>
+          </div>
+          <p class="type-eyebrow" aria-hidden="true">Scroll →</p>
+        </div>
+
+        <div
+          class="scroller"
+          data-scroller
+          tabindex="0"
+          role="group"
+          aria-label="Sourcing steps, horizontally scrollable"
+        >
+          <article class="scroller__card">
+            <figure class="scroller__figure">
+              <img src="https://picsum.photos/seed/caphe-s1/766/836" alt="Coffee cherries drying on raised beds in Lâm Đồng"
+                   width="766" height="836" loading="lazy" decoding="async" />
+            </figure>
+            <div class="scroller__text">
+              <p class="type-script" aria-hidden="true">01</p>
+              <p class="type-body-sm">Lâm Đồng, Vietnam — cherries dried on raised beds by the families we buy from directly, harvest after harvest.</p>
+              <a class="wavy type-eyebrow" href="#scroller-h">Meet the growers</a>
+            </div>
+          </article>
+
+          <article class="scroller__card">
+            <figure class="scroller__figure chamfered">
+              <img src="https://picsum.photos/seed/caphe-s2/766/836" alt="Green beans being weighed before roasting"
+                   width="766" height="836" loading="lazy" decoding="async" />
+            </figure>
+            <div class="scroller__text">
+              <p class="type-script" aria-hidden="true">02</p>
+              <p class="type-body-sm">Kensington, Philadelphia — 12 kg batches, one roaster, profiles written by hand and kept for years.</p>
+              <a class="wavy type-eyebrow" href="#scroller-h">See the roastery</a>
+            </div>
+          </article>
+
+          <article class="scroller__card">
+            <figure class="scroller__figure">
+              <img src="https://picsum.photos/seed/caphe-s3/766/836" alt="Phin filter brewing over a glass of condensed milk"
+                   width="766" height="836" loading="lazy" decoding="async" />
+            </figure>
+            <div class="scroller__text">
+              <p class="type-script" aria-hidden="true">03</p>
+              <p class="type-body-sm">The phin — four minutes, no paper, no plastic. The slowest thing in the shop and the reason people wait.</p>
+              <a class="wavy type-eyebrow" href="#scroller-h">How to brew</a>
+            </div>
+          </article>
+
+          <article class="scroller__card">
+            <figure class="scroller__figure chamfered">
+              <img src="https://picsum.photos/seed/caphe-s4/766/836" alt="Bags of roasted coffee on a café table"
+                   width="766" height="836" loading="lazy" decoding="async" />
+            </figure>
+            <div class="scroller__text">
+              <p class="type-script" aria-hidden="true">04</p>
+              <p class="type-body-sm">Shipped Monday, roasted Sunday. Every bag carries the harvest date, not a best-before guess.</p>
+              <a class="wavy type-eyebrow" href="#cta">Shop the beans</a>
+            </div>
+          </article>
+        </div>
+
+        <div
+          class="scroller-progress"
+          role="progressbar"
+          aria-label="Sourcing steps scroll progress"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="0"
+          data-scroller-progress
+        >
+          <div class="scroller-progress__fill" data-scroller-fill></div>
+        </div>
+      </section>
+
+      <!-- 8 — Wellenkante Cream → Pink -->
+      <div class="wave-edge wave-edge--seam wave-edge--pink" data-wave-edge aria-hidden="true"></div>
+
+      <!-- 9 — CTA -->
+      <section class="section cta" id="cta" aria-labelledby="cta-h">
+        <div class="wrap cta__inner" data-reveal>
+          <h2 class="type-h2" id="cta-h">Experience our coffee</h2>
+          <p class="type-body" style="max-width: 46ch">
+            Three roasts, one origin. Start with the espresso blend or let us pick — the subscription
+            ships whatever came out of the drum best that week.
+          </p>
+          <div class="cta__buttons">
+            <a class="btn btn--primary" href="#cta-h">Shop coffee</a>
+            <a class="btn btn--outline" href="#cta-h">Find a café</a>
+          </div>
+          <a class="wavy type-eyebrow" href="#footer">Wholesale &amp; stockists</a>
+        </div>
+      </section>
+    </main>
+
+    <!-- 10 — Wellenkante Pink → Rot -->
+    <div class="wave-edge wave-edge--seam wave-edge--red" data-wave-edge aria-hidden="true"></div>
+
+    <!-- 11 — Footer -->
+    <footer class="footer" id="footer">
+      <h2 class="sr-only">Footer</h2>
+      <div class="footer__grid">
+        <div class="footer__col">
+          <p class="type-eyebrow-mono">Newsletter</p>
+          <form class="newsletter" data-newsletter novalidate>
+            <div class="newsletter__field wavy wavy--always wavy--block">
+              <label class="sr-only" for="nl-email">E-mail address</label>
+              <input id="nl-email" name="email" type="email" placeholder="Your e-mail" autocomplete="email" required />
+            </div>
+            <button class="btn btn--outline btn--outline-light" type="submit">Sign up</button>
+            <p class="type-body-sm newsletter__status" role="status" aria-live="polite" data-newsletter-status></p>
+          </form>
+        </div>
+
+        <div class="footer__col">
+          <p class="type-eyebrow-mono">Visit</p>
+          <p class="type-h4">Kensington, Philadelphia</p>
+          <p class="type-body-sm">1600 Frankford Ave<br />Philadelphia, PA 19125</p>
+          <p class="type-body-sm">Mon–Fri 7–16<br />Sat–Sun 8–17</p>
+        </div>
+
+        <nav class="footer__col" aria-label="Shop">
+          <p class="type-eyebrow-mono">Shop</p>
+          <a class="wavy type-eyebrow" href="#cta">Whole bean</a>
+          <a class="wavy type-eyebrow" href="#cta">Ground</a>
+          <a class="wavy type-eyebrow" href="#cta">Subscriptions</a>
+          <a class="wavy type-eyebrow" href="#cta">Gift cards</a>
+        </nav>
+
+        <nav class="footer__col" aria-label="Company">
+          <p class="type-eyebrow-mono">Company</p>
+          <a class="wavy type-eyebrow" href="#intro">Our story</a>
+          <a class="wavy type-eyebrow" href="#scroller">Sourcing</a>
+          <a class="wavy type-eyebrow" href="#lab">Wholesale</a>
+          <a class="wavy type-eyebrow" href="#top">Contact</a>
+        </nav>
+      </div>
+
+      <!-- Wortmarke über die volle Breite: textLength+lengthAdjust statt
+           Font-Size-Rechnerei. aria-hidden, der Name steht im <h1>. -->
+      <svg class="footer__mark" viewBox="0 0 1000 120" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet">
+        <text x="0" y="104" textLength="1000" lengthAdjust="spacingAndGlyphs" font-size="128">CÀPHÊ ROASTERS</text>
+      </svg>
+    </footer>
+
+  </body>
+</html>
