@@ -8,20 +8,27 @@
     <script>
       document.documentElement.classList.add('js')
     </script>
-    <script type="module" crossorigin src="./assets/raum-DNjyCXNF.js"></script>
+    <script type="module" crossorigin src="./assets/raum-D9HaKJCr.js"></script>
     <link rel="modulepreload" crossorigin href="./assets/modulepreload-polyfill-B5Qt9EMX.js">
-    <link rel="stylesheet" crossorigin href="./assets/raum-BtQUqy-k.css">
+    <link rel="stylesheet" crossorigin href="./assets/raum-KEnIcDNH.css">
   </head>
 
   <body class="raum">
     <header class="vk">
       <p class="vk__marke">Blackscreen &mdash; Layout ab 1.400&nbsp;px</p>
       <h1 class="vk__titel">Der Raum rechts</h1>
+      <p class="vk__hinweis">
+        <strong>Entschieden am 12.08.2026: Variante A.</strong> Sie ist im PoC eingebaut &mdash;
+        diese Seite bleibt als Herleitung stehen, damit die Zahlen nachvollziehbar sind.
+        Die zweite Idee (drei Zonen mit Filmstreifen in der rechten Spalte) wurde
+        <strong>verworfen</strong>.
+      </p>
 
       <p class="vk__text">
-        Gemessen am aktuellen Stand: der Container ist auf 1.408&nbsp;px gedeckelt und steht
-        <strong>linksb&uuml;ndig</strong>. Alles, was breiter ist, f&auml;llt als Leere auf die
-        rechte Seite &mdash; und zwar vollst&auml;ndig, statt sich zu verteilen.
+        Gemessen am Stand <strong>vor</strong> der &Auml;nderung: der Container war auf
+        1.408&nbsp;px gedeckelt und stand <strong>linksb&uuml;ndig</strong>. Alles, was breiter
+        war, fiel als Leere auf die rechte Seite &mdash; und zwar vollst&auml;ndig, statt sich zu
+        verteilen. Die Tabelle ist die Ausgangslage, nicht der heutige Zustand.
       </p>
 
       <div class="tabelle">
@@ -50,14 +57,13 @@
     <div class="schalter" role="group" aria-label="Layout-Modus">
       <button type="button" data-modus="ist" aria-pressed="true">Ist-Zustand</button>
       <button type="button" data-modus="a" aria-pressed="false">A &middot; zentriert + mitwachsend</button>
-      <button type="button" data-modus="b" aria-pressed="false">B &middot; drei Zonen mit Filmstreifen</button>
     </div>
 
     <div class="erklaerung">
       <p data-fuer="ist">
-        <strong>Ist-Zustand.</strong> `max-width: 1408px` ohne `margin-inline: auto`. Der
-        Container klebt links, die gesamte &Uuml;berbreite sammelt sich rechts. Das ist der
-        Zustand auf deinem Screenshot.
+        <strong>Ist-Zustand</strong> &mdash; genauer: der Stand vor der &Auml;nderung.
+        `max-width: 1408px` ohne `margin-inline: auto`. Der Container klebt links, die gesamte
+        &Uuml;berbreite sammelt sich rechts. Das ist der Zustand auf deinem Screenshot.
       </p>
       <p data-fuer="a" hidden>
         <strong>A &mdash; zentriert und mitwachsend.</strong> Zwei &Auml;nderungen, zusammen
@@ -65,14 +71,6 @@
         60&nbsp;% der &Uuml;berbreite mit, gedeckelt bei 2.100&nbsp;px. Die Leere wird zum
         <em>Rahmen</em> statt zum Rest. <strong>Gilt f&uuml;r alle Sektionen</strong> &mdash;
         auch die schmalen nach dem horizontalen Teil.
-      </p>
-      <p data-fuer="b" hidden>
-        <strong>B &mdash; drei Zonen.</strong> Deine Beobachtung „das sind ja fast drei
-        Spalten&ldquo;, zu Ende gedacht: ab 1.600&nbsp;px spannt der Hero &uuml;ber die volle
-        Breite, und die dritte Zone tr&auml;gt die Arbeit als <strong>Filmstreifen</strong>.
-        Ruhezustand schmal, beim &Uuml;berfahren weitet sich einer und das Bild wird lesbar.
-        Jeder Streifen ist ein Link auf sein Projekt &mdash; aus Deko wird Navigation.
-        <em>Fahr mit der Maus dr&uuml;ber oder tabbe durch.</em>
       </p>
     </div>
 
@@ -97,29 +95,6 @@
           </p>
         </div>
 
-        <!-- Dritte Zone: nur in Modus B sichtbar -->
-        <div class="streifen" aria-label="Die Arbeit &mdash; f&uuml;nf Projekte">
-          <a class="streifen__s" href="#p-intune">
-            <img src="./assets/s1-DEbxUNlo.webp" alt="" aria-hidden="true" />
-            <span class="streifen__label"><em>01</em> Intune</span>
-          </a>
-          <a class="streifen__s" href="#p-cis">
-            <img src="./assets/s2-BHeFUvbM.webp" alt="" aria-hidden="true" />
-            <span class="streifen__label"><em>02</em> CIS Forschungsinstitut</span>
-          </a>
-          <a class="streifen__s" href="#p-nordsachsen">
-            <img src="./assets/s3-D8F1npPu.webp" alt="" aria-hidden="true" />
-            <span class="streifen__label"><em>03</em> Wirtschaftspreis Nordsachsen</span>
-          </a>
-          <a class="streifen__s" href="#p-monumedia">
-            <img src="./assets/s4-CHMa09Uc.webp" alt="" aria-hidden="true" />
-            <span class="streifen__label"><em>04</em> Saalfelder Museumsfilme</span>
-          </a>
-          <a class="streifen__s" href="#p-kinderseele">
-            <img src="./assets/s5-CO38_cU7.webp" alt="" aria-hidden="true" />
-            <span class="streifen__label"><em>05</em> Stiftung Kinderseele</span>
-          </a>
-        </div>
       </section>
 
       <!-- Eine der „schmalen" Sektionen nach dem horizontalen Teil -->
@@ -145,29 +120,21 @@
     </div>
 
     <footer class="vk vk--fuss">
-      <h2 class="vk__titel vk__titel--klein">Was ich empfehle</h2>
+      <h2 class="vk__titel vk__titel--klein">Was A macht</h2>
       <p class="vk__text">
-        <strong>A ist Pflicht, unabh&auml;ngig von allem anderen.</strong> Vier Zeilen CSS, kein
-        neuer Inhalt, kein Byte JavaScript &mdash; und sie behebt genau das, was dich
-        gest&ouml;rt hat, in <em>jeder</em> Sektion. Ohne sie bleibt jede weitere Idee eine
-        Dekoration an einem schiefen Fundament.
+        Zwei &Auml;nderungen, zusammen vier Zeilen: <code>margin-inline: auto</code> auf der
+        Sektion, und <code>--container</code> w&auml;chst ab 1.520&nbsp;px mit 60&nbsp;% der
+        &Uuml;berbreite mit, gedeckelt bei 2.100&nbsp;px.
       </p>
       <p class="vk__text">
-        <strong>B obendrauf, aber nur im Hero.</strong> Die Streifen sind das einzige Element,
-        das die dritte Zone <em>verdient</em> &mdash; sie tragen Inhalt und f&uuml;hren
-        irgendwohin. In den sp&auml;teren Sektionen w&auml;ren sie Ger&auml;usch; dort reicht A.
-      </p>
-      <p class="vk__hinweis">
-        <strong>Was B kostet:</strong> die f&uuml;nf Streifenbilder wiegen zusammen 73&nbsp;KB.
-        Sie liegen unterhalb der Aufmerksamkeit und geh&ouml;ren in der Live-Fassung
-        <code>loading="lazy"</code> bekommen. Die Motive hier sind
-        <strong>Platzhalter aus dem alten Portfolio</strong> &mdash; vier der f&uuml;nf Projekte
-        will Robert gar nicht mehr zeigen. Mit seinem Material werden es die echten f&uuml;nf.
+        <strong>Warum nicht 100&nbsp;%:</strong> dann w&uuml;chse der Lesetext ungebremst mit und
+        die Zeilen w&uuml;rden unlesbar lang. <strong>Warum nicht gar nicht:</strong> dann bliebe
+        auf einem 27-Zoll-Schirm eine schmale Insel in viel Nichts. 60&nbsp;% h&auml;lt beides
+        auseinander.
       </p>
       <p class="vk__text vk__text--eng">
-        Nicht empfohlen: die Streifen auf zehn erh&ouml;hen. Bei f&uuml;nf Projekten ist ein
-        Streifen ein Projekt und damit ein Ziel; bei zehn wird daraus ein Kontaktabzug, der
-        h&uuml;bsch aussieht und nirgendwo hinf&uuml;hrt.
+        Kein neuer Inhalt, kein Byte JavaScript &mdash; und es gilt f&uuml;r <em>alle</em>
+        Sektionen, auch die schmalen nach dem horizontalen Teil.
       </p>
     </footer>
 

@@ -276,9 +276,9 @@
       "title": "Blackscreen — Moduswechsel",
       "stage": "PoC Kundenprojekt",
       "effort": "mid",
-      "desc": "Moduswechsel Papier (#F5F4F3) <-> Projektion (#000): scroll-gebundene Schwarzblende aus zwei translate3d-Balken faehrt von aussen zur Mitte, haelt als Standbild und oeffnet auf die horizontale Werk-Sektion (position:sticky + eigene Timeline mit Standzeiten, kein GSAP/Lenis). Papier-Sektionen im asymmetrischen 7:5-Grid, vertikal zentriert. Die Seite hat eine Gesamtlaufzeit 00:15:00:00 — der Scroll-Fortschritt ist die Position im Film, alle Timecodes sind daraus berechnet. Invertierende Chrome per mix-blend-mode ohne JS-State. Gemessen: 17 ms Nachlauf gegen 383 ms mit lerp-Glaettung, 2,8 KB JS gzip, 62/62 A11y-Gates.",
+      "desc": "Moduswechsel Papier (#F5F4F3) <-> Projektion (#000): scroll-gebundene Schwarzblende aus zwei translate3d-Balken faehrt von aussen zur Mitte, haelt als Standbild und oeffnet auf die horizontale Werk-Sektion (position:sticky + eigene Timeline mit Standzeiten, kein GSAP/Lenis). Der Eintritt: ein vollflaechiges Standbild wird ueber 3,4 s weggenommen — ueberall ausser in den Buchstaben der Headline (background-clip:text mit nachgerechnetem cover-Ausschnitt) — und loest sich zuletzt auch dort in Schwarz auf. Papier-Sektionen im asymmetrischen 7:5-Grid, vertikal zentriert; der Container ist zentriert und waechst ab 1.520px mit 60 % der Ueberbreite mit (gedeckelt 2.100px), damit auf 27 Zoll ein Rahmen entsteht statt 47 % Leere rechts. Die Seite hat eine Gesamtlaufzeit 00:15:00:00 — der Scroll-Fortschritt ist die Position im Film, alle Timecodes sind daraus berechnet. Invertierende Chrome per mix-blend-mode ohne JS-State. Gemessen: 17 ms Nachlauf gegen 383 ms mit lerp-Glaettung, 2,7 KB JS gzip, 103 harte Gates. Herleitungen bleiben stehen: /varianten.html (drei Hero-Animationen), /raum.html (Layout ab 1.400px).",
       "nightly": true,
-      "built": "2026-08-11"
+      "built": "2026-08-12"
     }
   ]
 }
