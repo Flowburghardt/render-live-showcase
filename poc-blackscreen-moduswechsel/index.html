@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blackscreen &mdash; Moduswechsel Papier &harr; Projektion (PoC)</title>
+    <meta
+      name="description"
+      content="Proof of Concept fuer die Blackscreen-Designsprache: Moduswechsel Papier zu Projektion ueber eine scroll-gebundene Schwarzblende, horizontale Werk-Sektion auf position:sticky ohne GSAP/Lenis, invertierende Chrome ohne JS-State."
+    />
+    <meta name="robots" content="noindex,nofollow" />
+
+    <!--
+      Synchroner Klassen-Schalter, ~60 Bytes. Er ist die ganze Progressive-
+      Enhancement-Mechanik: OHNE ihn (JS aus) bleibt die Seite im vertikalen
+      Stapel mit allen Endzustaenden sichtbar. Es wird NIE etwas versteckt und
+      per JS wieder aufgedeckt — genau daran ist die Referenz ohne JS leer.
+    -->
+    <script>
+      document.documentElement.classList.add('js')
+    </script>
+
+    <!--
+      CSS als <link>, nicht als import aus main.ts: sonst haengt das gesamte
+      Erscheinungsbild am JavaScript, und "ohne JS lesbar" waere nur behauptet.
+    -->
+    <script type="module" crossorigin src="./assets/index-8KdN-UMY.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DqbTDrYa.css">
+  </head>
+
+  <body>
+    <a class="skip-link" href="#werk">Direkt zur Arbeit</a>
+
+    <!-- ==================================================================
+         Chrome — fix, invertierend, ohne JS und ohne State lesbar.
+         mix-blend-mode:difference + filter:invert(100%) auf --ink ergibt
+         ueber Papier fast-Schwarz und ueber Projektion Weiss.
+         ================================================================== -->
+    <div class="chrome chrome--wordmark" aria-hidden="true">BLACKSCREEN</div>
+    <div class="chrome chrome--chapter" aria-hidden="true">
+      <span id="kapitel-nr">(01)</span>
+      <span id="kapitel-tc">00:00:30:00</span>
+    </div>
+
+    <!-- Rand-Typografie — Ornament, kein Inhalt -->
+    <div class="brand-edge brand-edge--l" aria-hidden="true">BLACKSCREEN FILM</div>
+    <div class="brand-edge brand-edge--r" aria-hidden="true">ROBERT SCHWARZ</div>
+
+    <!-- Schwarzblende — zwei Balken von aussen zur Mitte, scroll-gebunden -->
+    <div class="blende" aria-hidden="true">
+      <div class="blende__bar blende__bar--top"></div>
+      <div class="blende__bar blende__bar--bot"></div>
+    </div>
+
+    <main>
+      <!-- ============================ (01) PAPIER ==================== -->
+      <section class="sektion sektion--papier hero" id="eintritt" data-kapitel="01" data-tc="00:00:30:00">
+        <p class="marke">(01) &mdash; 00:00:30:00 &middot; DIE THESE</p>
+
+        <h1 class="t-mega">
+          <span class="belichtung">Imagefilm</span><br />
+          <span class="belichtung belichtung--2">ist tot.</span>
+        </h1>
+
+        <p class="t-lead h--col2">
+          Kommunikationsstrategien m&uuml;ssen genau da ansetzen: lange echte Inhalte f&uuml;r die
+          Identifikation, Bewerbung durch extrem kurzen Content f&uuml;r die Aufmerksamkeit.
+        </p>
+
+        <p class="t-body h--col2">
+          Medienkonsum ist polarisiert in sehr kurze Snips auf Socialmedia und Co, den wir gewohnt
+          sind als kurzen Brainrot in unseren Zwischenzeiten zu konsumieren &mdash; und sehr langen
+          Inhalten wie Podcasts, Dokumentationen, Filmen und Serien, von denen wir wollen, dass sie
+          mehr beleuchten und echte Zusammenh&auml;nge pr&auml;sentieren.
+        </p>
+      </section>
+
+      <!-- ============================ (02) PAPIER ==================== -->
+      <section class="sektion sektion--papier" id="kontinuitaet" data-kapitel="02" data-tc="00:02:14:00">
+        <p class="marke">(02) &mdash; 00:02:14:00 &middot; KONTINUIT&Auml;T SCHL&Auml;GT AUFWAND</p>
+
+        <h2 class="t-section h--col2">
+          Kontinuit&auml;t<br />statt Aufwand
+        </h2>
+
+        <p class="t-body h--col2">
+          Kommunikation hat sich ver&auml;ndert von sehr aufw&auml;ndig und teuer als
+          Qualit&auml;tsmerkmal zu Kontinuit&auml;t als wichtigstem Baustein. Das gilt es
+          grunds&auml;tzlich als strategischen Bestandteil zu beachten.
+        </p>
+
+        <p class="t-body h--col2">
+          KI-Videos sind dann gut, wenn die Erz&auml;hlung funktioniert. Die Erz&auml;hlung
+          funktioniert durch eine inhaltliche Auseinandersetzung mit Ihnen, Ihrem Unternehmen oder
+          Anliegen.
+        </p>
+      </section>
+
+      <!-- ▓▓▓ SCHWARZBLENDE — Papier wird Projektion ▓▓▓
+           Die Zone ist genau eine Viewport-Hoehe hoch und traegt die Modus-Kante
+           selbst (harte 50/50-Kante Papier|Tinte). Wenn die Blende laeuft, ist
+           die Kante im Moment ihres Durchlaufs vollstaendig von Schwarz gedeckt.
+           Ohne JS / reduced-motion / mobil kollabiert die Zone auf 0 — dann ist
+           genau diese Kante der Schnitt. -->
+      <div class="blende-zone blende-zone--ab" data-blende="ab" aria-hidden="true"></div>
+
+      <!-- ============================ (03) PROJEKTION ================ -->
+      <section class="sektion sektion--projektion werk" id="werk" data-kapitel="03" data-tc="00:04:00:00">
+        <div class="werk__pin">
+          <p class="marke marke--pin">(03) &mdash; 00:04:00:00 &middot; DAS WERK</p>
+
+          <ol class="werk__track">
+            <li class="panel" id="p-intune">
+              <p class="panel__tc">00:04:00:00</p>
+              <div class="panel__still panel__still--1" aria-hidden="true"></div>
+              <div class="panel__text">
+                <h3 class="t-sub">Intune</h3>
+                <p class="panel__meta">Trailer &middot; 01:30</p>
+                <p class="t-body">
+                  Der Aufmacher. Ein Trailer, der die Haltung vor der Arbeit zeigt &mdash; und nicht
+                  umgekehrt.
+                </p>
+                <a class="panel__link" href="#p-intune">Projekt ansehen</a>
+              </div>
+            </li>
+
+            <li class="panel" id="p-cis">
+              <p class="panel__tc">00:05:12:00</p>
+              <div class="panel__still panel__still--2" aria-hidden="true"></div>
+              <div class="panel__text">
+                <h3 class="t-sub">CIS Forschungsinstitut</h3>
+                <p class="panel__meta">2 Filme</p>
+                <p class="t-body">
+                  Forschung erkl&auml;rt sich nicht von selbst. Zwei Filme, die die Fragen stellen,
+                  bevor sie Antworten zeigen.
+                </p>
+                <a class="panel__link" href="#p-cis">Projekt ansehen</a>
+              </div>
+            </li>
+
+            <li class="panel" id="p-nordsachsen">
+              <p class="panel__tc">00:06:48:00</p>
+              <div class="panel__still panel__still--3" aria-hidden="true"></div>
+              <div class="panel__text">
+                <h3 class="t-sub">Wirtschaftspreis<br />Nordsachsen</h3>
+                <p class="panel__meta">3 Filme</p>
+                <p class="t-body">
+                  Drei Filme statt eines Films: der Beweis, dass hier Kampagnen begleitet werden und
+                  nicht Einzelst&uuml;cke entstehen.
+                </p>
+                <a class="panel__link" href="#p-nordsachsen">Projekt ansehen</a>
+              </div>
+            </li>
+
+            <li class="panel" id="p-monumedia">
+              <p class="panel__tc">00:08:40:00</p>
+              <div class="panel__still panel__still--4" aria-hidden="true"></div>
+              <div class="panel__text">
+                <h3 class="t-sub">Saalfelder<br />Museumsfilme</h3>
+                <p class="panel__meta">Monumedia &middot; 3 Hauptfilme &middot; 6 Kurzformate 9:16</p>
+                <p class="t-body">
+                  Lange Form f&uuml;r die Identifikation, kurze Form f&uuml;r die Aufmerksamkeit
+                  &mdash; dasselbe Projekt, zwei Rezeptionsl&auml;ngen.
+                </p>
+                <a class="panel__link" href="#p-monumedia">Projekt ansehen</a>
+              </div>
+            </li>
+
+            <li class="panel" id="p-kinderseele">
+              <p class="panel__tc">00:10:26:00</p>
+              <div class="panel__still panel__still--5" aria-hidden="true"></div>
+              <div class="panel__text">
+                <h3 class="t-sub">Stiftung Kinderseele</h3>
+                <p class="panel__meta">Visionfilm &middot; Umfang offen</p>
+                <p class="t-body">
+                  Das einzige Projekt aus dem alten Bestand, das mitkommt. Es tr&auml;gt, weil die
+                  Erz&auml;hlung tr&auml;gt.
+                </p>
+                <a class="panel__link" href="#p-kinderseele">Projekt ansehen</a>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ▓▓▓ SCHWARZBLENDE — Projektion wird Papier ▓▓▓ -->
+      <div class="blende-zone blende-zone--auf" data-blende="auf" aria-hidden="true"></div>
+
+      <!-- ============================ (04) PAPIER ==================== -->
+      <section class="sektion sektion--papier" id="ueber" data-kapitel="04" data-tc="00:11:59:23">
+        <p class="marke">(04) &mdash; 00:11:59:23 &middot; &Uuml;BER MICH</p>
+
+        <h2 class="t-section">
+          Selbsternanntes<br />schweizer<br />Taschenmesser
+        </h2>
+
+        <p class="t-body h--col2">
+          Ich bin Robert Schwarz &mdash; Gr&uuml;nder von Blackscreen, freiberuflicher Filmemacher.
+          Ich nenne einen Lebensweg mit vielen Umwegen mein Eigen, der mich dazu brachte viele
+          unterschiedliche Interessen und F&auml;higkeiten zusammenzubringen und Synergie als
+          gr&ouml;&szlig;tes Toolset zu nutzen, um echte Inhalte zu erschlie&szlig;en.
+        </p>
+
+        <p class="t-body h--col2">
+          Meine Kunden lieben an mir, dass ich die Fragen stelle, die n&ouml;tig sind um genau das zu
+          kommunizieren, was sie wollen.
+        </p>
+      </section>
+
+      <!-- ============================ (05) PAPIER ==================== -->
+      <section class="sektion sektion--papier" id="leistungen" data-kapitel="05" data-tc="00:13:20:00">
+        <p class="marke">(05) &mdash; 00:13:20:00 &middot; LEISTUNGEN</p>
+
+        <ul class="leistungen">
+          <li class="leistung"><span class="leistung__nr">01</span> Strategie vor Produktion</li>
+          <li class="leistung"><span class="leistung__nr">02</span> Lange Form &mdash; Doku, Portr&auml;t, Kampagne</li>
+          <li class="leistung"><span class="leistung__nr">03</span> Kurze Form f&uuml;r die Aufmerksamkeit</li>
+          <li class="leistung"><span class="leistung__nr">04</span> KI-Video, wenn die Erz&auml;hlung tr&auml;gt</li>
+        </ul>
+      </section>
+
+      <!-- ============================ (06) PAPIER ==================== -->
+      <section class="sektion sektion--papier kontakt" id="kontakt" data-kapitel="06" data-tc="00:14:44:00">
+        <p class="marke">(06) &mdash; 00:14:44:00 &middot; KONTAKT</p>
+
+        <h2 class="t-section">
+          Jetzt, da alle<br />Klarheiten<br />beseitigt sind
+        </h2>
+
+        <p class="t-lead h--col2">&mdash; schreiben Sie mir am besten eine Nachricht.</p>
+
+        <p class="t-body h--col2">
+          <a class="mail" href="mailto:info@blackscreen-film.de">info@blackscreen-film.de</a>
+        </p>
+      </section>
+    </main>
+
+    <footer class="fussnote">
+      <p>
+        Proof of Concept &mdash; Moduswechsel Papier &harr; Projektion. Schriften sind freie
+        Stand-ins (Inter&nbsp;Tight f&uuml;r Suisse&nbsp;Intl, Fraunces&nbsp;Italic f&uuml;r
+        Instrument&nbsp;Serif, DM&nbsp;Mono f&uuml;r JetBrains&nbsp;Mono). Texte aus Roberts
+        Formular-Antworten vom 10.08.2026.
+      </p>
+    </footer>
+
+  </body>
+</html>
