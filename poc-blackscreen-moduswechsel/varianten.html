@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blackscreen &mdash; Hero-Animation, drei Varianten</title>
+    <meta name="robots" content="noindex,nofollow" />
+    <script>
+      document.documentElement.classList.add('js')
+    </script>
+    <script type="module" crossorigin src="./assets/varianten-BR7jlg1Z.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/modulepreload-polyfill-B5Qt9EMX.js">
+    <link rel="stylesheet" crossorigin href="./assets/varianten-CnT3AzId.css">
+  </head>
+
+  <body class="varianten">
+    <header class="vk">
+      <p class="vk__marke">Blackscreen &mdash; Hero-Animation</p>
+      <h1 class="vk__titel">Drei Varianten</h1>
+      <p class="vk__text">
+        Alle drei laufen auf demselben Hero, denselben Tokens und derselben Type-Skala wie der
+        PoC. Jede l&auml;sst sich beliebig oft neu ausl&ouml;sen. Unter
+        <code>prefers-reduced-motion</code> zeigen alle drei sofort den Endzustand.
+      </p>
+      <p class="vk__text vk__text--eng">
+        Zum Vergleich, was der Effekt von <em>fluid-ink-reveal</em> kostet, auf den du gezeigt
+        hast: <strong>106.678 Bytes JavaScript</strong> plus ein dauerhaft laufender
+        WebGL2-Kontext mit Ping-Pong-Framebuffern. Die drei hier liegen zwischen
+        <strong>0 und 1.200&nbsp;Bytes</strong>.
+      </p>
+      <p class="vk__hinweis">
+        Das Standbild stammt aus <strong>Visionfilm / Stiftung Kinderseele</strong> &mdash; dem
+        einzigen Altprojekt, das Robert behalten will. Es zeigt eine erkennbare Person:
+        <strong>vor einer Live-Nutzung Rechte und Freigabe kl&auml;ren</strong>
+        (<code>rechteGeprueft</code>, <code>kundeNennenErlaubt</code>).
+      </p>
+    </header>
+
+    <!-- ================================================== VARIANTE 1 ===== -->
+    <section class="variante" id="v1">
+      <div class="variante__kopf">
+        <p class="variante__nr">Variante 01</p>
+        <h2 class="variante__titel">Der Film kollabiert in den Satz</h2>
+        <p class="variante__these">
+          Die Seite &ouml;ffnet mit genau dem, was jedes Imagefilm-Portfolio zeigt: ein
+          sch&ouml;nes Filmbild, vollfl&auml;chig. Dann wird es weggenommen &mdash;
+          <em>&uuml;berall au&szlig;er in den Buchstaben</em>. Was bleibt, ist Papier und ein
+          Satz, in dem der Film noch steckt; auch der l&ouml;st sich zuletzt in reines Schwarz
+          auf.
+          <strong>Die Animation f&uuml;hrt die These vor, statt sie zu dekorieren.</strong>
+        </p>
+        <button class="variante__knopf" type="button" data-ziel="v1">Abspielen</button>
+      </div>
+
+      <div class="buehne v1">
+        <img
+          class="v1__still"
+          src="./assets/kinderseele-1920-BzvHoJ-I.webp"
+          srcset="./assets/kinderseele-1280-DnzssIMk.webp 1280w, ./assets/kinderseele-1920-BzvHoJ-I.webp 1920w"
+          sizes="100vw"
+          alt=""
+          aria-hidden="true"
+        />
+        <div class="buehne__raster">
+          <p class="marke">
+            <span class="marke__nr">(01)</span><span class="marke__label">Die These</span>
+          </p>
+          <h3 class="t-mega v1__typo"><span>Imagefilm</span><br /><span>ist tot.</span></h3>
+          <p class="t-lead">
+            Kommunikationsstrategien m&uuml;ssen genau da ansetzen: lange echte Inhalte f&uuml;r
+            die Identifikation.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================== VARIANTE 2 ===== -->
+    <section class="variante" id="v2">
+      <div class="variante__kopf">
+        <p class="variante__nr">Variante 02</p>
+        <h2 class="variante__titel">Projektor-Anlauf</h2>
+        <p class="variante__these">
+          Kein Bild, kein &Uuml;berblenden. Die Schrift <em>schneidet</em> sich ins Bild &mdash;
+          sieben harte Zust&auml;nde mit <code>steps(1)</code>, dazu ein Bildstands-Zittern von
+          wenigen Pixeln, das sich einpendelt. Das ist der Moment, in dem ein Projektor
+          anl&auml;uft und das Bild einrastet. N&uuml;chtern, filmisch, <strong>null Bytes
+          JavaScript und kein einziges Pixel Bildmaterial</strong>.
+        </p>
+        <button class="variante__knopf" type="button" data-ziel="v2">Abspielen</button>
+      </div>
+
+      <div class="buehne buehne--papier v2">
+        <div class="buehne__raster">
+          <p class="marke">
+            <span class="marke__nr">(01)</span><span class="marke__label">Die These</span>
+          </p>
+          <h3 class="t-mega"><span class="zeile">Imagefilm</span><br /><span class="zeile">ist tot.</span></h3>
+          <p class="t-lead">
+            Kommunikationsstrategien m&uuml;ssen genau da ansetzen: lange echte Inhalte f&uuml;r
+            die Identifikation.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================== VARIANTE 3 ===== -->
+    <section class="variante" id="v3">
+      <div class="variante__kopf">
+        <p class="variante__nr">Variante 03</p>
+        <h2 class="variante__titel">Tinte</h2>
+        <p class="variante__these">
+          Am n&auml;chsten an dem, worauf du gezeigt hast &mdash; aber ohne Fluid-Simulation.
+          Die Buchstaben laufen als Tuschekleckse an und ziehen sich in ihre Form zusammen:
+          eine SVG-Turbulenz verschiebt die Schrift, ihre St&auml;rke f&auml;hrt von 130 auf 0.
+          <strong>Der Look der Tinte als einmaliger Auftritt statt als dauerhaft mitlaufende
+          Physik.</strong>
+        </p>
+        <button class="variante__knopf" type="button" data-ziel="v3">Abspielen</button>
+      </div>
+
+      <div class="buehne buehne--papier v3">
+        <div class="buehne__raster">
+          <p class="marke">
+            <span class="marke__nr">(01)</span><span class="marke__label">Die These</span>
+          </p>
+          <h3 class="t-mega v3__typo"><span>Imagefilm</span><br /><span>ist tot.</span></h3>
+          <p class="t-lead">
+            Kommunikationsstrategien m&uuml;ssen genau da ansetzen: lange echte Inhalte f&uuml;r
+            die Identifikation.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SVG-Filter fuer Variante 3. Grosszuegige Filterregion, sonst schneidet
+         der Default (-10%/120%) die verschobenen Pixel ab. -->
+    <svg class="svg-defs" aria-hidden="true" focusable="false">
+      <filter id="tinte" x="-35%" y="-35%" width="170%" height="170%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.011 0.026" numOctaves="2" seed="7" result="rauschen" />
+        <feDisplacementMap in="SourceGraphic" in2="rauschen" scale="0" xChannelSelector="R" yChannelSelector="G">
+          <animate id="tinte-lauf" attributeName="scale" from="130" to="0" dur="1.1s" fill="freeze" begin="indefinite" calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1" values="130;0" />
+        </feDisplacementMap>
+      </filter>
+    </svg>
+
+    <footer class="vk vk--fuss">
+      <h2 class="vk__titel vk__titel--klein">Was das kostet</h2>
+      <div class="tabelle">
+        <table>
+          <thead>
+            <tr><th>Variante</th><th>JS</th><th>Bild</th><th>Laufende GPU-Last</th><th>Risiko</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>01 &middot; Kollaps</td><td>~1,2 KB</td><td>40 KB WebP</td><td>keine</td>
+              <td><code>background-clip: text</code> greift nur am Element selbst, nicht am Container &mdash; der Ausschnitt muss nachgerechnet werden</td>
+            </tr>
+            <tr>
+              <td>02 &middot; Projektor</td><td><strong>0</strong></td><td>&mdash;</td><td>keine</td>
+              <td>keins, reines CSS</td>
+            </tr>
+            <tr>
+              <td>03 &middot; Tinte</td><td>~0,6 KB</td><td>&mdash;</td><td>keine</td>
+              <td>SVG-Filter rastert gro&szlig;e Schrift neu; in Safari pr&uuml;fen</td>
+            </tr>
+            <tr class="tabelle__ref">
+              <td><em>fluid-ink-reveal</em></td><td>106,7 KB</td><td>je nach Motiv</td>
+              <td><strong>dauerhaft</strong> (WebGL2, Ping-Pong-FBO)</td>
+              <td>Robert hat Lighthouse 100 zugesagt</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="vk__text vk__text--eng">
+        Die DESIGN.md hat das Tinten-Reveal bewusst in <strong>Ausbaustufe 2</strong> gelegt,
+        mit der Begr&uuml;ndung &bdquo;Video und WebGL sind zwei GPU-Verbraucher auf derselben
+        Fl&auml;che&ldquo;. Variante 03 holt den <em>Look</em> in Stufe 1, ohne diese Entscheidung
+        umzuwerfen.
+      </p>
+    </footer>
+
+  </body>
+</html>
