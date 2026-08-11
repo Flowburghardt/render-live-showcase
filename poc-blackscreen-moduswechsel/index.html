@@ -24,8 +24,8 @@
       CSS als <link>, nicht als import aus main.ts: sonst haengt das gesamte
       Erscheinungsbild am JavaScript, und "ohne JS lesbar" waere nur behauptet.
     -->
-    <script type="module" crossorigin src="./assets/index-Cw5_jSbM.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-Dz3Y0TZJ.css">
+    <script type="module" crossorigin src="./assets/index-BbuO262x.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CO2cLuc0.css">
   </head>
 
   <body>
@@ -37,9 +37,19 @@
          ueber Papier fast-Schwarz und ueber Projektion Weiss.
          ================================================================== -->
     <div class="chrome chrome--wordmark" aria-hidden="true">BLACKSCREEN</div>
-    <div class="chrome chrome--chapter" aria-hidden="true">
-      <span id="kapitel-nr">(01)</span>
-      <span id="kapitel-tc">00:00:30:00</span>
+
+    <!-- Live-Uhr: die Position in der WELT. Kein Satz haengt an ihr — faellt
+         JS aus, fehlt nichts Inhaltliches. -->
+    <time class="chrome chrome--uhr" id="uhr" aria-hidden="true"></time>
+
+    <!-- Zeitachse: die Position im DOKUMENT, gegen eine gesetzte Gesamtlaufzeit.
+         Ohne JS bleibt der Timecode leer statt eine erfundene Zahl zu zeigen —
+         genau der Fehler, der hier behoben wurde. -->
+    <div class="achse" aria-hidden="true">
+      <div class="achse__bahn"><span class="achse__marke" id="achse-marke"></span></div>
+      <p class="achse__text">
+        <span id="kapitel-nr">(01)</span><span class="achse__tc" id="achse-tc"></span>
+      </p>
     </div>
 
     <!-- Rand-Typografie — Ornament, kein Inhalt -->
@@ -54,20 +64,20 @@
 
     <main>
       <!-- ============================ (01) PAPIER ==================== -->
-      <section class="sektion sektion--papier hero" id="eintritt" data-kapitel="01" data-tc="00:00:30:00">
-        <p class="marke">(01) &mdash; 00:00:30:00 &middot; DIE THESE</p>
+      <section class="sektion sektion--papier hero" id="eintritt" data-kapitel="01">
+        <p class="marke"><span class="marke__nr">(01)</span><span class="marke__tc"></span><span class="marke__label">Die These</span></p>
 
         <h1 class="t-mega">
           <span class="belichtung">Imagefilm</span><br />
           <span class="belichtung belichtung--2">ist tot.</span>
         </h1>
 
-        <p class="t-lead h--col2">
+        <p class="t-lead">
           Kommunikationsstrategien m&uuml;ssen genau da ansetzen: lange echte Inhalte f&uuml;r die
           Identifikation, Bewerbung durch extrem kurzen Content f&uuml;r die Aufmerksamkeit.
         </p>
 
-        <p class="t-body h--col2">
+        <p class="t-body">
           Medienkonsum ist polarisiert in sehr kurze Snips auf Socialmedia und Co, den wir gewohnt
           sind als kurzen Brainrot in unseren Zwischenzeiten zu konsumieren &mdash; und sehr langen
           Inhalten wie Podcasts, Dokumentationen, Filmen und Serien, von denen wir wollen, dass sie
@@ -76,20 +86,20 @@
       </section>
 
       <!-- ============================ (02) PAPIER ==================== -->
-      <section class="sektion sektion--papier" id="kontinuitaet" data-kapitel="02" data-tc="00:02:14:00">
-        <p class="marke">(02) &mdash; 00:02:14:00 &middot; KONTINUIT&Auml;T SCHL&Auml;GT AUFWAND</p>
+      <section class="sektion sektion--papier" id="kontinuitaet" data-kapitel="02">
+        <p class="marke"><span class="marke__nr">(02)</span><span class="marke__tc"></span><span class="marke__label">Kontinuit&auml;t schl&auml;gt Aufwand</span></p>
 
-        <h2 class="t-section h--col2">
+        <h2 class="t-section">
           Kontinuit&auml;t<br />statt Aufwand
         </h2>
 
-        <p class="t-body h--col2">
+        <p class="t-body">
           Kommunikation hat sich ver&auml;ndert von sehr aufw&auml;ndig und teuer als
           Qualit&auml;tsmerkmal zu Kontinuit&auml;t als wichtigstem Baustein. Das gilt es
           grunds&auml;tzlich als strategischen Bestandteil zu beachten.
         </p>
 
-        <p class="t-body h--col2">
+        <p class="t-body">
           KI-Videos sind dann gut, wenn die Erz&auml;hlung funktioniert. Die Erz&auml;hlung
           funktioniert durch eine inhaltliche Auseinandersetzung mit Ihnen, Ihrem Unternehmen oder
           Anliegen.
@@ -97,21 +107,21 @@
       </section>
 
       <!-- ▓▓▓ SCHWARZBLENDE — Papier wird Projektion ▓▓▓
-           Die Zone ist genau eine Viewport-Hoehe hoch und traegt die Modus-Kante
-           selbst (harte 50/50-Kante Papier|Tinte). Wenn die Blende laeuft, ist
+           Die Zone traegt die Modus-Kante selbst (harte 50/50-Kante
+           Papier|Tinte). Ihre Hoehe steht im CSS; wenn die Blende laeuft, ist
            die Kante im Moment ihres Durchlaufs vollstaendig von Schwarz gedeckt.
            Ohne JS / reduced-motion / mobil kollabiert die Zone auf 0 — dann ist
            genau diese Kante der Schnitt. -->
       <div class="blende-zone blende-zone--ab" data-blende="ab" aria-hidden="true"></div>
 
       <!-- ============================ (03) PROJEKTION ================ -->
-      <section class="sektion sektion--projektion werk" id="werk" data-kapitel="03" data-tc="00:04:00:00">
+      <section class="sektion sektion--projektion werk" id="werk" data-kapitel="03">
         <div class="werk__pin">
-          <p class="marke marke--pin">(03) &mdash; 00:04:00:00 &middot; DAS WERK</p>
+          <p class="marke marke--pin"><span class="marke__nr">(03)</span><span class="marke__tc"></span><span class="marke__label">Das Werk</span></p>
 
           <ol class="werk__track">
             <li class="panel" id="p-intune">
-              <p class="panel__tc">00:04:00:00</p>
+              <p class="panel__tc"></p>
               <div class="panel__still panel__still--1" aria-hidden="true"></div>
               <div class="panel__text">
                 <h3 class="t-sub">Intune</h3>
@@ -125,7 +135,7 @@
             </li>
 
             <li class="panel" id="p-cis">
-              <p class="panel__tc">00:05:12:00</p>
+              <p class="panel__tc"></p>
               <div class="panel__still panel__still--2" aria-hidden="true"></div>
               <div class="panel__text">
                 <h3 class="t-sub">CIS Forschungsinstitut</h3>
@@ -139,7 +149,7 @@
             </li>
 
             <li class="panel" id="p-nordsachsen">
-              <p class="panel__tc">00:06:48:00</p>
+              <p class="panel__tc"></p>
               <div class="panel__still panel__still--3" aria-hidden="true"></div>
               <div class="panel__text">
                 <h3 class="t-sub">Wirtschaftspreis<br />Nordsachsen</h3>
@@ -153,7 +163,7 @@
             </li>
 
             <li class="panel" id="p-monumedia">
-              <p class="panel__tc">00:08:40:00</p>
+              <p class="panel__tc"></p>
               <div class="panel__still panel__still--4" aria-hidden="true"></div>
               <div class="panel__text">
                 <h3 class="t-sub">Saalfelder<br />Museumsfilme</h3>
@@ -167,7 +177,7 @@
             </li>
 
             <li class="panel" id="p-kinderseele">
-              <p class="panel__tc">00:10:26:00</p>
+              <p class="panel__tc"></p>
               <div class="panel__still panel__still--5" aria-hidden="true"></div>
               <div class="panel__text">
                 <h3 class="t-sub">Stiftung Kinderseele</h3>
@@ -187,29 +197,29 @@
       <div class="blende-zone blende-zone--auf" data-blende="auf" aria-hidden="true"></div>
 
       <!-- ============================ (04) PAPIER ==================== -->
-      <section class="sektion sektion--papier" id="ueber" data-kapitel="04" data-tc="00:11:59:23">
-        <p class="marke">(04) &mdash; 00:11:59:23 &middot; &Uuml;BER MICH</p>
+      <section class="sektion sektion--papier" id="ueber" data-kapitel="04">
+        <p class="marke"><span class="marke__nr">(04)</span><span class="marke__tc"></span><span class="marke__label">&Uuml;ber mich</span></p>
 
         <h2 class="t-section">
           Selbsternanntes<br />schweizer<br />Taschenmesser
         </h2>
 
-        <p class="t-body h--col2">
+        <p class="t-body">
           Ich bin Robert Schwarz &mdash; Gr&uuml;nder von Blackscreen, freiberuflicher Filmemacher.
           Ich nenne einen Lebensweg mit vielen Umwegen mein Eigen, der mich dazu brachte viele
           unterschiedliche Interessen und F&auml;higkeiten zusammenzubringen und Synergie als
           gr&ouml;&szlig;tes Toolset zu nutzen, um echte Inhalte zu erschlie&szlig;en.
         </p>
 
-        <p class="t-body h--col2">
+        <p class="t-body">
           Meine Kunden lieben an mir, dass ich die Fragen stelle, die n&ouml;tig sind um genau das zu
           kommunizieren, was sie wollen.
         </p>
       </section>
 
       <!-- ============================ (05) PAPIER ==================== -->
-      <section class="sektion sektion--papier" id="leistungen" data-kapitel="05" data-tc="00:13:20:00">
-        <p class="marke">(05) &mdash; 00:13:20:00 &middot; LEISTUNGEN</p>
+      <section class="sektion sektion--papier" id="leistungen" data-kapitel="05">
+        <p class="marke"><span class="marke__nr">(05)</span><span class="marke__tc"></span><span class="marke__label">Leistungen</span></p>
 
         <ul class="leistungen">
           <li class="leistung"><span class="leistung__nr">01</span> Strategie vor Produktion</li>
@@ -220,16 +230,16 @@
       </section>
 
       <!-- ============================ (06) PAPIER ==================== -->
-      <section class="sektion sektion--papier kontakt" id="kontakt" data-kapitel="06" data-tc="00:14:44:00">
-        <p class="marke">(06) &mdash; 00:14:44:00 &middot; KONTAKT</p>
+      <section class="sektion sektion--papier kontakt" id="kontakt" data-kapitel="06">
+        <p class="marke"><span class="marke__nr">(06)</span><span class="marke__tc"></span><span class="marke__label">Kontakt</span></p>
 
         <h2 class="t-section">
           Jetzt, da alle<br />Klarheiten<br />beseitigt sind
         </h2>
 
-        <p class="t-lead h--col2">&mdash; schreiben Sie mir am besten eine Nachricht.</p>
+        <p class="t-lead">&mdash; schreiben Sie mir am besten eine Nachricht.</p>
 
-        <p class="t-body h--col2">
+        <p class="t-body">
           <a class="mail" href="mailto:info@blackscreen-film.de">info@blackscreen-film.de</a>
         </p>
       </section>
@@ -237,10 +247,11 @@
 
     <footer class="fussnote">
       <p>
-        Proof of Concept &mdash; Moduswechsel Papier &harr; Projektion. Schriften sind freie
-        Stand-ins (Inter&nbsp;Tight f&uuml;r Suisse&nbsp;Intl, Fraunces&nbsp;Italic f&uuml;r
-        Instrument&nbsp;Serif, DM&nbsp;Mono f&uuml;r JetBrains&nbsp;Mono). Texte aus Roberts
-        Formular-Antworten vom 10.08.2026.
+        Proof of Concept &mdash; Moduswechsel Papier &harr; Projektion.
+        Spectral&nbsp;Italic und JetBrains&nbsp;Mono (gesubsettet auf 3.440&nbsp;Bytes) sind die
+        echten Schriften; nur die Grotesk ist ein Stand-in
+        (Inter&nbsp;Tight f&uuml;r Suisse&nbsp;Intl, dessen Lizenzdateien nicht auf diesem Server
+        liegen). Texte aus Roberts Formular-Antworten vom 10.08.2026.
       </p>
     </footer>
 

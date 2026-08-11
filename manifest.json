@@ -276,7 +276,7 @@
       "title": "Blackscreen — Moduswechsel",
       "stage": "PoC Kundenprojekt",
       "effort": "mid",
-      "desc": "Moduswechsel Papier (#F5F4F3) <-> Projektion (#000): eine scroll-gebundene Schwarzblende aus zwei translate3d-Balken faehrt von aussen zur Mitte, haelt als Standbild und oeffnet auf die horizontale Werk-Sektion — position:sticky + eigene Timeline mit Standzeiten, kein GSAP/Lenis/ScrollTrigger. Die fixe Chrome invertiert per mix-blend-mode:difference ohne JS-State ueber hell wie dunkel. Gemessen: 16 ms Nachlauf gegen 383 ms bei lerp-Glaettung, 4,11 KB JS.",
+      "desc": "Moduswechsel Papier (#F5F4F3) <-> Projektion (#000): scroll-gebundene Schwarzblende aus zwei translate3d-Balken faehrt von aussen zur Mitte, haelt als Standbild und oeffnet auf die horizontale Werk-Sektion (position:sticky + eigene Timeline mit Standzeiten, kein GSAP/Lenis). Papier-Sektionen im asymmetrischen 7:5-Grid, vertikal zentriert. Die Seite hat eine Gesamtlaufzeit 00:15:00:00 — der Scroll-Fortschritt ist die Position im Film, alle Timecodes sind daraus berechnet. Invertierende Chrome per mix-blend-mode ohne JS-State. Gemessen: 17 ms Nachlauf gegen 383 ms mit lerp-Glaettung, 2,8 KB JS gzip, 62/62 A11y-Gates.",
       "nightly": true,
       "built": "2026-08-11"
     }
