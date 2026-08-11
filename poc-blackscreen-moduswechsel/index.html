@@ -24,9 +24,20 @@
       CSS als <link>, nicht als import aus main.ts: sonst haengt das gesamte
       Erscheinungsbild am JavaScript, und "ohne JS lesbar" waere nur behauptet.
     -->
-    <script type="module" crossorigin src="./assets/main-B4YpCuMk.js"></script>
-    <link rel="modulepreload" crossorigin href="./assets/modulepreload-polyfill-B5Qt9EMX.js">
-    <link rel="stylesheet" crossorigin href="./assets/main-BBRDX6fV.css">
+
+    <!-- Das Standbild ist im Hero das groesste sichtbare Element und damit der
+         LCP-Kandidat. Ohne Preload wartet es auf das CSS. -->
+    <link
+      rel="preload"
+      as="image"
+      href="./assets/kinderseele-1920-BzvHoJ-I.webp"
+      imagesrcset="./assets/kinderseele-1280-DnzssIMk.webp 1280w, ./assets/kinderseele-1920-BzvHoJ-I.webp 1920w"
+      imagesizes="100vw"
+      fetchpriority="high"
+    />
+    <script type="module" crossorigin src="./assets/main-D9v3gsjw.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/hero-bild-C11wO8uk.js">
+    <link rel="stylesheet" crossorigin href="./assets/main-Btgn0ElK.css">
   </head>
 
   <body>
@@ -66,12 +77,25 @@
     <main>
       <!-- ============================ (01) PAPIER ==================== -->
       <section class="sektion sektion--papier hero" id="eintritt" data-kapitel="01">
+        <!-- Der Eintritt: die Seite oeffnet mit genau dem, was jedes
+             Imagefilm-Portfolio zeigt — einem vollflaechigen Filmbild. Dann
+             wird es weggenommen, ueberall AUSSER in den Buchstaben. Ohne JS
+             bleibt das Bild unsichtbar und die Headline steht schwarz da. -->
+        <img
+          class="hero__still"
+          src="./assets/kinderseele-1920-BzvHoJ-I.webp"
+          srcset="./assets/kinderseele-1280-DnzssIMk.webp 1280w, ./assets/kinderseele-1920-BzvHoJ-I.webp 1920w"
+          sizes="100vw"
+          width="1920"
+          height="890"
+          fetchpriority="high"
+          alt=""
+          aria-hidden="true"
+        />
+
         <p class="marke"><span class="marke__nr">(01)</span><span class="marke__tc"></span><span class="marke__label">Die These</span></p>
 
-        <h1 class="t-mega">
-          <span class="belichtung">Imagefilm</span><br />
-          <span class="belichtung belichtung--2">ist tot.</span>
-        </h1>
+        <h1 class="t-mega hero__typo">Imagefilm<br />ist tot.</h1>
 
         <p class="t-lead">
           Kommunikationsstrategien m&uuml;ssen genau da ansetzen: lange echte Inhalte f&uuml;r die
