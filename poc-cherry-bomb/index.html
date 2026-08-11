@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wobble Club — Liquid-Blob-Button (PoC)</title>
+    <meta
+      name="description"
+      content="PoC nach Cherry-Bomb/DESIGN.md: ein Button aus 32 federgekoppelten Punkten, als quadratische Bézier-Kette gezeichnet. Ohne Shader, ohne Asset, ohne GSAP."
+    />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#FFFFFB" />
+
+    <!--
+      Progressive Enhancement fürs Reveal: Elemente starten versteckt — das
+      darf NUR passieren, wenn auch wirklich JS läuft, das sie wieder
+      einblendet. Sonst rendert die Seite (Chunk-404 im Subpfad-Deploy,
+      Syntaxfehler, JS aus) als leere Off-White-Hülle mit Löchern.
+
+      Zwei Stufen:
+      1. Die Klasse wird sofort beim Parsen gesetzt → kein Aufblitzen.
+      2. Bootet das Modul nicht (es setzt data-booted zu Beginn), wird das
+         Verstecken nach 3s zurückgenommen. Failsafe ist „sichtbar".
+    -->
+    <script>
+      document.documentElement.classList.add('js')
+      window.setTimeout(function () {
+        if (!document.documentElement.hasAttribute('data-booted')) {
+          document.documentElement.classList.remove('js')
+        }
+      }, 3000)
+    </script>
+    <script type="module" crossorigin src="./assets/index-DbNgAIT9.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-D5Sq5l-i.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- Fixed + overflow:hidden, damit der Cursor-Punkt am rechten Rand keine
+         horizontale Scrollleiste erzeugen kann. Wird nur auf Zeigergeräten
+         ohne reduce-Preference befüllt. -->
+    <div class="cursor-layer" data-cursor-layer aria-hidden="true"></div>
+
+    <header class="nav">
+      <div class="nav__inner container">
+        <a class="nav__brand" href="#top">
+          <span class="nav__mark" aria-hidden="true">🍒</span>
+          <span class="nav__name">Wobble Club</span>
+        </a>
+
+        <nav class="nav__links" aria-label="Sections">
+          <a href="#lab">The Lab</a>
+          <a href="#work">Work</a>
+          <a href="#solutions">Solutions</a>
+        </nav>
+
+        <!--
+          DER STAR, Variante 1 — die Default-Farben aus dem DESIGN.md:
+          data-bg="#FF3F3F", data-color="#FFFFFB".
+          A11y: das SVG ist dekorativ, der Buchstaben-Container trägt
+          aria-hidden (DOM-Klone), der zugängliche Name steht im .sr-only-Span.
+        -->
+        <button
+          class="blob blob--on-cherry"
+          type="button"
+          data-blob
+          data-bg="#FF3F3F"
+          data-color="#FFFFFB"
+        >
+          <svg
+            class="blob__svg"
+            viewBox="0 0 276 152"
+            width="276"
+            height="152"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path data-blob-path />
+          </svg>
+          <span class="blob__label" data-blob-label aria-hidden="true">Say hi</span>
+          <span class="sr-only">Say hi — start a project with Wobble Club</span>
+        </button>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- ─── Hero ───────────────────────────────────────────────────── -->
+      <section class="hero container" id="top">
+        <p class="hero__eyebrow tag-line">
+          Branding &amp; creative studio · Mexico City ↔ everywhere
+        </p>
+        <h1 class="wordmark">Wobble Club</h1>
+        <p class="hero__lead manifest">
+          We build brands that move when you touch them. Go on — push the button around. It pushes
+          back. ✌️
+        </p>
+
+        <div class="hero__grid" data-reveal>
+          <figure class="tile tile--tall">
+            <img
+              src="https://picsum.photos/seed/wobble-a/538/672"
+              width="538"
+              height="672"
+              alt="Studio wall covered in printed brand explorations"
+              loading="lazy"
+            />
+          </figure>
+          <figure class="tile">
+            <img
+              src="https://picsum.photos/seed/wobble-b/538/538"
+              width="538"
+              height="538"
+              alt="Close-up of a packaging prototype on a workbench"
+              loading="lazy"
+            />
+          </figure>
+          <figure class="tile tile--anchor" aria-hidden="true">
+            <span class="tile__blush">🍒</span>
+          </figure>
+          <figure class="tile">
+            <img
+              src="https://picsum.photos/seed/wobble-c/538/538"
+              width="538"
+              height="538"
+              alt="Two designers reviewing type specimens at a table"
+              loading="lazy"
+            />
+          </figure>
+          <figure class="tile tile--tall">
+            <img
+              src="https://picsum.photos/seed/wobble-d/538/672"
+              width="538"
+              height="672"
+              alt="Street scene with hand-painted shop signage"
+              loading="lazy"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <!-- ─── The Lab — der Effekt im Mittelpunkt ────────────────────── -->
+      <section class="lab container" id="lab" data-reveal>
+        <header class="section-head">
+          <h2 class="headline">The Lab</h2>
+          <p class="body">
+            One button, 32 spring-coupled points, zero shaders. Drag it with a finger, chase it with
+            a mouse, or tab to it and hit enter — it behaves the same way everywhere.
+          </p>
+        </header>
+
+        <ul class="lab__row">
+          <li class="lab__item">
+            <!-- Variante 2 — Cream-Pill mit Plum-Label: 11,27:1, die
+                 kontraststarke Variante für längere Labels. -->
+            <button
+              class="blob"
+              type="button"
+              data-blob
+              data-bg="#F3EFEA"
+              data-color="#382F36"
+            >
+              <svg
+                class="blob__svg"
+                viewBox="0 0 276 152"
+                width="276"
+                height="152"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path data-blob-path />
+              </svg>
+              <span class="blob__label" data-blob-label aria-hidden="true">Start a project</span>
+              <span class="sr-only">Start a project</span>
+            </button>
+            <p class="lab__caption tag-line">Cream fill · #F3EFEA on #382F36</p>
+          </li>
+
+          <li class="lab__item">
+            <!-- Variante 3 — Outline: data-stroke schaltet fill auf none.
+                 Genau hier fällt der entartete erste Q-Abschnitt der
+                 DESIGN.md-Vorlage als 3px-Dorn auf; siehe buildPath(). -->
+            <button
+              class="blob"
+              type="button"
+              data-blob
+              data-stroke="#61545E"
+              data-color="#382F36"
+            >
+              <svg
+                class="blob__svg"
+                viewBox="0 0 276 152"
+                width="276"
+                height="152"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path data-blob-path />
+              </svg>
+              <span class="blob__label" data-blob-label aria-hidden="true">See all work</span>
+              <span class="sr-only">See all work</span>
+            </button>
+            <p class="lab__caption tag-line">Outline · 2px stroke #61545E</p>
+          </li>
+
+          <li class="lab__item">
+            <!-- Variante 4 — Blush: dieselbe Physik, andere Tonlage. -->
+            <button
+              class="blob"
+              type="button"
+              data-blob
+              data-bg="#FFCBD5"
+              data-color="#382F36"
+            >
+              <svg
+                class="blob__svg"
+                viewBox="0 0 276 152"
+                width="276"
+                height="152"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path data-blob-path />
+              </svg>
+              <span class="blob__label" data-blob-label aria-hidden="true">Book a call</span>
+              <span class="sr-only">Book a call</span>
+            </button>
+            <p class="lab__caption tag-line">Blush fill · #FFCBD5 on #382F36</p>
+          </li>
+        </ul>
+
+        <dl class="lab__specs">
+          <div><dt>Contour points</dt><dd>32, spread by arc length</dd></div>
+          <div><dt>Contour spring</dt><dd>v += (rest − pos) × 0.15</dd></div>
+          <div><dt>Contour damping</dt><dd>v ×= 0.55</dd></div>
+          <div><dt>Pointer repulsion</dt><dd>max(0, 90 − dist) × 0.018</dd></div>
+          <div><dt>Letter repulsion</dt><dd>max(0, 55 − dist) × 0.05 × hover</dd></div>
+          <div><dt>Letter spring / damping</dt><dd>0.12 / 0.65</dd></div>
+          <div><dt>Hover inertia</dt><dd>hover += (target − hover) × 0.08</dd></div>
+          <div><dt>SVG viewport</dt><dd>276 × 152 (pill 180 × 56 + 48 padding)</dd></div>
+        </dl>
+      </section>
+
+      <!-- ─── Manifest ──────────────────────────────────────────────── -->
+      <section class="manifest-section container" data-reveal>
+        <p class="manifest">
+          We are Wobble Club, a small studio that treats a brand like a body, not a logo sheet: it
+          has a posture, a voice, and it flinches when you poke it. ✨
+        </p>
+      </section>
+
+      <!-- ─── Work ──────────────────────────────────────────────────── -->
+      <section class="work container" id="work" data-reveal>
+        <header class="section-head">
+          <h2 class="headline">Our latest hits</h2>
+        </header>
+        <ul class="work__grid">
+          <li class="work__card">
+            <img
+              src="https://picsum.photos/seed/work-1/852/852"
+              width="852"
+              height="852"
+              alt="Bright soda can series photographed on a coloured backdrop"
+              loading="lazy"
+            />
+            <p class="card-title">Fizzwater</p>
+            <p class="tag-line">Naming · Packaging</p>
+          </li>
+          <li class="work__card">
+            <img
+              src="https://picsum.photos/seed/work-2/852/852"
+              width="852"
+              height="852"
+              alt="Printed identity manual open on a desk"
+              loading="lazy"
+            />
+            <p class="card-title">Mercado Lupe</p>
+            <p class="tag-line">Brand Strategy · Voice</p>
+          </li>
+          <li class="work__card">
+            <img
+              src="https://picsum.photos/seed/work-3/852/852"
+              width="852"
+              height="852"
+              alt="Hand holding a folded poster with large type"
+              loading="lazy"
+            />
+            <p class="card-title">Tallercito</p>
+            <p class="tag-line">Art Direction · Campaign</p>
+          </li>
+          <li class="work__card">
+            <img
+              src="https://picsum.photos/seed/work-4/852/852"
+              width="852"
+              height="852"
+              alt="Skincare bottles arranged in a soft-lit still life"
+              loading="lazy"
+            />
+            <p class="card-title">Sábado Skin</p>
+            <p class="tag-line">Label · Illustration</p>
+          </li>
+          <li class="work__card">
+            <img
+              src="https://picsum.photos/seed/work-5/852/852"
+              width="852"
+              height="852"
+              alt="Laptop showing a website layout on a studio table"
+              loading="lazy"
+            />
+            <p class="card-title">Hoy Hoy</p>
+            <p class="tag-line">Web Design · Copy</p>
+          </li>
+          <li class="work__card">
+            <img
+              src="https://picsum.photos/seed/work-6/852/852"
+              width="852"
+              height="852"
+              alt="Grid of stickers and printed brand marks"
+              loading="lazy"
+            />
+            <p class="card-title">Cactus Radio</p>
+            <p class="tag-line">Identity · Motion</p>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ─── Solutions — sechs Fragen, sechs Farben ─────────────────── -->
+      <section class="solutions container" id="solutions" data-reveal>
+        <header class="section-head">
+          <h2 class="headline">Your brand should feel great. Does it?</h2>
+          <p class="body">
+            Six questions we hear most. Find yours by colour, read the text second.
+          </p>
+        </header>
+
+        <ul class="solutions__list">
+          <li class="card card--1">
+            <h3 class="card__q">We are starting from zero.</h3>
+            <ul class="card__tags">
+              <li class="tag">Naming</li>
+              <li class="tag">Brand Strategy</li>
+              <li class="tag">Voice</li>
+            </ul>
+            <p class="card__text">
+              No name, no rules, no idea where to begin. Good — that is the cheapest moment to get it
+              right.
+            </p>
+          </li>
+          <li class="card card--2">
+            <h3 class="card__q">Our brand fit us in 2019.</h3>
+            <ul class="card__tags">
+              <li class="tag">Brand Audit</li>
+              <li class="tag">Rebranding</li>
+              <li class="tag">Messaging</li>
+            </ul>
+            <p class="card__text">
+              You outgrew it and everyone can tell. We find what still works and rebuild around it.
+            </p>
+          </li>
+          <li class="card card--3">
+            <h3 class="card__q">Great product. Nobody picks it up.</h3>
+            <ul class="card__tags">
+              <li class="tag">Packaging</li>
+              <li class="tag">Label</li>
+              <li class="tag">Illustration</li>
+            </ul>
+            <p class="card__text">
+              The shelf is a two-second conversation. We make sure yours says something in it.
+            </p>
+          </li>
+          <li class="card card--4">
+            <h3 class="card__q">We need a partner, not a vendor.</h3>
+            <ul class="card__tags">
+              <li class="tag">Retainer</li>
+              <li class="tag">Creative Direction</li>
+            </ul>
+            <p class="card__text">
+              Someone who already knows the context on Monday. We stay in the room between launches.
+            </p>
+          </li>
+          <li class="card card--5">
+            <h3 class="card__q">Loud brand, quiet website.</h3>
+            <ul class="card__tags">
+              <li class="tag">Web Design</li>
+              <li class="tag">Copywriting</li>
+            </ul>
+            <p class="card__text">
+              The personality stops at the homepage. We carry it through every screen instead.
+            </p>
+          </li>
+          <li class="card card--6">
+            <h3 class="card__q">Big idea, no team yet.</h3>
+            <ul class="card__tags">
+              <li class="tag">Art Direction</li>
+              <li class="tag">Campaign Assets</li>
+            </ul>
+            <p class="card__text">
+              Bring the idea. We assemble the crew and keep everyone pointing the same way.
+            </p>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ─── About ─────────────────────────────────────────────────── -->
+      <section class="about container" data-reveal>
+        <div class="about__card">
+          <p class="about__kicker tag-line">This is an origin story ✌️</p>
+          <p class="about__text manifest">
+            Two people, one shared studio plant, and a habit of getting far too attached to a
+            typeface. We started Wobble Club because the work we wanted to make did not exist on
+            anyone else&rsquo;s rate card.
+          </p>
+          <img
+            class="about__photo"
+            src="https://picsum.photos/seed/wobble-about/1200/620"
+            width="1200"
+            height="620"
+            alt="Two studio founders peeking over the bottom edge of the frame"
+            loading="lazy"
+          />
+        </div>
+      </section>
+    </main>
+
+    <!-- ─── Footer ──────────────────────────────────────────────────── -->
+    <footer class="footer">
+      <div class="footer__inner container">
+        <p class="display-xl">Ready for your brand era?</p>
+        <p class="footer__sub lead">
+          You have seen the work. You have felt the wobble. Stop flirting. ✨
+        </p>
+
+        <!-- Variante 5 — dieselbe Physik auf dunklem Grund. -->
+        <button
+          class="blob blob--on-cherry"
+          type="button"
+          data-blob
+          data-bg="#FF3F3F"
+          data-color="#FFFFFB"
+        >
+          <svg
+            class="blob__svg"
+            viewBox="0 0 276 152"
+            width="276"
+            height="152"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path data-blob-path />
+          </svg>
+          <span class="blob__label" data-blob-label aria-hidden="true">Let&rsquo;s go</span>
+          <span class="sr-only">Let&rsquo;s go — start your project now</span>
+        </button>
+
+        <div class="footer__meta">
+          <p class="footer__where">We are in Mexico City, working worldwide.</p>
+          <p class="footer__live">
+            <span class="footer__time" data-clock>— @ Mexico City</span>
+            <span class="footer__status">
+              Maybe we are <span data-status>getting the coffee started.</span>
+            </span>
+          </p>
+          <p class="footer__social">
+            We are socially awkward, but we try our best on
+            <a href="#top">Instagram</a>, <a href="#top">Behance</a> and <a href="#top">TikTok</a>.
+          </p>
+          <p class="footer__credit tag-line">
+            PoC · render-live-workshop · Source: Cherry-Bomb/DESIGN.md (cherrybomb.com.mx)
+          </p>
+        </div>
+      </div>
+    </footer>
+
+  </body>
+</html>
