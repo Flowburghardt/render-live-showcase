@@ -26,7 +26,10 @@
     -->
 
     <!-- Das Standbild ist im Hero das groesste sichtbare Element und damit der
-         LCP-Kandidat. Ohne Preload wartet es auf das CSS. -->
+         LCP-Kandidat. Ohne Preload wartet es auf das CSS.
+         `media` am Preload: unter prefers-reduced-motion wird es nie gezeigt —
+         ohne die Bedingung laedt es trotzdem, mit hoher Prioritaet, und
+         konkurriert mit den Webfonts. -->
     <link
       rel="preload"
       as="image"
@@ -34,10 +37,11 @@
       imagesrcset="./assets/kinderseele-1280-DnzssIMk.webp 1280w, ./assets/kinderseele-1920-BzvHoJ-I.webp 1920w"
       imagesizes="100vw"
       fetchpriority="high"
+      media="(prefers-reduced-motion: no-preference)"
     />
-    <script type="module" crossorigin src="./assets/main-D9v3gsjw.js"></script>
-    <link rel="modulepreload" crossorigin href="./assets/hero-bild-C11wO8uk.js">
-    <link rel="stylesheet" crossorigin href="./assets/main-Btgn0ElK.css">
+    <script type="module" crossorigin src="./assets/main-Ba15cbYG.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/hero-bild-BclieNX2.js">
+    <link rel="stylesheet" crossorigin href="./assets/main-BO2tkjaS.css">
   </head>
 
   <body>
@@ -81,17 +85,30 @@
              Imagefilm-Portfolio zeigt — einem vollflaechigen Filmbild. Dann
              wird es weggenommen, ueberall AUSSER in den Buchstaben. Ohne JS
              bleibt das Bild unsichtbar und die Headline steht schwarz da. -->
-        <img
-          class="hero__still"
-          src="./assets/kinderseele-1920-BzvHoJ-I.webp"
-          srcset="./assets/kinderseele-1280-DnzssIMk.webp 1280w, ./assets/kinderseele-1920-BzvHoJ-I.webp 1920w"
-          sizes="100vw"
-          width="1920"
-          height="890"
-          fetchpriority="high"
-          alt=""
-          aria-hidden="true"
-        />
+        <picture>
+          <!-- Unter prefers-reduced-motion wird das Standbild nie gezeigt. Ohne
+               diese Quelle laedt es trotzdem — 40 KB fuer jemanden, der
+               ausdruecklich weniger bestellt hat. Das 1x1-Pixel ist der
+               einzige Weg, dem Vorlade-Scanner das abzugewoehnen; er laeuft,
+               bevor JavaScript irgendetwas entfernen koennte. -->
+          <source
+            media="(prefers-reduced-motion: reduce)"
+            srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+          />
+          <source
+            srcset="./assets/kinderseele-1280-DnzssIMk.webp 1280w, ./assets/kinderseele-1920-BzvHoJ-I.webp 1920w"
+            sizes="100vw"
+          />
+          <img
+            class="hero__still"
+            src="./assets/kinderseele-1920-BzvHoJ-I.webp"
+            width="1920"
+            height="890"
+            fetchpriority="high"
+            alt=""
+            aria-hidden="true"
+          />
+        </picture>
 
         <p class="marke"><span class="marke__nr">(01)</span><span class="marke__tc"></span><span class="marke__label">Die These</span></p>
 
