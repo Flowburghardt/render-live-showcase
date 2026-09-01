@@ -1,0 +1,285 @@
+<!doctype html>
+<!--
+  data-stage="red" steht schon im Quelltext (nicht erst per JS), damit die Buehne
+  ohne Flash startet: Der stage-color-flip ist eine Zustands-Umschaltung, kein
+  Einblenden. JS setzt das Attribut spaeter auf html UND body um.
+-->
+<html lang="en" data-stage="red">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Love and Money — Playbook</title>
+    <meta
+      name="description"
+      content="Love and Money — ein Schriftschnitt, zwei Flaechenfarben, kein Eckenradius. Sticky-Pin ueber sechs Playbook-Schritte mit clip-path-Wipe und Buehnen-Umschlag Rot zu Bone."
+    />
+    <!--
+      Favicon inline als data-URI: Ohne diese Zeile fragt der Browser
+      /favicon.ico an der Domain-WURZEL an — unter dem Subpfad-Deploy
+      /poc-love-and-money/ ist das ein garantierter 404. Ein data-URI hat
+      ueberhaupt keinen Pfad und ist damit subpfad-sicher (siehe ../../CLAUDE.md).
+      Das Zeichen: die Bone-Wortmarke auf der Signalfarbe.
+    -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23E72604'/%3E%3Cpath d='M16 27C9 22 4 18 4 13a6 6 0 0 1 12-2 6 6 0 0 1 12 2c0 5-5 9-12 14z' fill='%23EAEBE5'/%3E%3C/svg%3E"
+    />
+    <!--
+      Ohne JS bleiben die statischen Reveal-Elemente sonst auf opacity 0 haengen.
+      !important ist hier nicht Faulheit, sondern noetig: Vite injiziert den
+      Bundle-Link NACH diesem noscript-Block, und [data-reveal]{opacity:0} aus
+      dem Bundle hat dieselbe Spezifitaet (0,1,0) — bei Gleichstand gewinnt die
+      spaetere Regel. Ohne ! bliebe der Fallback wirkungslos.
+      Anspruch mit Mass: Das rettet den statischen Seitentext. Playbook-Panels,
+      Wipe-Layer und Work-Tiles baut main.ts/playbook.ts im DOM auf, die sind
+      ohne JS grundsaetzlich nicht da — der PoC ist eine Effekt-Demo, keine
+      progressiv angereicherte Seite.
+    -->
+    <noscript>
+      <style>
+        [data-reveal] {
+          opacity: 1 !important;
+        }
+      </style>
+    </noscript>
+    <script type="module" crossorigin src="./assets/index-CmwZpLr9.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-WiWzqg7V.css">
+  </head>
+  <body data-stage="red">
+    <!--
+      Der Buehnen-Sentinel: 200px hoch, absolut am Dokumentanfang, rein technisch.
+      Verlaesst er den Viewport, kippt die Buehne von Rot auf Bone und die Nav
+      blendet ein. Ein zweiter IntersectionObserver, kein scroll-Listener.
+    -->
+    <div class="stage-sentinel" id="stage-sentinel" aria-hidden="true"></div>
+
+    <!--
+      Nav: fixed, im Hero unsichtbar (opacity 0 + visibility hidden, damit sie
+      dort auch kein unsichtbares Fokusziel ist). Container ohne pointer-events,
+      die beiden Links holen sie sich zurueck.
+    -->
+    <header class="nav">
+      <a class="nav__signet-link" href="#top">
+        <span class="sr-only">Love and Money — back to top</span>
+        <!--
+          Das Herz-Dollar-Signet, inline gezeichnet: Herzflaeche in currentColor,
+          das $ als Maske herausgestanzt. Die Maske macht das Zeichen
+          hintergrund-unabhaengig — es funktioniert auf Rot, Bone und Weiss
+          gleichermassen, ohne dass eine zweite Farbe mitgefuehrt werden muss.
+        -->
+        <svg class="signet" viewBox="0 0 120 72" aria-hidden="true" focusable="false">
+          <defs>
+            <mask id="signet-mask-nav" maskUnits="userSpaceOnUse" x="0" y="0" width="120" height="72">
+              <rect x="0" y="0" width="120" height="72" fill="#fff" />
+              <g fill="none" stroke="#000" stroke-width="9" stroke-linecap="round">
+                <path d="M60 12 V64" />
+                <path
+                  d="M75 26 C75 18 68 14 60 14 C52 14 45 18 45 26 C45 41 75 33 75 47 C75 55 68 59 60 59 C52 59 45 55 45 47"
+                />
+              </g>
+            </mask>
+          </defs>
+          <path
+            mask="url(#signet-mask-nav)"
+            fill="currentColor"
+            d="M60 69 C60 69 10 45 10 26 C10 12 22 4 33 4 C44 4 54 12 60 26 C66 12 76 4 87 4 C98 4 110 12 110 26 C110 45 60 69 60 69 Z"
+          />
+        </svg>
+      </a>
+      <a class="nav__link hover-link" href="#work">Work</a>
+    </header>
+
+    <main class="page" id="top">
+      <!-- 2 — Hero: 135dvh auf Rot. Das Logo ist der Hero, kein Bild, kein Video. -->
+      <section class="hero layout-px">
+        <!--
+          Wortmarke als Inline-SVG-Pfade statt SVG-<text>: nur so ist der
+          Full-Bleed-Satz unabhaengig vom geladenen Font und kann bei keiner
+          Breite ueberlaufen (width:100%, height:auto ueber die viewBox).
+          Das hochgestellte TM steht daneben als echter Text.
+        -->
+        <div class="hero__wordmark" role="img" aria-label="LAM — Love and Money">
+          <svg class="hero__lam" viewBox="0 0 1404 345" aria-hidden="true" focusable="false">
+            <g fill="currentColor" transform="scale(1.34 1)">
+              <path d="M0 0 H92 V253 H250 V345 H0 Z" />
+              <path
+                transform="translate(284 0)"
+                fill-rule="evenodd"
+                d="M112 0 H218 L330 345 H238 L219 287 H111 L92 345 H0 Z M166 58 L214 240 H118 Z"
+              />
+              <path
+                transform="translate(648 0)"
+                d="M0 345 V0 H108 L200 196 L292 0 H400 V345 H308 V168 L238 310 H162 L92 168 V345 Z"
+              />
+            </g>
+          </svg>
+          <span class="hero__tm" aria-hidden="true">&trade;</span>
+        </div>
+
+        <h1 class="hero__headline">
+          <span class="hero__line">Love and money is</span>
+          <span class="hero__line" data-reveal>Not what you think it is</span>
+        </h1>
+      </section>
+
+      <!-- 3 — Medien-Band: 16:9 links, Hochformat rechts. -->
+      <section class="band layout-px section" aria-label="Studio reel">
+        <figure class="band__item band__item--wide" data-reveal>
+          <img
+            class="band__img"
+            src="https://picsum.photos/seed/lam-band-a/1362/766"
+            width="1362"
+            height="766"
+            alt="Studio reel — brand and product work in 16:9"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+        <figure class="band__item band__item--tall" data-reveal>
+          <img
+            class="band__img"
+            src="https://picsum.photos/seed/lam-band-b/516/990"
+            width="516"
+            height="990"
+            alt="Studio reel — vertical cut of the same campaign"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+      </section>
+
+      <!-- 4 — Statement I -->
+      <section class="statement layout-px layout-grid section">
+        <h2 class="statement__text" data-reveal>
+          Love and Money builds products, brands and businesses around a singular creative
+          vision(ary).
+        </h2>
+      </section>
+
+      <!--
+        5 — Playbook. Track: 600dvh. Der Pin haelt 100dvh und wandert ueber
+        500dvh. Kein overflow auf .playbook (das wuerde den Pin zum
+        Scroll-Container machen und ihn beim Tastaturfokus abreissen lassen).
+      -->
+      <section class="playbook" aria-labelledby="playbook-eyebrow">
+        <div class="playbook__sticky layout-px layout-grid">
+          <div class="playbook__media" id="playbook-media" aria-hidden="true"></div>
+
+          <div class="playbook__text">
+            <h2 class="playbook__eyebrow" id="playbook-eyebrow">Our playbook</h2>
+            <!--
+              Alle sechs Schritte stehen dauerhaft als echter Text im DOM und
+              werden nur per opacity zurueckgenommen — kein display:none, kein
+              visibility:hidden, kein aria-hidden. Ein Screenreader liest die
+              Liste linear durch, auch wenn visuell nur ein Panel offen ist.
+            -->
+            <ol class="playbook__panels" id="playbook-panels"></ol>
+          </div>
+
+          <div class="playbook__ticker" id="playbook-ticker" aria-hidden="true"></div>
+        </div>
+
+        <!-- Sechs Marker, an denen der IntersectionObserver den Schritt schaltet. -->
+        <div class="playbook__triggers" id="playbook-triggers" aria-hidden="true"></div>
+      </section>
+
+      <!-- 6 — Statement II -->
+      <section class="statement layout-px layout-grid section">
+        <h2 class="statement__text" data-reveal>
+          Our work spans consumer goods, technology, B2B, beauty, finance, food and beverage.
+        </h2>
+      </section>
+
+      <!-- 7 — Work: asymmetrische Flex-Reihen, kein gleichfoermiges Raster. -->
+      <section class="work layout-px section" id="work" aria-labelledby="work-heading">
+        <h2 class="sr-only" id="work-heading">Selected work</h2>
+        <div class="work__rows" id="work-rows"></div>
+      </section>
+    </main>
+
+    <!-- 8 — Footer auf echtem Weiss (#FFFFFF), die einzige Flaeche neben Rot und Bone. -->
+    <footer class="footer layout-px">
+      <div class="footer__columns">
+        <div class="footer__column">
+          <h2 class="footer__title">Brand studio</h2>
+          <ul class="footer__list">
+            <li>Strategy</li>
+            <li>Brand design</li>
+            <li>Messaging</li>
+            <li>Art direction</li>
+            <li>Go to market</li>
+            <li>Campaign</li>
+          </ul>
+        </div>
+        <div class="footer__column">
+          <h2 class="footer__title">Digital studio</h2>
+          <ul class="footer__list">
+            <li>E-commerce</li>
+            <li>UX/UI design</li>
+            <li>Content writing</li>
+            <li>Product development</li>
+            <li>Community</li>
+          </ul>
+        </div>
+        <div class="footer__column">
+          <h2 class="footer__title">Ventures</h2>
+          <ul class="footer__list">
+            <li>Business strategy</li>
+            <li>Funding</li>
+            <li>Product R&amp;D</li>
+            <li>Supply chain</li>
+            <li>Human resources</li>
+          </ul>
+        </div>
+
+        <div class="footer__contact">
+          <a class="footer__mail hover-link" href="mailto:hello@loveandmoney.com"
+            >hello@loveandmoney.com</a
+          >
+          <ul class="footer__social">
+            <li>
+              <a class="footer__social-link" href="https://www.instagram.com/" rel="noreferrer"
+                >Instagram</a
+              >
+            </li>
+            <li>
+              <a class="footer__social-link" href="https://www.linkedin.com/" rel="noreferrer"
+                >LinkedIn</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer__mark" role="img" aria-label="LAM — Love and Money">
+        <svg class="signet signet--footer" viewBox="0 0 120 72" aria-hidden="true" focusable="false">
+          <defs>
+            <mask
+              id="signet-mask-footer"
+              maskUnits="userSpaceOnUse"
+              x="0"
+              y="0"
+              width="120"
+              height="72"
+            >
+              <rect x="0" y="0" width="120" height="72" fill="#fff" />
+              <g fill="none" stroke="#000" stroke-width="9" stroke-linecap="round">
+                <path d="M60 12 V64" />
+                <path
+                  d="M75 26 C75 18 68 14 60 14 C52 14 45 18 45 26 C45 41 75 33 75 47 C75 55 68 59 60 59 C52 59 45 55 45 47"
+                />
+              </g>
+            </mask>
+          </defs>
+          <path
+            mask="url(#signet-mask-footer)"
+            fill="currentColor"
+            d="M60 69 C60 69 10 45 10 26 C10 12 22 4 33 4 C44 4 54 12 60 26 C66 12 76 4 87 4 C98 4 110 12 110 26 C110 45 60 69 60 69 Z"
+          />
+        </svg>
+        <span class="footer__wordmark" aria-hidden="true">LAM<span class="footer__tm">&trade;</span></span>
+      </div>
+    </footer>
+
+  </body>
+</html>

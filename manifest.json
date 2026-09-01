@@ -288,6 +288,15 @@
       "desc": "\"No-Scroll-Shop als Slide-Deck: jede Route ein 100vh-Screen (Logo-Grid → Collection → Produkt), Navigation ausschließlich horizontal per Prev/Next-Textlinks; Größenwahl als Opacity-Toggle (0.37→1), Preis existiert nur im Buy-Button-Text (»Choose a Size« → »Buy for $44.00«); komplettes CSS-System aus 11 Root-Variablen (2 Farben, 1 Font, calc(1em + 1vw))\"",
       "nightly": true,
       "built": "2026-08-23"
+    },
+    {
+      "slug": "poc-love-and-money",
+      "title": "Love-And-Money",
+      "stage": "Nightly",
+      "effort": "quick",
+      "desc": "Sticky-Pin über 6 Steps mit clip-path-Wipe-Medienstapel (inset(0 100% 0 0) → inset(0)) + seitenweiter BG-Umschlag rot→bone in 0.7s — reine CSS-Transitions + IntersectionObserver, keine Animations-Library",
+      "nightly": true,
+      "built": "2026-09-01"
     }
   ]
 }
