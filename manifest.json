@@ -306,6 +306,15 @@
       "desc": "\"Pixel-Dissolve-Hover — 2D-Canvas (486×729) über der Mega-Typo: das Projektbild wird in ~24×24px-Kacheln einzeln ein- und ausgeblendet (zufällige Reihenfolge, gestaffelte Verzögerung), während der überfahrene Anton-160px-Name von #E5E5E5 auf #000 schaltet und links/rechts eine Meta-Zeile (Disziplin · Jahr) einfliegt. Kein Shader, kein WebGL — drawImage auf Kachelraster + requestAnimationFrame.\"",
       "nightly": true,
       "built": "2026-09-01"
+    },
+    {
+      "slug": "poc-soma-health",
+      "title": "Soma-Health",
+      "stage": "Nightly",
+      "effort": "mid",
+      "desc": "\"Scroll-Essay-System ohne eine Zeile Animations-Library: benannte Vertikal-Rhythmus-Tokens (--rest-hairline/breath/beat/turn/movement/chapter als max(px, Nvh)) + ein globaler --type-scale (1 / .875 / .78) der ALLE Schriftgrößen über calc() staffelt + Tufte-Randnotizen im 12-Spalten-Raster + Fließtext auf SVG-<textPath> (Satz reitet auf einer Wellenlinie, drei Fragen kreisen auf einem Ring) + Hero-Medium, das per CSS-nativer view-timeline von der 8px-Karte auf Full-Bleed wächst (animation-timeline: --media-grow, KEIN GSAP)\"",
+      "nightly": true,
+      "built": "2026-09-01"
     }
   ]
 }

@@ -1,0 +1,618 @@
+<!doctype html>
+<!--
+  Der komplette Essay steht in diesem Dokument. JS ist reines Progressive
+  Enhancement: es verdrahtet den Rhythmus-Schalter, die Skalen-Radios, die
+  Randnotiz-Kopplung, die aktive Kapitel-Marke und — nur in Browsern OHNE
+  Scroll-Timeline — den Wachstums-Fallback des Hero-Mediums. Ohne JS bleibt
+  jede Zeile lesbar, jeder Anker springt, jede Randnotiz ist erreichbar.
+-->
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
+    <title>Abstand hat einen Namen — Rhythmus-Studie nach Soma</title>
+    <meta
+      name="description"
+      content="Scroll-Essay ohne Animations-Library: sechs benannte Rhythmus-Tokens als max(px, Nvh), ein globaler --type-scale über calc(), Tufte-Randnotizen im 12-Spalten-Raster, Fließtext auf SVG-textPath und ein Hero-Medium, das per CSS-nativer view-timeline auf Full-Bleed wächst."
+    />
+    <!--
+      Favicon inline als data-URI: ohne diese Zeile fragt der Browser
+      /favicon.ico an der Domain-WURZEL an — unter dem Subpfad-Deploy
+      /poc-soma-health/ ist das ein garantierter 404. Ein data-URI hat
+      ueberhaupt keinen Pfad und ist damit subpfad-sicher.
+      Das Zeichen: fuenf Haarlinien mit wachsendem Abstand — die Ruhestufen,
+      das einzige Symbol dieses Systems.
+    -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F7F5F0'/%3E%3Cg fill='%232E2E27'%3E%3Crect x='5' y='4' width='22' height='1'/%3E%3Crect x='5' y='7' width='22' height='1'/%3E%3Crect x='5' y='11' width='22' height='1'/%3E%3Crect x='5' y='16' width='22' height='1'/%3E%3Crect x='5' y='22' width='22' height='1'/%3E%3C/g%3E%3C/svg%3E"
+    />
+    <noscript>
+      <style>
+        /*
+          Die Bedienelemente des Instruments sind reine Enhancements — ohne JS
+          bewirken sie nichts, also verschwinden sie, statt kaputt dazustehen.
+          `html .instrument-controls` (0,1,1) plus !important schlaegt die Regel im
+          gebuendelten Stylesheet unabhaengig davon, in welcher Reihenfolge Vite den
+          <link> hinter dieses <style> injiziert (Lehre: noscript verliert sonst
+          gegen das Bundle, weil bei Spezifitaets-Gleichstand die spaetere Regel
+          gewinnt).
+        */
+        html .instrument-controls {
+          display: none !important;
+        }
+      </style>
+    </noscript>
+    <script type="module" crossorigin src="./assets/index-BPBsTyzf.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CrpLa5W3.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#inhalt">Zum Text springen</a>
+
+    <header class="band page-head intro-fade intro-1">
+      <p class="wordmark">
+        rhythmus<span class="wordmark-dot" aria-hidden="true">·</span
+        ><span class="wordmark-sub">Studie nach Soma</span>
+      </p>
+      <p class="page-head-meta">Render-Live-Workshop · Soma-Health/DESIGN.md</p>
+    </header>
+
+    <main id="inhalt">
+      <!-- ============================== Titelblatt ============================== -->
+      <section class="titlepage" data-rest="turn" aria-labelledby="titel">
+        <div class="band">
+          <h1 class="display serif" id="titel">Abstand hat einen&nbsp;Namen.</h1>
+        </div>
+      </section>
+
+      <!--
+        Sticky-Waitlist: die einzige Konversionsflaeche der Vorlage verlaesst den
+        Schirm nie. top = --rest-hairline, damit selbst die Klebeposition aus dem
+        Rhythmus-Vokabular kommt und nicht aus einer freien Zahl.
+        Direktes Kind von <main> — nicht des Titelblatts: der Klebebereich eines
+        sticky-Elements endet an der Unterkante seines Elternteils, im Titelblatt
+        waere die Zeile nach 400px wieder weg.
+      -->
+      <div class="band waitlist intro-fade intro-2">
+        <form class="waitlist-form" id="waitlist-form" novalidate>
+          <label class="sr-only" for="wl-email">E-Mail-Adresse für die Warteliste</label>
+          <div class="field-glass">
+            <input
+              class="field-input"
+              id="wl-email"
+              name="email"
+              type="email"
+              inputmode="email"
+              autocomplete="email"
+              placeholder="E-Mail"
+              aria-describedby="wl-status"
+            />
+            <button class="btn-primary" type="submit">Eintragen</button>
+          </div>
+          <p class="waitlist-status" id="wl-status" role="status">
+            Demo ohne Server — die Eingabe verlässt diese Seite nicht.
+          </p>
+        </form>
+      </div>
+
+      <section class="band" data-rest="breath" aria-label="Kurzfassung">
+        <p class="tagline intro-fade intro-3">
+          Dieses Dokument ist sein eigener Gegenstand: ein Essay über sechs benannte
+          Ruhestufen, über eine einzige Zahl, die die ganze Schriftskala trägt, und über
+          Sätze, die auf einer Linie reiten dürfen.
+        </p>
+      </section>
+
+      <!-- ============================ Hero-Medium ============================== -->
+      <!--
+        overflow-x: clip (NICHT hidden) auf der Scope:
+        `hidden` erzeugt einen Scroll-Container — damit waere die Sticky-Semantik der
+        Leisten darueber kaputt und die view-timeline wuerde gegen den falschen
+        Scrollport messen. `clip` schneidet nur ab und aendert nichts am Scrolling.
+        Gebraucht wird es, weil --media-scale auf 100vw rechnet: 100vw enthaelt auf
+        Desktop die Scrollbar-Breite, die skalierte Karte ragt also um genau diesen
+        Betrag ueber den Viewport hinaus.
+      -->
+      <section class="media-scope" data-rest="movement" aria-labelledby="medium-titel">
+        <h2 class="sr-only" id="medium-titel">Die Abbildung</h2>
+        <div class="band">
+          <figure class="media-figure intro-fade intro-4">
+            <div
+              class="media-el cymatic"
+              role="img"
+              aria-label="Cymatik-Platte: konzentrische helle Ringe auf dunklem Grund, rein aus CSS-Verläufen gezeichnet und mit einer feTurbulence-Körnung überzogen."
+            >
+              <span class="media-label" aria-hidden="true">Cymatik · CSS-gezeichnet · 3:2</span>
+            </div>
+            <a class="glass-pill" href="#kapitel-i">
+              <span aria-hidden="true">↓</span>
+              <span class="sr-only">Weiter zum ersten Kapitel</span>
+            </a>
+            <figcaption class="media-caption">
+              Die Abbildung wächst beim Lesen von der 8-px-Karte auf die volle
+              Fensterbreite — getrieben von einer nativen <code>view-timeline</code>, nicht
+              von einer Bibliothek.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ============================== Instrument ============================= -->
+      <section class="instrument band" data-rest="beat" aria-labelledby="instrument-titel">
+        <div class="instrument-inner">
+          <h2 class="instrument-titel" id="instrument-titel">Das Instrument</h2>
+          <p class="instrument-lead">
+            Zwei Schalter, die das System dieser Seite sichtbar machen. Beide greifen
+            sofort und auf jedem Element gleichzeitig.
+          </p>
+
+          <div class="instrument-controls">
+            <div class="control">
+              <button class="btn-ghost" type="button" id="rhythm-toggle" aria-pressed="false">
+                Rhythmus zeigen
+              </button>
+              <p class="control-hint">
+                Legt beschriftete Haarlinien über jede Ruhestufe. Der Name der Linie ist
+                der Name des Tokens.
+              </p>
+            </div>
+
+            <fieldset class="control scale-set" id="scale-set">
+              <legend class="control-legend">Schriftskala <code>--type-scale</code></legend>
+              <div class="scale-options">
+                <label class="scale-option">
+                  <input type="radio" name="type-scale" value="auto" checked />
+                  <span>auto</span>
+                </label>
+                <label class="scale-option">
+                  <input type="radio" name="type-scale" value="l" />
+                  <span>1</span>
+                </label>
+                <label class="scale-option">
+                  <input type="radio" name="type-scale" value="m" />
+                  <span>.875</span>
+                </label>
+                <label class="scale-option">
+                  <input type="radio" name="type-scale" value="s" />
+                  <span>.78</span>
+                </label>
+              </div>
+              <p class="control-hint">
+                <em>auto</em> ist das Media-Query-Verhalten. Die drei anderen setzen
+                <code>data-scale</code> auf <code>&lt;html&gt;</code> und überschreiben es.
+              </p>
+            </fieldset>
+          </div>
+
+          <noscript>
+            <p class="instrument-nojs">
+              Ohne JavaScript sind die beiden Schalter ausgeblendet — der Essay selbst
+              steht vollständig im HTML und bleibt in jeder Hinsicht lesbar.
+            </p>
+          </noscript>
+        </div>
+      </section>
+
+      <!-- ========================== Kapitel-Navigation ========================== -->
+      <!--
+        Die Nav-Namen weichen bewusst von den Ueberschriften ab (Vorlage:
+        „i. Prologue / ii. Why / iii. Science" gegen poetische Kapitelkoepfe).
+        Damit die Doppelbenennung fuer Screenreader nicht raetselhaft wird, traegt
+        jeder Eintrag zusaetzlich den echten Kapiteltitel im aria-label.
+      -->
+      <nav class="chapter-index band" id="chapter-index" aria-label="Kapitel">
+        <ol class="chip-glass">
+          <li>
+            <a
+              href="#kapitel-i"
+              data-nav="kapitel-i"
+              aria-label="i. Prolog — Sechs Namen für die Stille"
+              >i. Prolog</a
+            >
+          </li>
+          <li>
+            <a
+              href="#kapitel-ii"
+              data-nav="kapitel-ii"
+              aria-label="ii. Warum — Eine Zahl trägt alles"
+              >ii. Warum</a
+            >
+          </li>
+          <li>
+            <a
+              href="#kapitel-iii"
+              data-nav="kapitel-iii"
+              aria-label="iii. System — Der Satz darf sich krümmen"
+              >iii. System</a
+            >
+          </li>
+        </ol>
+      </nav>
+
+      <!-- ============================== Kapitel i =============================== -->
+      <article class="chapter" id="kapitel-i" data-rest="movement" aria-labelledby="kapitel-i-titel">
+        <div class="band">
+          <h2 class="chapter-title" id="kapitel-i-titel">i. Sechs Namen für die Stille.</h2>
+        </div>
+
+        <div class="movement" data-rest="breath">
+          <div class="band">
+            <p class="prose">
+              Ein Layout scheitert selten an seinen Elementen. Es scheitert am Raum
+              dazwischen — genauer: daran, dass nach einem halben Jahr niemand mehr sagen
+              kann, warum dieser Abstand achtundvierzig Pixel misst und der nächste
+              sechzehn. In einer Codebase voller <code>space-y-12</code> steht keine
+              Absicht, sondern eine Zahl, die einmal gepasst hat und seitdem weitergereicht
+              wird. Wer sie ändert, ändert sie überall — oder nirgends richtig.
+            </p>
+          </div>
+
+          <div class="band">
+            <p class="prose">
+              Die Alternative kostet sechs Zeilen CSS. Jede Ruhestufe bekommt einen Namen
+              aus dem Lese- und Musikvokabular: die <em>Haarlinie</em> trennt zwei Zeilen,
+              der <em>Atem</em> eine Absatzgruppe, der <em>Schlag</em> einen Einschub, die
+              <em>Wende</em> einen Gedankenwechsel, der <em>Satz</em> einen Abschnitt, das
+              <em>Kapitel</em> einen neuen Gedanken.<a
+                class="note-ref"
+                id="ref-1"
+                href="#note-1"
+                aria-label="Zur Randnotiz 1"
+                >1</a
+              >
+              Wer <code>--rest-chapter</code> im Code liest, weiß sofort, was gemeint ist,
+              ohne nachzumessen. Der Name ist die Begründung.
+            </p>
+            <aside class="note" id="note-1">
+              <span class="note-num" aria-hidden="true">1</span>
+              Jede Stufe ist ein <code>max()</code> aus Pixelboden und Fensteranteil:
+              <code>--rest-chapter: max(315px, 50vh)</code>. Auf dem Telefon greift der
+              Boden, auf dem 27-Zoll-Schirm der Prozentwert. Ein Kapitelwechsel ist damit
+              immer eine halbe Bildschirmhöhe — ganz ohne Media Query.
+              <a class="note-back" href="#ref-1" aria-label="Zurück zur Referenz 1 im Text">↩</a>
+            </aside>
+          </div>
+
+          <div class="band">
+            <p class="prose">
+              Die zweite Eigenschaft ist die wichtigere. Ein fester Pixelwert ist auf einem
+              großen Schirm zu klein und auf einem kleinen zu groß — deshalb steht in jeder
+              Stufe ein Fensteranteil neben dem Pixelboden. Der Rhythmus wird damit zu einer
+              Eigenschaft des Fensters, nicht des Entwurfs. Nichts an dieser Seite ist mit
+              einem harten Rand gesetzt: alle vertikalen Abstände, bis hinunter zum
+              Klebeabstand der Waitlist-Zeile, stammen aus denselben sechs Variablen.
+            </p>
+          </div>
+
+          <div class="band">
+            <p class="prose">
+              Die hochgestellte Ziffer, die Sie eben überlesen haben, ist selbst ein kleines
+              Bekenntnis. Sie ist keine geschrumpfte Ziffer in einem
+              <code>&lt;sup&gt;</code>, sondern eine echte Superior-Ziffer aus der Schrift —
+              gezogen mit <code>font-variant-position: super</code> bei unveränderter
+              Schriftgröße.<a
+                class="note-ref"
+                id="ref-2"
+                href="#note-2"
+                aria-label="Zur Randnotiz 2"
+                >2</a
+              >
+              Der Unterschied ist genau so groß wie der zwischen Satz und Behelf: eine
+              verkleinerte Ziffer wird zu dünn und fällt aus der Strichstärke der Zeile.
+            </p>
+            <aside class="note" id="note-2">
+              <span class="note-num" aria-hidden="true">2</span>
+              <code>font-variant-position: super</code> plus <code>font-size: 1em</code> und
+              <code>line-height: 0</code>. Voraussetzung ist, dass die Schrift Superiors
+              mitbringt; fehlt das Feature, synthetisiert der Browser — dann sieht es aus wie
+              vorher, bricht aber nichts.
+              <a class="note-back" href="#ref-2" aria-label="Zurück zur Referenz 2 im Text">↩</a>
+            </aside>
+          </div>
+
+          <div class="band" data-rest="hairline">
+            <p class="prose">
+              Schalten Sie im Instrument weiter oben <em>Rhythmus zeigen</em> ein. Jede
+              Ruhestufe zeigt dann ihre eigene Haarlinie und ihren eigenen Namen — der
+              Bauplan liegt offen. Das ist der ganze Trick an benanntem Abstand: er lässt
+              sich vorzeigen.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- ============================== Kapitel ii ============================== -->
+      <article class="chapter" id="kapitel-ii" data-rest="chapter" aria-labelledby="kapitel-ii-titel">
+        <div class="band">
+          <h2 class="chapter-title" id="kapitel-ii-titel">ii. Eine Zahl trägt alles.</h2>
+        </div>
+
+        <div class="movement" data-rest="breath">
+          <div class="band">
+            <p class="prose">
+              Eine Schriftskala ist der Ort, an dem Designsysteme unbemerkt auseinanderfallen.
+              Acht <code>clamp()</code>-Stufen sehen im Storybook großartig aus und sind ein
+              halbes Jahr später acht Stellen, an denen jemand nachjustieren muss — meistens
+              jemand anderes, meistens unter Zeitdruck, meistens nur an sieben davon.
+            </p>
+          </div>
+
+          <div class="band">
+            <p class="prose">
+              Dieses Dokument kennt zwei Basiswerte und einen Faktor. Sechsunddreißig Pixel
+              für die Anzeige, einundzwanzig für den Lesetext, dazu
+              <code>--type-scale</code> mit den Werten <em>1</em>, <em>.875</em> und
+              <em>.78</em>. Alles andere ist <code>calc()</code>. Es gibt keine Zwischenstufe
+              zwischen Anzeige und Fließtext — die größte Schrift dieser Seite ist kleiner als
+              der Body-Text mancher Landingpage, und die Ruhe, die daraus entsteht
+              <span class="aside">( das ist der eigentliche Punkt )</span>, ist die ganze
+              Behauptung.
+            </p>
+          </div>
+
+          <div class="band">
+            <p class="prose">
+              Der Beweis steht im Instrument. Die Radios setzen nichts weiter als ein Attribut
+              auf dem Wurzelelement, und weil <code>html[data-scale="s"]</code> mit seinem
+              Attribut-Selektor eine Stufe schwerer wiegt als das bloße <code>:root</code> in
+              der Media Query, gewinnt es — ohne <code>!important</code>, ohne
+              Reihenfolgen-Roulette. Eine Zahl ändert sich, die ganze Seite folgt: Anzeige,
+              Fließtext, Randnotiz, Bildunterschrift, alles im selben Frame.
+            </p>
+          </div>
+
+          <div class="band">
+            <p class="prose">
+              Vierzehn Pixel bleiben allerdings vierzehn Pixel. Bedienelemente skalieren nicht
+              mit dem Text — ein Knopf, der auf dem Telefon schrumpft, ist ein schlechterer
+              Knopf. Was hier mitskaliert, ist ausschließlich das Gelesene. Die inaktiven
+              Einträge der Kapitel-Navigation stehen deshalb auch nicht in der zartesten
+              Graustufe der Palette, sondern eine Stufe darüber.<a
+                class="note-ref"
+                id="ref-3"
+                href="#note-3"
+                aria-label="Zur Randnotiz 3"
+                >3</a
+              >
+            </p>
+            <aside class="note" id="note-3">
+              <span class="note-num" aria-hidden="true">3</span>
+              Bewusste Abweichung von der Vorlage: dort tragen inaktive Nav-Einträge
+              <code>--faint</code> (#848476, 3,48:1) — bei 14&nbsp;px unter AA. Hier steht
+              <code>--ink-soft</code> (#59594E, 6,50:1). <code>--faint</code> existiert weiter
+              als Token, aber nur für Nicht-Text: Trennlinien und Tick-Marken.
+              <a class="note-back" href="#ref-3" aria-label="Zurück zur Referenz 3 im Text">↩</a>
+            </aside>
+          </div>
+
+          <div class="band" data-rest="hairline">
+            <figure class="rule-figure full">
+              <!--
+                Haarlinien-Kreise: Groesse ist die einzige Aussage. Die Punktreihe entsteht
+                aus stroke-dasharray 0/1.75 mit runden Enden, die Marken wandern ueber
+                stroke-dashoffset. Der Ring ist reine Grafik — die Beschriftung steht als
+                echte Liste daneben, nicht als 7-px-SVG-Text.
+              -->
+              <svg class="rule-rings" viewBox="0 0 600 600" aria-hidden="true" focusable="false">
+                <g class="rule-ticks" fill="none" stroke="var(--rule)" stroke-width="1.6">
+                  <circle cx="300" cy="300" r="290" />
+                  <circle cx="300" cy="300" r="200" />
+                  <circle cx="300" cy="300" r="135" />
+                  <circle cx="300" cy="300" r="86" />
+                  <circle cx="300" cy="300" r="40" />
+                  <circle cx="300" cy="300" r="25" />
+                </g>
+              </svg>
+              <figcaption class="rule-legend-wrap">
+                <ul class="rule-legend">
+                  <li>Haarlinie · Atem · Schlag</li>
+                  <li>Wende · Satz</li>
+                  <li>Kapitel</li>
+                </ul>
+                <p class="rule-caption">
+                  Sechs Ringe, sechs Ruhestufen. Größe ist die Bedeutung — mehr Erklärung
+                  gibt es nicht.
+                </p>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </article>
+
+      <!-- ============================= Kapitel iii ============================== -->
+      <article class="chapter" id="kapitel-iii" data-rest="chapter" aria-labelledby="kapitel-iii-titel">
+        <div class="band">
+          <h2 class="chapter-title" id="kapitel-iii-titel">iii. Der Satz darf sich krümmen.</h2>
+        </div>
+
+        <div class="movement" data-rest="breath">
+          <div class="band">
+            <p class="prose">
+              Ein Satz auf einer Wellenlinie ist kein Bild. Er ist markierbar, kopierbar,
+              durchsuchbar und vorlesbar — <code>&lt;textPath&gt;</code> schickt echten Text
+              an einer Kontur entlang, und die Kontur ist nichts weiter als ein
+              <code>&lt;path&gt;</code> in den <code>&lt;defs&gt;</code>. Der Unterschied zum
+              gerenderten PNG ist nicht dekorativ, sondern kategorisch.
+            </p>
+          </div>
+
+          <div class="band">
+            <!--
+              Zugaenglichkeit der Welle: role="img" + aria-label mit EXAKT demselben Satz.
+              Damit liest ein Screenreader den Satz genau einmal — der SVG-Text wird als
+              Kind eines role="img" nicht mehr einzeln exponiert, es gibt also keine
+              Dopplung. Zwei Rails, weil eine viewBox uniform skaliert: die weite Welle
+              schrumpfte auf 375px Fensterbreite auf 9-px-Schrift. Unter 900px wird deshalb
+              die enge, hohe Rail eingeblendet und die weite per display:none entfernt —
+              damit steht auch immer nur EIN role="img" im Baum.
+            -->
+            <figure class="voice-figure full">
+              <svg
+                class="voice-svg voice-svg--wide"
+                viewBox="0 0 1152 210"
+                role="img"
+                aria-label="Wenn sich der Rhythmus ändert, ändert sich der Satz mit ihm."
+              >
+                <defs>
+                  <path
+                    id="voice-rail"
+                    fill="none"
+                    d="M0,105 C96,43 192,43 288,105 C384,167 480,167 576,105 C672,43 768,43 864,105 C960,167 1056,167 1152,105"
+                  />
+                </defs>
+                <use class="voice-rail-line" href="#voice-rail" />
+                <text class="voice-text">
+                  <textPath href="#voice-rail" startOffset="3%">
+                    Wenn sich der Rhythmus ändert, ändert sich der Satz mit ihm.
+                  </textPath>
+                </text>
+              </svg>
+
+              <svg
+                class="voice-svg voice-svg--narrow"
+                viewBox="0 0 338 168"
+                role="img"
+                aria-label="Wenn sich der Rhythmus ändert, ändert sich der Satz mit ihm."
+              >
+                <defs>
+                  <path
+                    id="voice-rail-narrow"
+                    fill="none"
+                    d="M4,84 C40,14 78,14 114,84 C150,154 188,154 224,84 C260,14 298,14 334,84"
+                  />
+                </defs>
+                <use class="voice-rail-line" href="#voice-rail-narrow" />
+                <text class="voice-text">
+                  <textPath href="#voice-rail-narrow" startOffset="2%">
+                    Wenn sich der Rhythmus ändert, ändert sich der Satz mit ihm.
+                  </textPath>
+                </text>
+              </svg>
+              <figcaption class="voice-caption">
+                Ein <code>&lt;path&gt;</code>, ein <code>&lt;textPath&gt;</code>, kein Bild.
+              </figcaption>
+            </figure>
+          </div>
+
+          <div class="band">
+            <p class="prose">
+              Dieselbe Technik trägt den Spiegel-Ring: drei Fragen laufen auf einer
+              Kreiskontur, drehen sich einmal langsam und <em>parken</em> dann bei einem
+              definierten Winkel, statt endlos zu rotieren. Der Ring ist
+              <code>aria-hidden</code>; die drei Fragen stehen zusätzlich als echte
+              nummerierte Liste im Dokument und werden unterhalb von 640&nbsp;Pixeln sichtbar,
+              wo der Ring keinen Platz mehr hätte.<a
+                class="note-ref"
+                id="ref-4"
+                href="#note-4"
+                aria-label="Zur Randnotiz 4"
+                >4</a
+              >
+            </p>
+            <aside class="note" id="note-4">
+              <span class="note-num" aria-hidden="true">4</span>
+              Sichtbarer Textklon plus semantisches Original ist die Standardfalle bei
+              Stagger- und Pfad-Effekten: ohne <code>aria-hidden</code> auf dem Klon liest der
+              Screenreader alles doppelt. Hier trägt die Liste den Inhalt, der Ring nur die
+              Form.
+              <a class="note-back" href="#ref-4" aria-label="Zurück zur Referenz 4 im Text">↩</a>
+            </aside>
+          </div>
+
+          <div class="band" data-rest="hairline">
+            <div class="mirror full">
+              <svg class="mirror-ring" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+                <defs>
+                  <path id="mirror-rail" fill="none" d="M50,8 a42,42 0 1,1 -0.01,0" />
+                </defs>
+                <use class="mirror-rail-line" href="#mirror-rail" />
+                <circle class="mirror-inner" cx="50" cy="50" r="30" fill="none" />
+                <g class="mirror-orbit">
+                  <text class="mirror-text">
+                    <textPath href="#mirror-rail" startOffset="3%">
+                      Wie viel Ruhe braucht das?
+                    </textPath>
+                  </text>
+                  <text class="mirror-text">
+                    <textPath href="#mirror-rail" startOffset="36%">
+                      Welche Zahl trägt die Skala?
+                    </textPath>
+                  </text>
+                  <text class="mirror-text">
+                    <textPath href="#mirror-rail" startOffset="69%">
+                      Wer liest das eigentlich?
+                    </textPath>
+                  </text>
+                </g>
+              </svg>
+
+              <ol class="mirror-list">
+                <li>Wie viel Ruhe braucht das?</li>
+                <li>Welche Zahl trägt die Skala?</li>
+                <li>Wer liest das eigentlich?</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="band">
+            <p class="prose">
+              Die Abbildung ganz oben tut während all dem etwas, wofür man bis vor kurzem
+              eine Bibliothek installiert hätte: sie wächst über die Scrollstrecke von einer
+              Karte mit acht Pixel Radius auf die volle Fensterbreite. Der Faktor ist nicht
+              geraten, sondern hergeleitet — er ist genau so groß, dass die Karte die beiden
+              Seitenränder auffrisst und keinen Pixel mehr.<a
+                class="note-ref"
+                id="ref-5"
+                href="#note-5"
+                aria-label="Zur Randnotiz 5"
+                >5</a
+              >
+              Zuständig sind vier CSS-Zeilen und eine benannte view-timeline. Kein GSAP, kein
+              Lenis, kein Scroll-Listener.
+            </p>
+            <aside class="note" id="note-5">
+              <span class="note-num" aria-hidden="true">5</span>
+              <code>view-timeline-name: --media-grow</code> plus
+              <code>animation-timeline: --media-grow</code> und
+              <code>animation-range: cover 8vh cover 65%</code>. Die Scope darum trägt
+              <code>overflow-x: clip</code> statt <code>hidden</code>: <code>hidden</code>
+              erzeugt einen Scroll-Container und würde Sticky-Semantik und Timeline
+              beschädigen, <code>clip</code> schneidet nur ab.
+              <a class="note-back" href="#ref-5" aria-label="Zurück zur Referenz 5 im Text">↩</a>
+            </aside>
+          </div>
+
+          <div class="band">
+            <p class="prose">
+              Was bleibt, ist ein kleines System: sechs Abstände, zwei Schriftgrößen, ein
+              Faktor, keine Akzentfarbe. Wenn ein Entwurf so wenig braucht, dann deshalb, weil
+              der Text trägt — und die Wörter
+              <span class="unravel-word" style="--i: 0">kippen</span>
+              <span class="unravel-word" style="--i: 1">nur</span>, wenn man sie
+              <span class="unravel-word" style="--i: 2">lässt</span>.
+            </p>
+          </div>
+
+          <div class="band" data-rest="hairline">
+            <p class="prose closing">
+              <a class="closing-link" href="#inhalt">Noch einmal von vorn.</a>
+            </p>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <footer class="band page-foot" data-rest="movement">
+      <p class="foot-line">
+        Render-Live-Workshop · PoC <code>poc-soma-health</code> · Quelle:
+        <em>Soma-Health/DESIGN.md</em>
+      </p>
+      <p class="foot-line foot-line--soft">
+        Vanilla TypeScript + Vite · keine Animations-Library · Host Grotesk (OFL) und
+        System-Serife
+      </p>
+    </footer>
+
+  </body>
+</html>
