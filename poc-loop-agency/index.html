@@ -1,0 +1,172 @@
+<!doctype html>
+<!--
+  data-theme und data-contrast stehen schon im Quelltext, nicht erst per JS:
+  beide sind Zustaende der Buehne, kein Einblenden. Ohne die Startwerte im
+  Markup blitzt beim ersten Frame die falsche Flaeche auf.
+
+  data-contrast="a11y" ist der AUSGELIEFERTE Zustand: Ruhefarbe #767676 (4,54:1)
+  statt der #E5E5E5 des Originals (1,26:1). Der Schalter links unten kann auf
+  das Original zurueckstellen — sichtbar machen, was das Template tut, ist der
+  didaktische Zweck; es auszuliefern waere ein Verstoss gegen WCAG 1.4.3.
+-->
+<html lang="de" data-theme="light" data-contrast="a11y">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loop Creative Agency — Pixel-Dissolve</title>
+    <meta
+      name="description"
+      content="Pixel-Dissolve-Hover als lauffaehiger PoC: ein 486x729-2D-Canvas loest das Projektbild in 12/24/48px-Kacheln auf und wieder zusammen — drawImage auf Kachelraster plus requestAnimationFrame, kein Shader, kein WebGL, keine Animations-Library."
+    />
+    <!--
+      Favicon inline als data-URI: ohne diese Zeile fragt der Browser
+      /favicon.ico an der Domain-WURZEL an — unter dem Subpfad-Deploy
+      /poc-loop-agency/ ist das ein garantierter 404. Ein data-URI hat
+      ueberhaupt keinen Pfad und ist damit subpfad-sicher.
+      Das Zeichen: der 6px-Quadrat-Zustandsmarker, das einzige Symbol des
+      Systems ausser dem Play-Dreieck.
+    -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23ffffff'/%3E%3Crect x='11' y='11' width='10' height='10' fill='%23000000'/%3E%3C/svg%3E"
+    />
+    <script type="module" crossorigin src="./assets/index-CYfSBkr0.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-B7w-n2Kw.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#projects">Zur Projektliste springen</a>
+
+    <main class="stage" id="stage" data-active="none">
+      <!--
+        Die vier Ecken tragen die Bedienung, die Mitte traegt die Arbeit
+        (DESIGN.md, Whitespace-Rationale). Die Reihenfolge im DOM folgt der
+        Lesefolge oben-links → links → Mitte → rechts → unten, damit
+        Tastatur- und Blickpfad zusammenfallen (WCAG 2.4.3).
+      -->
+      <div class="stage__top">
+        <!--
+          Die Wortmarke IST die Ueberschrift. Der Zusatz steht nur fuer
+          Screenreader daneben — kein aria-hidden-Klon, sondern ein einziger,
+          erweiterter Textknoten. Damit gibt es die Information genau einmal.
+        -->
+        <h1 class="wordmark">LOOP<span class="visually-hidden"> Creative Agency — Werkverzeichnis mit Pixel-Dissolve</span></h1>
+        <p class="origin">PIXEL-DISSOLVE · LOOP-AGENCY/DESIGN.MD</p>
+      </div>
+
+      <div class="stage__left">
+        <!--
+          Kachelkante. Live wirksam: ein Wechsel wiederholt die laufende Blende
+          mit dem neuen Raster, sonst waere die Liste eine Einstellung ohne
+          sichtbare Wirkung.
+        -->
+        <section class="control" aria-labelledby="ctl-tile">
+          <h2 class="control__label" id="ctl-tile">TILE</h2>
+          <ul class="control__list">
+            <li><button class="control__option" type="button" data-tile="12">12</button></li>
+            <li>
+              <button class="control__option" type="button" data-tile="24" aria-current="true">24</button>
+            </li>
+            <li><button class="control__option" type="button" data-tile="48">48</button></li>
+          </ul>
+        </section>
+
+        <!--
+          Der didaktische Kern: A11Y liefert 4,54:1 (Light) bzw. 5,34:1 (Dark),
+          ORIGINAL stellt die 1,26:1 des Templates wieder her. Was der Schalter
+          anrichtet, benennt die Statuszeile unten im Klartext.
+        -->
+        <section class="control" aria-labelledby="ctl-contrast">
+          <h2 class="control__label" id="ctl-contrast">CONTRAST</h2>
+          <ul class="control__list">
+            <li>
+              <button class="control__option" type="button" data-contrast="a11y" aria-current="true">
+                A11Y
+              </button>
+            </li>
+            <li>
+              <button class="control__option" type="button" data-contrast="original">ORIGINAL</button>
+            </li>
+          </ul>
+        </section>
+      </div>
+
+      <!--
+        Steht im DOM VOR der Mitte, obwohl es visuell rechts davon liegt: auf
+        dem Desktop setzt das Grid die Position ohnehin explizit, und auf
+        schmalen Schirmen (Flex-Fluss = DOM-Fluss) stuende die Theme-Wahl sonst
+        hinter allen sieben Projekten. So liegen alle Steuerlisten beieinander
+        — Tab-Reihenfolge: Bedienung, dann Werk, dazu ein Skip-Link.
+      -->
+      <div class="stage__right">
+        <section class="control control--right" aria-labelledby="ctl-theme">
+          <h2 class="control__label" id="ctl-theme">THEME</h2>
+          <ul class="control__list">
+            <li>
+              <button class="control__option" type="button" data-theme="light" aria-current="true">
+                LIGHT
+              </button>
+            </li>
+            <li><button class="control__option" type="button" data-theme="dark">DARK</button></li>
+            <li><button class="control__option" type="button" data-theme="system">SYSTEM</button></li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="stage__center">
+        <!--
+          Ein einziges Canvas mit Buffer 486x729 (2:3, der gemessene Wert des
+          Originals). aria-hidden + role="presentation": der Informationsgehalt
+          — Name, Disziplin, Jahr — steht vollstaendig im Text-DOM darunter,
+          das Canvas ist reine Anschauung.
+        -->
+        <div class="stage__media">
+          <canvas
+            class="dissolve"
+            id="dissolve"
+            width="486"
+            height="729"
+            aria-hidden="true"
+            role="presentation"
+          ></canvas>
+          <p class="stage__hint">TIPPEN ODER ÜBERFAHREN</p>
+        </div>
+
+        <!--
+          lang="en": die Werktitel und Disziplinen sind englisch, die Seite ist
+          deutsch. Die Liste wird aus content.ts aufgebaut.
+        -->
+        <ol class="projects" id="projects" role="list" lang="en" tabindex="-1"></ol>
+      </div>
+
+      <div class="stage__bottom">
+        <!-- 280px breit, 14px Mono, Versalien. Erste und letzte Zeile fett —
+             der einzige Fett-Einsatz der ganzen Seite. -->
+        <p class="intro" id="intro"></p>
+
+        <p class="status" id="status" role="status">
+          <span class="status__line" id="status-grid"></span>
+          <span class="status__line" id="status-contrast"></span>
+        </p>
+
+        <button class="autoplay" id="autoplay" type="button" aria-pressed="false">
+          <span class="autoplay__icon" id="autoplay-icon" aria-hidden="true">▶</span>
+          <span class="autoplay__text" id="autoplay-text">AUTO</span>
+        </button>
+      </div>
+
+      <!--
+        Rein textuell, ohne <style>: ein noscript-Stylesheet verliert bei
+        Spezifitaets-Gleichstand gegen das spaeter injizierte Vite-Bundle-CSS.
+        Zu retten gibt es hier ohnehin nichts — die Projektliste und der ganze
+        Effekt entstehen in JS, der PoC ist eine Effekt-Demo.
+      -->
+      <noscript>
+        <p class="noscript">
+          Dieser PoC zeigt einen Canvas-Effekt und braucht dafür JavaScript. Ohne JavaScript bleibt die
+          Projektliste leer.
+        </p>
+      </noscript>
+    </main>
+
+  </body>
+</html>

@@ -297,6 +297,15 @@
       "desc": "Sticky-Pin über 6 Steps mit clip-path-Wipe-Medienstapel (inset(0 100% 0 0) → inset(0)) + seitenweiter BG-Umschlag rot→bone in 0.7s — reine CSS-Transitions + IntersectionObserver, keine Animations-Library",
       "nightly": true,
       "built": "2026-09-01"
+    },
+    {
+      "slug": "poc-loop-agency",
+      "title": "Loop-Agency",
+      "stage": "Nightly",
+      "effort": "mid",
+      "desc": "\"Pixel-Dissolve-Hover — 2D-Canvas (486×729) über der Mega-Typo: das Projektbild wird in ~24×24px-Kacheln einzeln ein- und ausgeblendet (zufällige Reihenfolge, gestaffelte Verzögerung), während der überfahrene Anton-160px-Name von #E5E5E5 auf #000 schaltet und links/rechts eine Meta-Zeile (Disziplin · Jahr) einfliegt. Kein Shader, kein WebGL — drawImage auf Kachelraster + requestAnimationFrame.\"",
+      "nightly": true,
+      "built": "2026-09-01"
     }
   ]
 }
