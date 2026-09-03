@@ -1,0 +1,534 @@
+<!doctype html>
+<!--
+  poc-state-of-ai-design — Report-Landing nach State-Of-AI-Design/DESIGN.md.
+
+  Grundregel dieses Dokuments: das MARKUP STEHT IMMER IM ENDZUSTAND.
+  Die Wortmarke sitzt in der Nav, die Hero-Headline ist sichtbar, die Zaehler
+  zeigen ihren Zielwert, die Balken ihre Zielbreite. JS *entfernt* diesen
+  Endzustand nur dann kurzzeitig, wenn wirklich animiert wird.
+
+  Dadurch landen die drei Faelle "kein JS", "prefers-reduced-motion: reduce" und
+  "JS bricht ab" automatisch auf einem lesbaren Ergebnis — statt auf einem
+  eingefrorenen Startzustand (opacity 0 / width 0), wie er entsteht, wenn man den
+  Anfangszustand ins CSS schreibt und auf das JS hofft.
+
+  Alle Zahlen und Zitate sind Demo-Inhalte fuer den Workshop, keine echten Daten.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
+    <title>AI in Design Report 2026 — Farbfeld-Nav &amp; Intro-Kollaps</title>
+    <meta
+      name="description"
+      content="PoC nach stateofaidesign.com: Navigation als Raster fugenloser Vollton-Kacheln mit herunterklappender Farbflaeche, Intro-Kollaps der 120px-Headline zur Wortmarke per FLIP, Kapitel-Pin-Stack aus drei sticky Vollton-Panels und Charts aus reinen CSS-Divs."
+    />
+    <!--
+      Favicon inline als data-URI. Ohne diese Zeile fragt der Browser /favicon.ico an der
+      Domain-WURZEL an — unter dem Subpfad-Deploy /poc-state-of-ai-design/ ein garantierter
+      404. Eine data-URI hat ueberhaupt keinen Pfad und ist damit subpfad-sicher.
+      Das Zeichen: die schwarze Logo-Kachel plus die drei Kapitelfarben — die Nav in klein.
+    -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23ffffff'/%3E%3Crect width='32' height='8' y='0' fill='%23000000'/%3E%3Crect width='32' height='8' y='8' fill='%23FE7141'/%3E%3Crect width='32' height='8' y='16' fill='%23CDABFE'/%3E%3Crect width='32' height='8' y='24' fill='%23D1DDD3'/%3E%3C/svg%3E"
+    />
+    <noscript>
+      <style>
+        /*
+          Ohne JS sind die Aufklapp-Buttons blinde Bedienelemente — also raus damit, und an
+          ihrer Stelle erscheinen echte Anker auf die Abschnitte, die im Dokument ohnehin
+          stehen. Die Kachelfarben bleiben so erhalten.
+
+          Warum `html body …` plus !important: Vite injiziert den <link> auf das gebuendelte
+          Stylesheet NACH diesem <style>. Bei Spezifitaets-Gleichstand gewinnt die spaetere
+          Regel — dieses noscript wuerde also verlieren. (Repo-Lehre: noscript verliert gegen
+          das Vite-Bundle.)
+        */
+        html body .js-only {
+          display: none !important;
+        }
+        html body .nojs-only {
+          display: flex !important;
+        }
+        /* Der Case-Studies-Index existiert nur in seiner Flaeche — ohne JS
+           bliebe eine leere Kachel stehen. */
+        html body .nav__slot--cases {
+          display: none !important;
+        }
+      </style>
+    </noscript>
+    <script type="module" crossorigin src="./assets/index-Ck3ce7o6.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DUldYK9k.css">
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- =========================== (A) Farbfeld-Nav =========================== -->
+    <!--
+      Keine Linkleiste, sondern ein Raster vollflaechiger Farbkacheln, die fugenlos
+      aneinanderstossen (DESIGN.md: "Farbe ist Navigation, nicht Marke").
+
+      `.nav__tiles` ist auf Desktop `display: contents` — die Kacheln werden dadurch zu
+      direkten Flex-Items der 56px-Zeile, ohne dass wir sie fuer Mobile duplizieren muessen.
+      Auf Mobile wird derselbe Container zur aufklappbaren Spalte hinter der "Menu"-Kachel.
+      Ein Markup, zwei Layouts, kein doppelter Inhalt fuer Screenreader.
+    -->
+    <header>
+      <nav class="nav" id="nav" aria-label="Primary">
+        <!-- Ziel des Intro-Kollaps: die Wortmarke sitzt bereits hier, sichtbar. -->
+        <a class="nav__logo" href="#top" id="brand">
+          <span class="mark" id="mark" aria-hidden="true"
+            ><span class="mark__part" data-part="ai">Ai</span
+            ><span class="mark__part" data-part="d">D</span
+            ><span class="mark__part" data-part="year">26</span></span
+          >
+          <span class="sr-only">AI in Design Report 2026 — back to top</span>
+        </a>
+
+        <!-- Nur unter 900px sichtbar: die Kachelzeile faellt auf Logo + Menu zusammen. -->
+        <button
+          class="nav__tile nav__menu"
+          type="button"
+          data-menu="root"
+          aria-expanded="false"
+          aria-controls="nav-tiles"
+        >
+          Menu
+        </button>
+
+        <div class="nav__tiles" id="nav-tiles">
+          <div class="nav__slot nav__slot--report">
+            <button
+              class="nav__tile nav__tile--report js-only"
+              type="button"
+              data-menu="panel"
+              aria-expanded="false"
+              aria-controls="menu-report"
+            >
+              <span>Read the Report</span>
+              <span class="nav__caret" aria-hidden="true">+</span>
+            </button>
+            <a class="nav__tile nav__tile--report nojs-only" href="#chapters">Read the Report</a>
+            <!--
+              Kein Panel mit Schatten und Radius, sondern die Verlaengerung der Kachel nach
+              unten: exakt deren Breite (left:0; width:100%), derselbe Vollton, radius 0.
+            -->
+            <div class="nav__panel nav__panel--report" id="menu-report" data-open="false">
+              <div class="nav__panel-inner">
+                <p class="t-mono nav__panel-eyebrow">Chapter index</p>
+                <ul class="nav__index">
+                  <li>
+                    <a href="#chapter-01"
+                      ><span class="nav__index-no">01</span
+                      ><span class="nav__index-name">Tools</span></a
+                    >
+                  </li>
+                  <li>
+                    <a href="#chapter-02"
+                      ><span class="nav__index-no">02</span
+                      ><span class="nav__index-name">Craft</span></a
+                    >
+                  </li>
+                  <li>
+                    <a href="#chapter-03"
+                      ><span class="nav__index-no">03</span
+                      ><span class="nav__index-name">Teams</span></a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fuellfeld: die weisse Flaeche zwischen den Kacheln, rein optisch. -->
+          <div class="nav__fill" aria-hidden="true"></div>
+
+          <a class="nav__tile nav__tile--hoverable nav__tile--about" href="#about">About</a>
+
+          <div class="nav__slot nav__slot--cases">
+            <button
+              class="nav__tile nav__tile--hoverable js-only"
+              type="button"
+              data-menu="panel"
+              aria-expanded="false"
+              aria-controls="menu-cases"
+            >
+              <span>Case Studies</span>
+              <span class="nav__caret" aria-hidden="true">+</span>
+            </button>
+            <div class="nav__panel nav__panel--cases" id="menu-cases" data-open="false">
+              <div class="nav__panel-inner">
+                <p class="t-mono nav__panel-eyebrow">Video case studies</p>
+                <ul class="nav__cases">
+                  <li><span>Sierra</span><span class="badge badge--live">Live</span></li>
+                  <li><span>Linear</span><span class="badge badge--live">Live</span></li>
+                  <li><span>Shopify</span><span class="badge badge--live">Live</span></li>
+                  <li><span>Stripe</span><span class="badge">Coming soon</span></li>
+                  <li><span>Anthropic</span><span class="badge">Coming soon</span></li>
+                  <li><span>Notion</span><span class="badge">Coming soon</span></li>
+                </ul>
+                <a class="nav__cases-link" href="#methodology">How we selected them &#8594;</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- ========================= (B) Intro-Kollaps ============================ -->
+    <!--
+      Standardmaessig `hidden`. JS blendet die Flaeche nur ein, wenn wirklich animiert wird
+      (erster Besuch der Session, Bewegung erlaubt, Seite ganz oben). Damit gibt es keinen
+      Zustand, in dem die Ueberschrift unsichtbar haengen bleibt.
+
+      Die Wortgruppen sind visuelle Klone — deshalb liegt `aria-hidden` auf der Buehne. Der
+      Originaltext steht als echtes <h1> im Hero direkt darunter, einmal, vollstaendig.
+    -->
+    <div class="intro" id="intro" hidden>
+      <div class="intro__stage" aria-hidden="true">
+        <span class="intro__group t-hero" data-target="ai">AI</span>
+        <span class="intro__group t-hero" data-target="">in</span>
+        <span class="intro__group t-hero" data-target="d">Design</span>
+        <span class="intro__group t-hero" data-target="">Report</span>
+        <span class="intro__group t-hero" data-target="year">2026</span>
+      </div>
+      <button class="intro__skip t-mono" type="button" id="intro-skip">Skip intro</button>
+    </div>
+
+    <!-- tabindex="-1": ohne das nimmt <main> den Fokus des Skip-Links nicht an,
+         und die Tastatur landet wieder am Dokumentanfang. -->
+    <main id="main" tabindex="-1">
+      <!-- ============================== Hero ================================= -->
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <!--
+          "Generierte Bildwelt" als reiner CSS-Verlauf: weich-organische Pastellflaechen aus
+          gestapelten radial-gradients. Kein externes Bild, keine Datei — das haelt den Build
+          netzunabhaengig und subpfad-sicher, und alle Stops sind hell genug, dass schwarzer
+          Text darauf ueber 10:1 liegt.
+        -->
+        <div
+          class="hero__media"
+          role="img"
+          aria-label="Generated abstract imagery: soft organic gradients in pastel rose and violet"
+        ></div>
+
+        <div class="hero__inner shell">
+          <div class="hero__copy">
+            <p class="t-body-m hero__sub">
+              How designers are evolving their tools, craft, and teams with AI.
+            </p>
+            <p class="t-mono hero__byline">
+              By Designer Fund in partnership with Foundation Capital
+            </p>
+          </div>
+          <h1 class="t-hero hero__title" id="hero-title">AI in Design Report 2026</h1>
+        </div>
+
+        <div class="hero__foot shell">
+          <button class="intro__replay t-mono js-only" type="button" id="intro-replay">
+            Replay intro
+          </button>
+          <p class="t-mono hero__scroll">Scroll to read <span aria-hidden="true">&#8595;</span></p>
+        </div>
+      </section>
+
+      <!-- ============================ Partners =============================== -->
+      <section class="partners shell" aria-labelledby="partners-title">
+        <h2 class="t-mono" id="partners-title">Our partners</h2>
+        <ul class="partners__row">
+          <li>Notion</li>
+          <li>Figma</li>
+          <li>Linear</li>
+          <li>Anthropic</li>
+          <li>Shopify</li>
+          <li>Stripe</li>
+        </ul>
+      </section>
+
+      <!-- ========================= Intro + Stats ============================= -->
+      <section class="prelude shell" id="about" aria-labelledby="prelude-title">
+        <p class="t-mono prelude__eyebrow">An inflection point</p>
+        <h2 class="t-statement prelude__title" id="prelude-title">
+          In 2025, designers were experimenting with AI. In 2026, they&#8217;re rebuilding around
+          it.
+        </h2>
+        <p class="t-body-l prelude__lead">
+          The shift is no longer about which model writes the copy. It is about who owns the
+          judgment call once the first draft costs nothing — and how a team is shaped around that
+          question.
+        </p>
+
+        <!--
+          Zaehler-Kacheln. Die Ziffer ist rein visuell (aria-hidden) und laeuft bei
+          Sichtbarkeit von 0 hoch; das "+" steht als eigenes Element daneben und wird NICHT
+          mitanimiert. Der lesbare Originaltext daneben traegt die Zahl als sr-only-Praefix,
+          damit Screenreader einen vollstaendigen Satz hoeren statt einer zappelnden Ziffer.
+        -->
+        <div class="stats">
+          <div class="stat stat--craft">
+            <p class="stat__value t-counter" aria-hidden="true">
+              <span class="stat__num" data-count-to="900">900</span
+              ><span class="stat__suffix">+</span>
+            </p>
+            <p class="stat__label t-h4">
+              <span class="sr-only">900+ </span>Designers surveyed in 60+ countries.
+            </p>
+          </div>
+          <div class="stat stat--teams">
+            <p class="stat__value t-counter" aria-hidden="true">
+              <span class="stat__num" data-count-to="25">25</span><span class="stat__suffix">+</span>
+            </p>
+            <p class="stat__label t-h4">
+              <span class="sr-only">25+ </span>In-depth interviews with design leaders.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================== Pullquote =============================== -->
+      <section class="pullquote is-dark" aria-labelledby="pullquote-title">
+        <div class="pullquote__inner shell">
+          <div class="pullquote__meta">
+            <h2 class="t-mono" id="pullquote-title">From the interviews</h2>
+            <p class="t-body-s pullquote__attr">
+              Head of Design, payments platform<br />Interview 04, February 2026
+            </p>
+          </div>
+          <blockquote class="pullquote__body">
+            <p class="t-statement">
+              The teams pulling ahead are not the ones with the best models. They are the ones who
+              rebuilt their craft around them.
+            </p>
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- ======================= Kapitel-Pin-Stack ============================ -->
+      <!--
+        Drei deckungsgleiche `position: sticky`-Panels in einem Wrapper. Beim Scrollen
+        schiebt sich Orange ueber Weiss, Lila ueber Orange, Sage ueber Lila — der
+        Farbwechsel IST die Navigation.
+
+        `overflow: clip` am Wrapper, nicht `hidden`: `hidden` wuerde den Wrapper zum
+        Scroll-Container machen, die Panels wuerden relativ dazu kleben und die
+        Tastatur-Navigation scrollt den Pin selbst weg (Repo-Lehre, WCAG 2.4.7).
+      -->
+      <div class="pin-stack" id="chapters">
+        <section class="chapter chapter--tools" id="chapter-01" aria-labelledby="ch-01-name">
+          <div class="chapter__inner shell">
+            <div class="chapter__id">
+              <p class="t-chapter chapter__no" aria-hidden="true">01</p>
+              <h2 class="t-chapter chapter__name" id="ch-01-name">
+                <span class="sr-only">Chapter 01: </span>Tools
+              </h2>
+              <div
+                class="chapter__motif"
+                role="img"
+                aria-label="Generated abstract motif in warm orange tones"
+              ></div>
+            </div>
+            <div class="chapter__body">
+              <h3 class="t-section chapter__title">The great toolstack shakeup</h3>
+              <p class="t-mono chapter__eyebrow">In this chapter, we&#8217;ll cover:</p>
+              <ul class="chapter__list t-body-s">
+                <li>Which tools designers actually kept after the trial ended</li>
+                <li>Why the file stopped being the deliverable</li>
+                <li>What replaced the handoff — and who owns it now</li>
+              </ul>
+              <div class="chapter__actions">
+                <a class="btn" href="#findings"
+                  ><span>Read chapter 01</span><span class="btn__arrow" aria-hidden="true">&#8594;</span></a
+                >
+                <a class="btn" href="#methodology"
+                  ><span>Download the data</span><span class="btn__arrow" aria-hidden="true">&#8594;</span></a
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="chapter chapter--craft" id="chapter-02" aria-labelledby="ch-02-name">
+          <div class="chapter__inner shell">
+            <div class="chapter__id">
+              <p class="t-chapter chapter__no" aria-hidden="true">02</p>
+              <h2 class="t-chapter chapter__name" id="ch-02-name">
+                <span class="sr-only">Chapter 02: </span>Craft
+              </h2>
+              <div
+                class="chapter__motif"
+                role="img"
+                aria-label="Generated abstract motif in violet tones"
+              ></div>
+            </div>
+            <div class="chapter__body">
+              <h3 class="t-section chapter__title">Craft after the prompt</h3>
+              <p class="t-mono chapter__eyebrow">In this chapter, we&#8217;ll cover:</p>
+              <ul class="chapter__list t-body-s">
+                <li>Taste as the new bottleneck</li>
+                <li>Reviewing work you did not draw</li>
+                <li>Where judgment still pays, measured in review rounds</li>
+              </ul>
+              <div class="chapter__actions">
+                <a class="btn" href="#findings"
+                  ><span>Read chapter 02</span><span class="btn__arrow" aria-hidden="true">&#8594;</span></a
+                >
+                <a class="btn" href="#methodology"
+                  ><span>Download the data</span><span class="btn__arrow" aria-hidden="true">&#8594;</span></a
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="chapter chapter--teams" id="chapter-03" aria-labelledby="ch-03-name">
+          <div class="chapter__inner shell">
+            <div class="chapter__id">
+              <p class="t-chapter chapter__no" aria-hidden="true">03</p>
+              <h2 class="t-chapter chapter__name" id="ch-03-name">
+                <span class="sr-only">Chapter 03: </span>Teams
+              </h2>
+              <div
+                class="chapter__motif"
+                role="img"
+                aria-label="Generated abstract motif in sage tones"
+              ></div>
+            </div>
+            <div class="chapter__body">
+              <h3 class="t-section chapter__title">Inside AI-native design teams</h3>
+              <p class="t-mono chapter__eyebrow">In this chapter, we&#8217;ll cover:</p>
+              <ul class="chapter__list t-body-s">
+                <li>New roles at the same headcount</li>
+                <li>How research changed shape</li>
+                <li>What leaders actually measure now</li>
+              </ul>
+              <div class="chapter__actions">
+                <a class="btn" href="#findings"
+                  ><span>Read chapter 03</span><span class="btn__arrow" aria-hidden="true">&#8594;</span></a
+                >
+                <a class="btn" href="#methodology"
+                  ><span>Download the data</span><span class="btn__arrow" aria-hidden="true">&#8594;</span></a
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ============================ Findings =============================== -->
+      <!--
+        Charts als CSS-Divs statt Chart-Library. Ausgezeichnet als Liste: der Balken ist
+        aria-hidden (reine Flaeche), Label und Prozentwert stehen als Text daneben und
+        bleiben ohne JS, ohne CSS und im Screenreader vollstaendig lesbar.
+        Die Zielbreite steht als inline-style im Markup — JS setzt sie nur dann kurz auf 0,
+        wenn animiert werden darf.
+      -->
+      <section class="findings shell" id="findings" aria-labelledby="findings-title">
+        <p class="t-mono findings__eyebrow">Selected findings</p>
+        <h2 class="t-section findings__title" id="findings-title">
+          1. Frequent AI usage jumped from 54&#8239;% to 91&#8239;% in one year
+        </h2>
+        <p class="t-body-s findings__lead">
+          Weekly use is no longer the story. The gap has moved to what happens after the first
+          draft — and only a third of teams have anyone accountable for it.
+        </p>
+
+        <ul class="chart">
+          <li class="chart__row">
+            <span class="chart__label t-body-s">Designers using AI weekly &#183; 2026</span>
+            <span class="chart__track" aria-hidden="true"
+              ><span class="chart__bar chart__bar--tools" data-bar="91" style="width: 91%"></span
+            ></span>
+            <span class="chart__value t-counter">91<span class="chart__pct">%</span></span>
+          </li>
+          <li class="chart__row">
+            <span class="chart__label t-body-s">Designers using AI weekly &#183; 2025</span>
+            <span class="chart__track" aria-hidden="true"
+              ><span class="chart__bar chart__bar--craft" data-bar="54" style="width: 54%"></span
+            ></span>
+            <span class="chart__value t-counter">54<span class="chart__pct">%</span></span>
+          </li>
+          <li class="chart__row">
+            <span class="chart__label t-body-s">Running AI end-to-end, brief to handoff</span>
+            <span class="chart__track" aria-hidden="true"
+              ><span class="chart__bar chart__bar--tools" data-bar="78" style="width: 78%"></span
+            ></span>
+            <span class="chart__value t-counter">78<span class="chart__pct">%</span></span>
+          </li>
+          <li class="chart__row">
+            <span class="chart__label t-body-s">Teams with a named AI design lead</span>
+            <span class="chart__track" aria-hidden="true"
+              ><span class="chart__bar chart__bar--craft" data-bar="37" style="width: 37%"></span
+            ></span>
+            <span class="chart__value t-counter">37<span class="chart__pct">%</span></span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ========================== CTA + Methodik ============================ -->
+      <section class="cta is-dark" aria-labelledby="cta-title">
+        <div class="cta__inner shell">
+          <h2 class="t-statement cta__title" id="cta-title">
+            Get new case studies &amp; the report markdown
+          </h2>
+          <p class="t-body-l cta__sub">
+            One mail per chapter. The raw tables ship with it, so you can check every number in
+            this report yourself.
+          </p>
+          <form class="cta__form" id="cta-form" novalidate>
+            <label class="sr-only" for="cta-email">Email address</label>
+            <input
+              class="cta__input t-body-s"
+              id="cta-email"
+              name="email"
+              type="email"
+              inputmode="email"
+              autocomplete="email"
+              placeholder="you@studio.com"
+            />
+            <button class="cta__submit t-body-s" type="submit">
+              <span>Subscribe</span><span class="btn__arrow" aria-hidden="true">&#8594;</span>
+            </button>
+          </form>
+          <p class="t-body-s cta__status" id="cta-status" role="status"></p>
+        </div>
+      </section>
+
+      <section class="method is-dark" id="methodology" aria-labelledby="method-title">
+        <div class="method__inner shell">
+          <h2 class="t-mono" id="method-title">Methodology</h2>
+          <ul class="method__grid">
+            <li>
+              <p class="t-counter method__num">906</p>
+              <p class="t-body-s method__label">Survey responses, collected Nov 2025 – Jan 2026.</p>
+            </li>
+            <li>
+              <p class="t-counter method__num">25<span class="method__suffix">+</span></p>
+              <p class="t-body-s method__label">Interviews with design leaders and IC designers.</p>
+            </li>
+            <li>
+              <p class="t-counter method__num">50<span class="method__suffix">+</span></p>
+              <p class="t-body-s method__label">Public sources, job posts and product changelogs.</p>
+            </li>
+          </ul>
+          <p class="t-body-s method__note">
+            Demo content. This is a build study for the Render-Live-Workshop, not a real report.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer is-dark">
+      <div class="footer__inner shell">
+        <p class="t-hero footer__mark">Ai in Design</p>
+        <div class="footer__row">
+          <p class="t-mono">2026</p>
+          <p class="t-mono">Render-Live-Workshop &#183; PoC after stateofaidesign.com</p>
+        </div>
+      </div>
+    </footer>
+
+  </body>
+</html>

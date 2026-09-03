@@ -315,6 +315,15 @@
       "desc": "\"Scroll-Essay-System ohne eine Zeile Animations-Library: benannte Vertikal-Rhythmus-Tokens (--rest-hairline/breath/beat/turn/movement/chapter als max(px, Nvh)) + ein globaler --type-scale (1 / .875 / .78) der ALLE Schriftgrößen über calc() staffelt + Tufte-Randnotizen im 12-Spalten-Raster + Fließtext auf SVG-<textPath> (Satz reitet auf einer Wellenlinie, drei Fragen kreisen auf einem Ring) + Hero-Medium, das per CSS-nativer view-timeline von der 8px-Karte auf Full-Bleed wächst (animation-timeline: --media-grow, KEIN GSAP)\"",
       "nightly": true,
       "built": "2026-09-01"
+    },
+    {
+      "slug": "poc-state-of-ai-design",
+      "title": "State-Of-AI-Design",
+      "stage": "Nightly",
+      "effort": "mid",
+      "desc": "\"Farbfeld-Nav aus vollflächigen Rasterkacheln, die als Vollton-Dropdown herunterklappen + Intro, in dem die 120px-Headline zur Kompakt-Wortmarke zusammenfährt\"",
+      "nightly": true,
+      "built": "2026-09-03"
     }
   ]
 }
