@@ -1,0 +1,450 @@
+<!doctype html>
+<!--
+  poc-philip-readman — Portfolio-Landing nach Philip-Readman/DESIGN.md (philipreadman.com).
+
+  ZWEI EFFEKTE, EIN GERUEST:
+    1. Das MENU-Pill oeffnet ein zentriertes Vollton-Panel in #F5D533 — der einzige
+       Farbmoment der ganzen Seite. Der Hintergrund bleibt dabei voellig unveraendert:
+       kein Dim, kein Blur, kein Backdrop. Das ist die Pointe der Referenz.
+    2. Ein Sticky-Fenster uebersetzt vertikalen Scroll in die horizontale Fahrt einer
+       Reihe aus neun Vollton-Projektkarten (~5,3px seitwaerts je 1px abwaerts).
+
+  GRUNDREGEL DES MARKUPS: Alles steht im lesbaren Zustand. Die neun Karten sind echter
+  Text, das Menue ist vollstaendig da, beide Footer-Zeilen stehen im DOM. Ohne JS liegen
+  die Karten als vertikale Reihe untereinander (das ist der CSS-Grundzustand) und das
+  Panel bleibt geschlossen — die Seite verliert zwei Effekte, aber keinen Inhalt.
+
+  TYPOGRAFIE-SIGNATUR DER REFERENZ, hier eingehalten: kein letter-spacing, kein
+  font-weight ausser 400, KEINE Schrift groesser als 16px auf der ganzen Seite. Versalien
+  entstehen ausschliesslich per `text-transform` — im Quelltext steht Kleinschreibung.
+
+  INHALTE: Demo-Inhalte fuer den Workshop. Saemtliche Projektnamen sind FANTASIENAMEN
+  (Lumenrare, Voltaris, Halden, Altura, Nira, Vireo, Meridian) — bewusst KEINE echten
+  Drittmarken, damit die Demo keine Referenzliste vortaeuscht. Die Namen der Referenz-
+  Extraktion wurden in Laenge und Struktur nachgebildet, damit Umbruchverhalten und
+  Spaltenbreiten unveraendert bleiben. Der Intro-Absatz beschreibt keine reale Person;
+  es gibt weder Lebenslauf noch Kontaktdaten im Dokument. Der Ordnername
+  "poc-philip-readman" ist die Quellenangabe zur Design-Referenz, keine Behauptung.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
+    <title>Portfolio Demo — Menu Panel &amp; Horizontal Track</title>
+    <meta
+      name="description"
+      content="PoC nach philipreadman.com: MENU-Pill oeffnet ein Vollton-Panel in #F5D533 ueber unveraendertem Hintergrund, und ein Sticky-Fenster uebersetzt vertikalen Scroll in die horizontale Fahrt von neun Vollton-Projektkarten. Kein Hero, keine Headline, groesster Schriftgrad 16px."
+    />
+    <!--
+      Favicon inline als data-URI (der 8px-Punkt des Logo-Pills). Ohne diese Zeile fragt
+      der Browser /favicon.ico an der Domain-WURZEL an — unter dem Subpfad-Deploy
+      /poc-philip-readman/ ein garantierter 404. Eine data-URI hat ueberhaupt keinen Pfad.
+    -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%23E4E4E4'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%23000000'/%3E%3C/svg%3E"
+    />
+    <!--
+      Die einzige Inline-Ausfuehrung des Dokuments — und sie muss inline und synchron sein.
+      Der Horizontal-Track ist Progressive Enhancement: ohne JS waere ein Sticky-Fenster
+      mit `overflow: hidden` eine Falle, in der sieben der neun Karten unerreichbar rechts
+      ausserhalb liegen. Deshalb ist der VERTIKALE STAPEL der CSS-Grundzustand, und das
+      Track-Layout haengt an dieser Klasse. Im Bundle gesetzt waere sie einen Frame zu
+      spaet — die Seite wuerde sichtbar vom Stapel ins Track-Layout springen.
+
+      ZWEITE HAELFTE DERSELBEN UEBERLEGUNG — und sie fehlte hier zuerst: "kein JS" ist
+      nicht der einzige Ausfall. Das Bundle kann auch ANKOMMEN WOLLEN und scheitern —
+      404 nach einem halben Deploy, Netzabbruch, CSP-Block, Laufzeitfehler beim Start.
+      Dann laeuft dieses Inline-Script trotzdem, die Klasse steht, das Track-Layout
+      greift — aber niemand schreibt je einen `transform`. Gemessen in genau diesem
+      Fall: 3 von 9 Karten im Fenster, die anderen SECHS liegen hinter `overflow:
+      hidden` und sind weder sichtbar noch per Tastatur erreichbar. Das ist kein
+      verlorener Effekt mehr, das ist verlorener Inhalt.
+
+      Deshalb die Rueckfall-Sicherung: das Bundle muss sich melden (data-track-ready).
+      Hat es das bis `load` nicht getan, faellt die Klasse wieder weg und das CSS steht
+      wieder im vertikalen Stapel — dem Zustand, in dem alle neun Karten erreichbar sind.
+    -->
+    <script>
+      document.documentElement.classList.add('js')
+      window.addEventListener('load', function () {
+        if (!document.documentElement.dataset.trackReady) {
+          document.documentElement.classList.remove('js')
+        }
+      })
+    </script>
+    <script type="module" crossorigin src="./assets/index-qT-k70Ts.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-QZtyvAxR.css">
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <!--
+      Header: fixed, 96px hoch, vollstaendig transparent — kein Balken, kein Blur, keine
+      Trennlinie. Geschlossen zwei Pills, geoeffnet drei. Er bleibt bedienbar, waehrend
+      das Panel offen ist, und wird deshalb NICHT `inert` gesetzt.
+    -->
+    <header class="header" id="header">
+      <a class="pill pill--logo" href="./" aria-label="Portfolio demo — back to start">
+        <span class="pill__dot" aria-hidden="true"></span>
+      </a>
+
+      <button
+        class="pill pill--menu"
+        id="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="menu-panel"
+      >
+        <!--
+          Der Text wechselt zwischen "menu" und "close" — der Button selbst bleibt
+          derselbe. Dadurch behaelt er ueber das Oeffnen hinweg seinen Fokus und seine
+          Position, und `aria-expanded` beschreibt genau dieses eine Bedienelement.
+        -->
+        <span class="pill__label" data-menu-label data-label-open="menu" data-label-close="close"
+          >menu</span
+        >
+      </button>
+
+      <!--
+        Die dritte Pill existiert nur im geoeffneten Zustand. `hidden` statt
+        `opacity: 0`: unsichtbar allein reicht nicht — sie darf auch nicht per Tab
+        erreichbar und nicht im Accessibility-Baum sein, solange es sie nicht gibt.
+      -->
+      <a class="pill pill--contact" id="menu-contact" href="#main" hidden>
+        <span class="pill__label" aria-hidden="true">@</span>
+        <span class="sr-only">Contact (demo link, no address stored)</span>
+      </a>
+    </header>
+
+    <!--
+      EFFEKT 1 — das gelbe Panel.
+
+      `role="dialog" aria-modal="true"`, geschlossen per `hidden`-Attribut: unsichtbar,
+      nicht fokussierbar, nicht im Accessibility-Baum. Kein Overlay-Element davor und
+      keins dahinter — "Klick ausserhalb schliesst" laeuft ueber einen pointerdown-
+      Listener auf dem Dokument, damit der Hintergrund wirklich unberuehrt bleibt.
+    -->
+    <div
+      class="menu-panel"
+      id="menu-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Main menu"
+      hidden
+    >
+      <div class="menu-panel__grid">
+        <nav class="menu-col" aria-label="Projects">
+          <ul class="menu-list">
+            <li>
+              <a class="menu-item" href="#main">
+                <span class="menu-item__title">Lumenrare Labs</span>
+                <span class="menu-item__sub">Digital art market leader</span>
+              </a>
+            </li>
+            <li>
+              <a class="menu-item" href="#main">
+                <span class="menu-item__title">Voltaris EV</span>
+                <span class="menu-item__sub">Driver first charging</span>
+              </a>
+            </li>
+            <li>
+              <a class="menu-item" href="#main">
+                <span class="menu-item__title">P&ndash;001</span>
+                <span class="menu-item__sub">Personal type experiment</span>
+              </a>
+            </li>
+            <li>
+              <a class="menu-item" href="#main">
+                <span class="menu-item__title">Halden</span>
+                <span class="menu-item__sub">Logistics tooling</span>
+              </a>
+            </li>
+            <li>
+              <a class="menu-item" href="#main">
+                <span class="menu-item__title">Altura Product Finder</span>
+                <span class="menu-item__sub">Guided product discovery</span>
+              </a>
+            </li>
+            <li>
+              <a class="menu-item" href="#main">
+                <span class="menu-item__title">Altura x Trailkeeper</span>
+                <span class="menu-item__sub">Route planning integration</span>
+              </a>
+            </li>
+            <li>
+              <a class="menu-item" href="#main">
+                <span class="menu-item__title">Nira AI</span>
+                <span class="menu-item__sub">Coming soon</span>
+              </a>
+            </li>
+            <li>
+              <a class="menu-item" href="#main">
+                <span class="menu-item__title">Vireo</span>
+                <span class="menu-item__sub">Mobile games platform</span>
+              </a>
+            </li>
+            <li>
+              <a class="menu-item" href="#main">
+                <span class="menu-item__title">Meridian Broadcast Services</span>
+                <span class="menu-item__sub">Broadcast operations</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <nav class="menu-col" aria-label="Pages">
+          <ul class="menu-list">
+            <li>
+              <a class="menu-item" href="#main">
+                <span class="menu-item__title">About</span>
+                <span class="menu-item__sub">Bio</span>
+              </a>
+            </li>
+            <li>
+              <a class="menu-item" href="#main">
+                <span class="menu-item__title">Archive</span>
+                <span class="menu-item__sub">2013&ndash;2021</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="menu-col menu-col--media">
+          <!--
+            Das Portraet der Referenz (440x346, Scanline-Bearbeitung) ist hier ein
+            ausgewiesener Platzhalter aus zwei CSS-Verlaeufen. Kein externes Bild, keine
+            Asset-Datei — der Build bleibt netzunabhaengig und subpfad-sicher.
+            `role="img"` + `aria-label`: als Grafik angesagt, nicht als Textbrocken.
+          -->
+          <div class="portrait" role="img" aria-label="Portrait placeholder — no image asset in this demo">
+            <span class="portrait__label" aria-hidden="true">portrait &mdash; platzhalter</span>
+          </div>
+
+          <div class="accordion">
+            <div class="accordion__row">
+              <h2 class="accordion__heading">
+                <button
+                  class="accordion__trigger"
+                  type="button"
+                  data-accordion-trigger
+                  aria-expanded="false"
+                  aria-controls="accordion-panel-1"
+                >
+                  moments, context, form
+                </button>
+              </h2>
+              <div class="accordion__panel" id="accordion-panel-1">
+                <div class="accordion__inner">
+                  <p>
+                    Three questions before any pixel: what moment is this, what surrounds it,
+                    what shape does it need.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion__row">
+              <h2 class="accordion__heading">
+                <button
+                  class="accordion__trigger"
+                  type="button"
+                  data-accordion-trigger
+                  aria-expanded="false"
+                  aria-controls="accordion-panel-2"
+                >
+                  founding designer
+                </button>
+              </h2>
+              <div class="accordion__panel" id="accordion-panel-2">
+                <div class="accordion__inner">
+                  <p>
+                    Early-stage work: the first surface, the first system, and the first team
+                    that has to keep both alive.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion__row">
+              <h2 class="accordion__heading">
+                <button
+                  class="accordion__trigger"
+                  type="button"
+                  data-accordion-trigger
+                  aria-expanded="false"
+                  aria-controls="accordion-panel-3"
+                >
+                  leadership &amp; collaboration
+                </button>
+              </h2>
+              <div class="accordion__panel" id="accordion-panel-3">
+                <div class="accordion__inner">
+                  <p>
+                    Design direction next to engineering and research, not in front of it.
+                    Decisions in the open, reviewed weekly.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--
+        Der einzige Zusatz gegenueber der Referenz im Panel: eine Schliessen-Schaltflaeche,
+        die erst bei Tastatur-Fokus sichtbar wird (wie ein Skip-Link). Grund: mit
+        `aria-modal="true"` ignorieren Screenreader alles ausserhalb dieses Dialogs — auch
+        das CLOSE-Pill im Header. Ohne diese Schaltflaeche gaebe es fuer sie nur noch
+        Escape. Visuell aendert sie nichts, solange niemand hinein-tabbt.
+      -->
+      <button class="menu-panel__close" type="button" data-menu-close>close menu</button>
+    </div>
+
+    <main id="main" data-menu-background>
+      <!--
+        Kein Hero, keine Headline, kein CTA — der groesste Schriftgrad der Seite ist der
+        Fliesstext selbst. Die <h1> steht nur fuer die Dokumentstruktur im DOM und ist
+        visuell ausgeblendet: eine sichtbare Ueberschrift gaebe es hier nicht zu setzen,
+        ein Dokument ganz ohne h1 waere aber fuer Screenreader-Navigation ein Rueckschritt.
+      -->
+      <h1 class="sr-only">Portfolio demo — product design work</h1>
+
+      <!--
+        Der Intro-Absatz kippt MITTEN IM SATZ von Schwarz auf Grau. Gleiche Groesse,
+        gleiche Familie, gleiches Gewicht — nur Helligkeit trennt Aussage von Fussnote.
+        Das ersetzt in dieser Referenz jede Groessenhierarchie.
+      -->
+      <section class="intro" aria-label="Introduction">
+        <p class="intro__text">
+          Product design specialist focused on simplicity and impact. Over the last fifteen
+          years I have designed products for marketplaces, mobility and sport.
+          <span class="intro__muted"
+            >Currently working independently as a principal designer and as a senior advisor
+            to an early-stage studio.</span
+          >
+        </p>
+      </section>
+
+      <!--
+        EFFEKT 2 — der Sticky-Viewport-Track.
+
+        #track-wrapper ist die hohe Huelle, #track-sticky das stehende Fenster,
+        #track die Flex-Reihe, die verschoben wird. Die Hoehe der Huelle rechnet das JS
+        aus dem tatsaechlichen Fahrweg (siehe src/horizontalTrack.ts) und schreibt sie als
+        --track-scroll hierher; bis dahin gilt der statische Fallback aus dem CSS.
+
+        Karten-Anatomie nach DESIGN.md: die grosse Buehne ist SCHARFKANTIG (radius 0), das
+        Mockup darin ist gerundet (12px). Der Radius waechst nach innen, nicht nach aussen.
+        Alle Buehnen und Mockups sind reine CSS-Flaechen — kein einziges Bild-Asset.
+      -->
+      <section class="track-wrapper" id="track-wrapper" aria-label="Selected work">
+        <div class="track-sticky" id="track-sticky">
+          <div class="track" id="track">
+            <a class="card" href="#main" data-scheme="dark" style="--card-tone: #384345; --card-mockup: #4c5a5d">
+              <span class="card__stage">
+                <span class="card__mockup"><span class="card__mockup-label">platzhalter</span></span>
+              </span>
+              <span class="card__caption">
+                <span class="card__title">Lumenrare Labs</span>
+                <span class="card__meta">digital art market leader</span>
+              </span>
+            </a>
+
+            <a class="card" href="#main" data-scheme="light" style="--card-tone: #f0f0f0; --card-mockup: #d6d6d6">
+              <span class="card__stage">
+                <span class="card__mockup"><span class="card__mockup-label">platzhalter</span></span>
+              </span>
+              <span class="card__caption">
+                <span class="card__title">Voltaris EV</span>
+                <span class="card__meta">driver first charging</span>
+              </span>
+            </a>
+
+            <a class="card" href="#main" data-scheme="dark" style="--card-tone: #302d2d; --card-mockup: #45403f">
+              <span class="card__stage">
+                <span class="card__mockup"><span class="card__mockup-label">platzhalter</span></span>
+              </span>
+              <span class="card__caption">
+                <span class="card__title">P&ndash;001</span>
+                <span class="card__meta">personal type experiment</span>
+              </span>
+            </a>
+
+            <a class="card" href="#main" data-scheme="dark" style="--card-tone: #1d211d; --card-mockup: #333a32">
+              <span class="card__stage">
+                <span class="card__mockup"><span class="card__mockup-label">platzhalter</span></span>
+              </span>
+              <span class="card__caption">
+                <span class="card__title">Halden</span>
+                <span class="card__meta">logistics tooling</span>
+              </span>
+            </a>
+
+            <a class="card" href="#main" data-scheme="light" style="--card-tone: #f0f1f3; --card-mockup: #d5d8dd">
+              <span class="card__stage">
+                <span class="card__mockup"><span class="card__mockup-label">platzhalter</span></span>
+              </span>
+              <span class="card__caption">
+                <span class="card__title">Altura Product Finder</span>
+                <span class="card__meta">guided product discovery</span>
+              </span>
+            </a>
+
+            <a class="card" href="#main" data-scheme="dark" style="--card-tone: #192842; --card-mockup: #2c4166">
+              <span class="card__stage">
+                <span class="card__mockup"><span class="card__mockup-label">platzhalter</span></span>
+              </span>
+              <span class="card__caption">
+                <span class="card__title">Altura x Trailkeeper</span>
+                <span class="card__meta">route planning integration</span>
+              </span>
+            </a>
+
+            <a class="card" href="#main" data-scheme="light" style="--card-tone: #f5f5f5; --card-mockup: #dcdcdc">
+              <span class="card__stage">
+                <span class="card__mockup"><span class="card__mockup-label">platzhalter</span></span>
+              </span>
+              <span class="card__caption">
+                <span class="card__title">Nira AI <span class="card__badge">coming soon</span></span>
+                <span class="card__meta">product in progress</span>
+              </span>
+            </a>
+
+            <a class="card" href="#main" data-scheme="light" style="--card-tone: #ebebeb; --card-mockup: #d2d2d2">
+              <span class="card__stage">
+                <span class="card__mockup"><span class="card__mockup-label">platzhalter</span></span>
+              </span>
+              <span class="card__caption">
+                <span class="card__title">Vireo</span>
+                <span class="card__meta">mobile games platform</span>
+              </span>
+            </a>
+
+            <a class="card" href="#main" data-scheme="dark" style="--card-tone: #282d30; --card-mockup: #3c4448">
+              <span class="card__stage">
+                <span class="card__mockup"><span class="card__mockup-label">platzhalter</span></span>
+              </span>
+              <span class="card__caption">
+                <span class="card__title">Meridian Broadcast Services</span>
+                <span class="card__meta">broadcast operations</span>
+              </span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!--
+      Footer: zwei zentrierte Mono-Zeilen. Im Quelltext klein geschrieben — die Versalien
+      entstehen per `text-transform: uppercase` (Typo-Regel 3 der Referenz). Die erste
+      Zeile ist bewusst generisch: dieser PoC traegt keinen echten Namen.
+    -->
+    <footer class="footer" data-menu-background>
+      <p class="footer__line">portfolio demo &mdash; render-live workshop 2026</p>
+      <p class="footer__line">the work is mysterious and important</p>
+    </footer>
+  </body>
+</html>

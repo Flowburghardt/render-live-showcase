@@ -324,6 +324,15 @@
       "desc": "\"Farbfeld-Nav aus vollflächigen Rasterkacheln, die als Vollton-Dropdown herunterklappen + Intro, in dem die 120px-Headline zur Kompakt-Wortmarke zusammenfährt\"",
       "nightly": true,
       "built": "2026-09-03"
+    },
+    {
+      "slug": "poc-philip-readman",
+      "title": "Philip-Readman",
+      "stage": "Nightly",
+      "effort": "quick",
+      "desc": "\"Zwei gekoppelte Effekte: (1) MENU-Pill öffnet ein zentriertes Overlay-Panel in Vollton-Gelb #F5D533 (1100×621, radius 8px, padding 48px) mit dreispaltigem Inhalt — Projektliste 16px + 12px-Untertitel, About/Archive, Porträt über drei Akkordeon-Zeilen auf rgba(255,255,255,.8); das Pill wird dabei zu CLOSE, eine dritte @-Pill erscheint, der Hintergrund bleibt unverändert (kein Dim, kein Blur). (2) Sticky-Viewport-Track: 900px-Sticky-Fenster in einem 1.800px-Wrapper übersetzt vertikalen Scroll in translateX einer Reihe aus 9 Karten (576px, 96px Gap), ≈5,3px horizontal je 1px vertikal; unter 810px Breite Rückfall auf vertikalen Stapel\"",
+      "nightly": true,
+      "built": "2026-09-04"
     }
   ]
 }
