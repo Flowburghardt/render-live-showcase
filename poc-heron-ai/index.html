@@ -1,0 +1,600 @@
+<!doctype html>
+<!--
+  poc-heron-ai — Plansatz-Landing nach Heron-AI/DESIGN.md (heronaiapp.com).
+
+  Grundregel dieses Dokuments: DAS MARKUP STEHT IM ENDZUSTAND.
+  Die Aussage ist lesbar, der Grundriss ist vollstaendig gezeichnet, die Marker
+  stehen in Vollton, die Fortschrittsleiste steht auf 100 %, die drei Befunde
+  liegen als <ol> im Fluss. Erst das Bundle nimmt diesen Endzustand kurzzeitig
+  zurueck (es setzt data-plan-js auf <html>) und laesst ihn am Scroll wieder
+  entstehen.
+
+  Dadurch landen die drei Faelle "kein JS", "prefers-reduced-motion: reduce" und
+  "Bundle bricht ab" automatisch auf einem lesbaren Ergebnis — statt auf einem
+  eingefrorenen Startzustand (opacity 0, stroke-dashoffset = Pfadlaenge), wie er
+  entsteht, wenn man den Anfangszustand ins CSS schreibt und auf das JS hofft.
+
+  Alle Texte, Normverweise und Zahlen sind Demo-Inhalte fuer den Workshop.
+  Kein echtes Produkt, keine echte Pruefung, keine Kundendaten.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
+    <title>Heron AI — Zeichen-Farbwäsche &amp; Zeichnungs-Aufbau</title>
+    <meta
+      name="description"
+      content="PoC nach heronaiapp.com: Farbwäsche über 127 Zeichen mit weicher 16er-Kante und ein Grundriss, der sich schichtweise in einer CSS-sticky-Fläche aufbaut — Wände, Möblierung, Maßketten, Fehler-Marker. 0 GSAP-Pins."
+    />
+    <!--
+      Favicon inline als data-URI. Ohne diese Zeile fragt der Browser
+      /favicon.ico an der Domain-WURZEL an — unter dem Subpfad-Deploy
+      /poc-heron-ai/ ein garantierter 404. Eine data-URI hat ueberhaupt keinen
+      Pfad und ist damit subpfad-sicher. Das Zeichen: das isometrische
+      Draht-Volumen der Wortmarke plus das Akzent-Quadrat.
+    -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F5F5EF'/%3E%3Cpath d='M16 4 L27 10.5 L27 21.5 L16 28 L5 21.5 L5 10.5 Z M16 4 L16 16 M16 16 L27 10.5 M16 16 L5 10.5' fill='none' stroke='%23282828' stroke-width='1.6'/%3E%3Crect x='21' y='23' width='6' height='6' fill='%23FA3600'/%3E%3C/svg%3E"
+    />
+    <script type="module" crossorigin src="./assets/index-DZ5O7qoF.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BH5UxGeI.css">
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">SKIP TO CONTENT</a>
+
+    <!-- ===================================================================
+         HEADER — 56px, fix. Nav-Zellen durch 1px-Hairlines getrennt, jede mit
+         der 6x6-Eck-Klammer als ::after. Genau so im Original.
+         =================================================================== -->
+    <header class="header">
+      <a class="header__brand" href="#top">
+        <svg class="header__mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+          <path
+            d="M16 4 L27 10.5 L27 21.5 L16 28 L5 21.5 L5 10.5 Z M16 4 L16 16 M16 16 L27 10.5 M16 16 L5 10.5"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+          />
+        </svg>
+        <span>Heron AI</span>
+      </a>
+
+      <nav class="header__nav" aria-label="Primary">
+        <a class="nav-cell" href="#problems">Product</a>
+        <a class="nav-cell" href="#map">Pricing</a>
+        <a class="nav-cell" href="#intro">Resources</a>
+        <a class="nav-cell" href="#cta">About</a>
+      </nav>
+
+      <a class="nav-cell nav-cell--cta" href="#cta">Contact us <span aria-hidden="true">&rarr;</span></a>
+    </header>
+
+    <main id="main">
+      <!-- =================================================================
+           HERO — Lineal-Ticks an allen vier Raendern, +-Kreuze in den Ecken,
+           mittig die schematische Gebaeude-Ansicht, darueber das Fadenkreuz.
+           ================================================================= -->
+      <section class="hero" id="top">
+        <div class="hero__frame" data-crosshair-area>
+          <span class="rule rule--top" aria-hidden="true"></span>
+          <span class="rule rule--bottom" aria-hidden="true"></span>
+          <span class="rule rule--left" aria-hidden="true"></span>
+          <span class="rule rule--right" aria-hidden="true"></span>
+
+          <span class="cross cross--tl" aria-hidden="true">+</span>
+          <span class="cross cross--tr" aria-hidden="true">+</span>
+          <span class="cross cross--bl" aria-hidden="true">+</span>
+          <span class="cross cross--br" aria-hidden="true">+</span>
+
+          <!-- Fadenkreuz-Readout. Wird nur auf Zeigergeraeten und nur ohne
+               reduce ueberhaupt gebunden (siehe crosshair.ts). -->
+          <div class="crosshair" data-crosshair aria-hidden="true">
+            <span class="crosshair__v"></span>
+            <span class="crosshair__h"></span>
+            <span class="crosshair__readout" data-crosshair-readout>X:000PX Y:000PX</span>
+          </div>
+
+          <figure class="hero__figure">
+            <svg
+              class="elevation"
+              viewBox="0 0 800 340"
+              preserveAspectRatio="xMidYMid meet"
+              role="img"
+              aria-label="Schematic north elevation of a three-part building volume with a window grid and two flagged bays."
+            >
+              <defs>
+                <pattern id="halftone" width="9" height="9" patternUnits="userSpaceOnUse">
+                  <circle cx="2" cy="2" r="1.15" fill="#282828" opacity="0.3" />
+                </pattern>
+              </defs>
+
+              <!-- Halbton-Fuellung: haelt die Zeichnung auf dem Papier,
+                   statt sie darauf zu legen (DESIGN.md, Bildsprache). -->
+              <path d="M120 300 H420 V120 H120 Z" fill="url(#halftone)" />
+              <path d="M420 300 H620 V60 H420 Z" fill="url(#halftone)" />
+              <path d="M620 300 H760 V190 H620 Z" fill="url(#halftone)" />
+
+              <!-- Volumenkanten -->
+              <path
+                class="elevation__wall"
+                d="M120 300 V120 H420 V300 M420 300 V60 H620 V300 M620 300 V190 H760 V300"
+              />
+              <!-- Attika-Linien -->
+              <path class="elevation__wall" d="M112 120 H428 M412 60 H628 M612 190 H768" />
+              <!-- Gelaendeline -->
+              <path class="elevation__ground" d="M40 300 H770" />
+
+              <!-- Fensterraster: Geschosslinien + Pfosten, alles in einem Pfad -->
+              <path
+                class="elevation__mullion"
+                d="M120 150 H420 M120 180 H420 M120 210 H420 M120 240 H420 M120 270 H420
+                   M160 120 V300 M200 120 V300 M240 120 V300 M280 120 V300 M320 120 V300 M360 120 V300 M400 120 V300"
+              />
+              <path
+                class="elevation__mullion"
+                d="M420 90 H620 M420 120 H620 M420 150 H620 M420 180 H620 M420 210 H620 M420 240 H620 M420 270 H620
+                   M460 60 V300 M500 60 V300 M540 60 V300 M580 60 V300"
+              />
+              <path
+                class="elevation__mullion"
+                d="M620 220 H760 M620 250 H760 M620 280 H760 M660 190 V300 M700 190 V300 M740 190 V300"
+              />
+
+              <!-- die zwei Akzent-Quadrate des Originals: markierte Achsen -->
+              <rect class="elevation__flag" x="356" y="146" width="8" height="8" />
+              <rect class="elevation__flag" x="496" y="86" width="8" height="8" />
+
+              <!-- Achsbeschriftung, Mono -->
+              <text class="elevation__tag" x="120" y="322">A</text>
+              <text class="elevation__tag" x="420" y="322">B</text>
+              <text class="elevation__tag" x="620" y="322">C</text>
+              <text class="elevation__tag" x="760" y="322">D</text>
+            </svg>
+            <figcaption class="hero__caption">FIG.01 &mdash; North elevation / grid A&ndash;D</figcaption>
+          </figure>
+        </div>
+
+        <div class="hero__foot grid" aria-hidden="false">
+          <h1 class="hero__title">An AI agent that works<br />inside your design tools</h1>
+          <p class="hero__body">
+            Heron reads the model you already work in, checks it against the code you have to meet, and
+            hands the drafter a note they can act on &mdash; inside Revit, Rhino, ArchiCAD and SketchUp.
+          </p>
+          <a class="ghost-row" href="#intro">
+            <span>Discover more</span>
+            <span aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+
+        <!-- Marquee. Unter reduce steht es still (WCAG 2.2.2 — autonome
+             Bewegung braucht eine Aus-Option); der Text ist Ornament, die
+             Aussage steht daneben als sr-only-Satz. -->
+        <div class="marquee" aria-hidden="true">
+          <div class="marquee__track">
+            <span class="marquee__set">
+              <span>&#8853; Faster iterations</span><span>&#8853; Fewer mistakes</span><span>&#8853; Less busywork</span>
+            </span>
+            <span class="marquee__set">
+              <span>&#8853; Faster iterations</span><span>&#8853; Fewer mistakes</span><span>&#8853; Less busywork</span>
+            </span>
+          </div>
+        </div>
+        <p class="sr-only">Faster iterations. Fewer mistakes. Less busywork.</p>
+      </section>
+
+      <!-- =================================================================
+           INTRO — Effekt 1: die 127-Zeichen-Aussage mit Farbwaesche.
+           ================================================================= -->
+      <section class="intro" id="intro">
+        <div class="grid intro__grid">
+          <figure class="intro__figure">
+            <svg
+              class="tower"
+              viewBox="0 0 400 520"
+              preserveAspectRatio="xMidYMid meet"
+              role="img"
+              aria-label="Perspective line drawing of a stepped tower over a solid accent circle."
+            >
+              <circle class="tower__disc" cx="248" cy="150" r="74" />
+              <!-- Turmkoerper, perspektivisch: Front, Flanke, Deckel -->
+              <path
+                class="tower__line"
+                d="M110 470 V190 L215 140 L305 178 V440 L215 490 Z M110 190 L215 235 L305 178 M215 235 V490"
+              />
+              <path class="tower__line" d="M110 250 L215 295 L305 238 M110 310 L215 355 L305 298 M110 370 L215 415 L305 358" />
+              <path class="tower__line" d="M215 140 V95 L268 118 V163" />
+              <path class="tower__thin" d="M40 470 H360 M110 470 V500 M305 440 V500 M215 490 V518" />
+              <path class="tower__thin" d="M40 190 H110 M40 140 H215" />
+              <text class="tower__tag" x="40" y="182">+18.60</text>
+              <text class="tower__tag" x="40" y="132">+24.00</text>
+              <text class="tower__tag" x="40" y="462">&plusmn;0.00</text>
+            </svg>
+            <figcaption class="intro__caption">FIG.02 &mdash; Type B / core section</figcaption>
+          </figure>
+
+          <div class="intro__text">
+            <!--
+              Die sichtbare Aussage wird von JS in 127 Zeichen-Spans zerlegt und
+              ist deshalb aria-hidden — sonst laese ein Screenreader
+              "H-E-R-O-N" buchstabenweise (Jasmine-Gunarto-Lehre). Der
+              semantische Originaltext steht direkt daneben als .sr-only-Absatz:
+              visuell weg, aber im Accessibility-Tree und in der Browsersuche.
+              Ohne JS bleibt der sichtbare Absatz schlicht Text.
+            -->
+            <p class="wash" data-wash aria-hidden="true">
+              HERON READS THE MODEL YOU ALREADY WORK IN, FLAGS EVERY CLASH WITH THE CODE, AND SHOWS YOU
+              EXACTLY WHERE TO LOOK BEFORE A DRAWING SET EVER LEAVES YOUR DESK.
+            </p>
+            <p class="sr-only">
+              Heron reads the model you already work in, flags every clash with the code, and shows you
+              exactly where to look before a drawing set ever leaves your desk.
+            </p>
+
+            <!--
+              Messanzeige zum Effekt. aria-hidden: die Werte aendern sich bei
+              jedem Scroll-Frame — als Live-Region waeren sie unbenutzbar, und
+              als statischer Text waeren sie beim Vorlesen falsch. Der Inhalt
+              ist reine Werkstatt-Information fuer den Workshop.
+            -->
+            <div class="readout" aria-hidden="true">
+              <div class="readout__row">
+                <span class="readout__k">Progress</span><span class="readout__v" data-wash-progress>0%</span>
+              </div>
+              <div class="readout__row">
+                <span class="readout__k">Done</span><span class="readout__v" data-wash-done>0</span>
+              </div>
+              <div class="readout__row">
+                <span class="readout__k">Edge</span><span class="readout__v" data-wash-edge>0</span>
+              </div>
+              <div class="readout__row">
+                <span class="readout__k">Idle</span><span class="readout__v" data-wash-idle>127</span>
+              </div>
+              <p class="readout__ref">REF @30 % : 31 DONE / 17 EDGE / 80 IDLE &mdash; gemessen an heronaiapp.com</p>
+            </div>
+
+            <a class="ghost-row" href="#map">
+              <span>Learn more</span>
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           PROBLEMS — 4er-Raster, Hairline-Zellen. Beiwerk, aber es traegt den
+           Plansatz-Charakter: Liniendichte statt Farbflaeche.
+           ================================================================= -->
+      <section class="problems" id="problems">
+        <div class="grid problems__head">
+          <p class="label">Problems</p>
+          <h2 class="h2">Four ways a drawing set goes wrong before anyone notices</h2>
+        </div>
+        <div class="problems__row">
+          <article class="card">
+            <p class="card__label"><span>Manual</span><span>[01]</span></p>
+            <h3 class="card__title">Every change is on you</h3>
+            <p class="card__body">
+              A revised core means re-checking every stair, every rail, every clear width by hand.
+            </p>
+          </article>
+          <article class="card">
+            <p class="card__label"><span>Disjointed</span><span>[02]</span></p>
+            <h3 class="card__title">The model and the code never meet</h3>
+            <p class="card__body">The rulebook sits in a PDF. The geometry sits in a model. Nobody joins them.</p>
+          </article>
+          <article class="card">
+            <p class="card__label"><span>Blind</span><span>[03]</span></p>
+            <h3 class="card__title">You find it on site</h3>
+            <p class="card__body">A 4&nbsp;mm riser error is cheap in the model and expensive in concrete.</p>
+          </article>
+          <article class="card">
+            <p class="card__label"><span>Slow</span><span>[04]</span></p>
+            <h3 class="card__title">Review eats the week</h3>
+            <p class="card__body">Two days of checking per issue, repeated at every milestone, forever.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           MAP — Effekt 2: der schichtweise Zeichnungs-Aufbau.
+
+           Das Festhalten kommt aus CSS (`position: sticky` auf .map__pane).
+           GSAP macht NUR den Fortschritt. Im Original nutzt keiner von 44
+           ScrollTriggern `pin` — das ist die ausdrueckliche Lehre der Referenz:
+           kein Pin-Spacer, kein Layout-Eingriff, funktioniert auch, wenn das
+           Bundle gar nicht laedt.
+           ================================================================= -->
+      <section class="map" id="map">
+        <div class="map__wrap" data-map-wrap>
+          <div class="map__pane" data-map-pane>
+            <div class="plan__topbar">
+              <p class="plan__readout" data-layer-readout>Layer 04/04 &middot; Findings &middot; 100%</p>
+              <div class="plan__bar"><span data-layer-bar></span></div>
+            </div>
+
+            <div class="plan__statements" data-statements>
+              <p class="plan__statement" data-statement-a>Right there with you</p>
+              <p class="plan__statement" data-statement-b>For the whole design</p>
+            </div>
+
+            <div class="plan__stagewrap">
+              <div class="plan__stage" data-stage>
+                <svg
+                  class="plan__svg"
+                  viewBox="0 0 1200 740"
+                  preserveAspectRatio="xMidYMid meet"
+                  role="img"
+                  aria-label="Schematic floor plan: four rooms, a stair core and a wet core, with dimension chains and three flagged code findings."
+                >
+                  <!-- ---------- LAYER 01 · WAENDE (2px, --ink) ---------- -->
+                  <g class="lay lay--walls" data-layer="walls">
+                    <path data-wall d="M60 60 H1140" />
+                    <path data-wall d="M1140 60 V660" />
+                    <path data-wall d="M1140 660 H60" />
+                    <path data-wall d="M60 660 V60" />
+                    <path data-wall d="M72 72 H1128 V648 H72 Z" />
+                    <path data-wall d="M616 72 V240" />
+                    <path data-wall d="M616 330 V648" />
+                    <path data-wall d="M982 72 V140" />
+                    <path data-wall d="M982 230 V470" />
+                    <path data-wall d="M982 550 V648" />
+                    <path data-wall d="M72 400 H180" />
+                    <path data-wall d="M270 400 H616" />
+                    <path data-wall d="M982 360 H1128" />
+                  </g>
+
+                  <!-- ---------- LAYER 02 · MOEBLIERUNG (1px) ---------- -->
+                  <g class="lay lay--fx" data-layer="fixtures">
+                    <!-- Tueren: Blatt + Schwenkbogen, die einzigen Kurven im Plan -->
+                    <g data-fx>
+                      <path class="fx__line" d="M616 330 H696 M696 330 A80 80 0 0 0 616 250" />
+                      <path class="fx__line" d="M180 400 V480 M180 480 A80 80 0 0 0 260 400" />
+                    </g>
+                    <g data-fx>
+                      <path class="fx__line" d="M982 230 H902 M902 230 A80 80 0 0 1 982 150" />
+                      <path class="fx__line" d="M982 550 H912 M912 550 A70 70 0 0 1 982 480" />
+                    </g>
+
+                    <!-- Fenster: drei parallele Striche quer durch die Wand -->
+                    <g data-fx>
+                      <path class="fx__thin" d="M200 60 H360 M200 66 H360 M200 72 H360" />
+                      <path class="fx__thin" d="M700 60 H900 M700 66 H900 M700 72 H900" />
+                      <path class="fx__thin" d="M300 648 H520 M300 654 H520 M300 660 H520" />
+                      <path class="fx__thin" d="M60 180 V320 M66 180 V320 M72 180 V320" />
+                    </g>
+
+                    <!-- Arbeitsplaetze, Raum A -->
+                    <g data-fx>
+                      <path class="fx__line" d="M120 130 H260 V194 H120 Z M175 200 H225 V228 H175 Z" />
+                      <path class="fx__line" d="M120 260 H260 V324 H120 Z M175 330 H225 V358 H175 Z" />
+                    </g>
+                    <g data-fx>
+                      <path class="fx__line" d="M420 130 H560 V194 H420 Z M475 200 H525 V228 H475 Z" />
+                      <path class="fx__line" d="M420 260 H560 V324 H420 Z M475 330 H525 V358 H475 Z" />
+                    </g>
+
+                    <!-- Besprechung, Raum B -->
+                    <g data-fx>
+                      <path class="fx__line" d="M180 462 H500 V590 H180 Z" />
+                      <path class="fx__line" d="M216 428 H262 V456 H216 Z M320 428 H366 V456 H320 Z M424 428 H470 V456 H424 Z" />
+                      <path class="fx__line" d="M216 596 H262 V624 H216 Z M320 596 H366 V624 H320 Z M424 596 H470 V624 H424 Z" />
+                    </g>
+
+                    <!-- Studio, Raum C -->
+                    <g data-fx>
+                      <path class="fx__line" d="M660 120 H940 V180 H660 Z M660 520 H940 V580 H660 Z" />
+                      <path class="fx__line" d="M660 300 H744 V368 H660 Z M856 300 H940 V368 H856 Z" />
+                      <path class="fx__thin" d="M700 120 V180 M740 120 V180 M780 120 V180 M820 120 V180 M860 120 V180 M900 120 V180" />
+                    </g>
+
+                    <!-- Treppe: Lauf mit Stufen + Steigungspfeil -->
+                    <g data-fx>
+                      <path class="fx__line" d="M1000 106 H1120 V340 H1000 Z" />
+                      <path
+                        class="fx__thin"
+                        d="M1000 132 H1120 M1000 158 H1120 M1000 184 H1120 M1000 210 H1120 M1000 236 H1120 M1000 262 H1120 M1000 288 H1120 M1000 314 H1120"
+                      />
+                      <path class="fx__line" d="M1060 332 V114 M1050 128 L1060 112 L1070 128" />
+                    </g>
+
+                    <!-- Sanitaer -->
+                    <g data-fx>
+                      <path class="fx__line" d="M1000 400 H1060 V440 H1000 Z" />
+                      <circle class="fx__line" cx="1030" cy="420" r="6" fill="none" />
+                      <path class="fx__line" d="M1000 480 H1044 V540 H1000 Z M1000 492 H1044" />
+                      <path class="fx__line" d="M1080 576 H1128 V644 H1080 Z M1080 576 L1128 644 M1128 576 L1080 644" />
+                    </g>
+
+                    <!-- Raumbeschriftung, Mono. Unter 768px ausgeblendet:
+                         bei 0,29-facher Skalierung waere sie 4px hoch. -->
+                    <g data-fx>
+                      <text class="room" x="120" y="106">Office 01 &middot; 42.5 m&sup2;</text>
+                      <text class="room" x="120" y="638">Meeting &middot; 31.0 m&sup2;</text>
+                      <text class="room" x="660" y="106">Studio &middot; 46.8 m&sup2;</text>
+                      <text class="room" x="1000" y="96">Stair</text>
+                      <text class="room" x="1000" y="386">WC</text>
+                    </g>
+                  </g>
+
+                  <!-- ---------- LAYER 03 · MASSKETTEN ---------- -->
+                  <g class="lay lay--dims" data-layer="dims">
+                    <g data-dim>
+                      <path class="dim__ext" d="M60 668 V712 M616 668 V712" />
+                      <path class="dim__line" data-draw d="M60 700 H616" />
+                      <path class="dim__tick" d="M52 708 L68 692 M608 708 L624 692" />
+                      <text class="dim__label" x="338" y="690">4250</text>
+                    </g>
+                    <g data-dim>
+                      <path class="dim__ext" d="M616 668 V712 M982 668 V712" />
+                      <path class="dim__line" data-draw d="M616 700 H982" />
+                      <path class="dim__tick" d="M608 708 L624 692 M974 708 L990 692" />
+                      <text class="dim__label" x="799" y="690">2800</text>
+                    </g>
+                    <g data-dim>
+                      <path class="dim__ext" d="M982 668 V712 M1140 668 V712" />
+                      <path class="dim__line" data-draw d="M982 700 H1140" />
+                      <path class="dim__tick" d="M974 708 L990 692 M1132 708 L1148 692" />
+                      <text class="dim__label" x="1061" y="690">1200</text>
+                    </g>
+                    <g data-dim>
+                      <path class="dim__ext" d="M52 60 H20 M52 400 H20" />
+                      <path class="dim__line" data-draw d="M32 60 V400" />
+                      <path class="dim__tick" d="M24 68 L40 52 M24 408 L40 392" />
+                      <text class="dim__label" x="32" y="230" transform="rotate(-90 32 230)">2600</text>
+                    </g>
+                    <g data-dim>
+                      <path class="dim__ext" d="M52 400 H20 M52 660 H20" />
+                      <path class="dim__line" data-draw d="M32 400 V660" />
+                      <path class="dim__tick" d="M24 408 L40 392 M24 668 L40 652" />
+                      <text class="dim__label" x="32" y="530" transform="rotate(-90 32 530)">2000</text>
+                    </g>
+                  </g>
+                </svg>
+
+                <!-- ---------- LAYER 04 · FEHLER-MARKER + TOOLTIPS ----------
+                     Bewusst HTML statt SVG: im SVG wuerde ein 20x20-Marker mit
+                     der Zeichnung mitskalieren und bei 375px auf 6px schrumpfen —
+                     nicht bedienbar. Als HTML-Button behaelt er seine Groesse,
+                     sitzt aber ueber Prozentkoordinaten exakt auf dem Plan
+                     (.plan__stage hat exakt das viewBox-Verhaeltnis 1200:740).
+
+                     Jeder Marker ist ein echter <button> mit aria-expanded und
+                     aria-controls. Sichtbar wird der Tooltip ueber data-open,
+                     also ueber JS — nicht ausschliesslich ueber :hover, denn
+                     headless Chrome meldet `hover: none` und Touch hat gar
+                     keinen Hover. Die :hover-Regel im CSS ist nur eine Zugabe
+                     in @media (hover: hover) and (pointer: fine).
+                     Der Marker-Button ist 44x44 gross (WCAG 2.5.8), das
+                     sichtbare Quadrat darin misst die 20x20 des Originals.
+                -->
+                <button
+                  class="marker"
+                  type="button"
+                  style="--mx: 88.33%; --my: 29.05%"
+                  data-marker="1"
+                  aria-expanded="false"
+                  aria-controls="finding-01"
+                >
+                  <span class="marker__box" aria-hidden="true">01</span>
+                  <span class="sr-only">Finding 01, stair: riser height exceeds code. Show detail</span>
+                </button>
+                <div class="tooltip tooltip--01" id="finding-01" data-tooltip role="tooltip">
+                  <p class="tooltip__head"><span>Finding 01</span><span>Stair core</span></p>
+                  <p class="tooltip__code">IBC 1011.5.2</p>
+                  <p class="tooltip__title">Riser height exceeds code</p>
+                  <p class="tooltip__body">191&nbsp;mm measured, 178&nbsp;mm permitted. 14 risers affected.</p>
+                </div>
+
+                <button
+                  class="marker"
+                  type="button"
+                  style="--mx: 41.67%; --my: 82.43%"
+                  data-marker="2"
+                  aria-expanded="false"
+                  aria-controls="finding-02"
+                >
+                  <span class="marker__box" aria-hidden="true">02</span>
+                  <span class="sr-only">Finding 02, meeting room: guardrail required for fall protection. Show detail</span>
+                </button>
+                <div class="tooltip tooltip--02" id="finding-02" data-tooltip role="tooltip">
+                  <p class="tooltip__head"><span>Finding 02</span><span>Meeting</span></p>
+                  <p class="tooltip__code">IBC 1015.3</p>
+                  <p class="tooltip__title">Guardrail required for fall protection</p>
+                  <p class="tooltip__body">Sill at 420&nbsp;mm over a 1.9&nbsp;m drop. No guard modelled.</p>
+                </div>
+
+                <button
+                  class="marker"
+                  type="button"
+                  style="--mx: 51.33%; --my: 38.51%"
+                  data-marker="3"
+                  aria-expanded="false"
+                  aria-controls="finding-03"
+                >
+                  <span class="marker__box" aria-hidden="true">03</span>
+                  <span class="sr-only">Finding 03, corridor door: egress width below minimum. Show detail</span>
+                </button>
+                <div class="tooltip tooltip--03" id="finding-03" data-tooltip role="tooltip">
+                  <p class="tooltip__head"><span>Finding 03</span><span>Corridor</span></p>
+                  <p class="tooltip__code">IBC 1005.3.2</p>
+                  <p class="tooltip__title">Egress width below minimum</p>
+                  <p class="tooltip__body">815&nbsp;mm clear at the leaf, 915&nbsp;mm required for 46 occupants.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--
+          Die drei Befunde stehen ZUSAETZLICH als semantische Liste im Fluss,
+          ausserhalb der sticky-Flaeche. Der Inhalt der Sektion haengt damit
+          nicht am Scroll: wer nicht scrollt, nicht hovern kann oder kein JS
+          hat, liest hier trotzdem, was der Plan zeigt.
+        -->
+        <div class="findings grid">
+          <p class="label">Findings &middot; run 0412</p>
+          <ol class="findings__list">
+            <li>
+              <span class="findings__code">IBC 1011.5.2</span>
+              <span class="findings__text">Riser height exceeds code &mdash; stair core, 14 risers.</span>
+            </li>
+            <li>
+              <span class="findings__code">IBC 1015.3</span>
+              <span class="findings__text">Guardrail required for fall protection &mdash; meeting room glazing.</span>
+            </li>
+            <li>
+              <span class="findings__code">IBC 1005.3.2</span>
+              <span class="findings__text">Egress width below minimum &mdash; corridor door, 815&nbsp;mm clear.</span>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ================================ CTA ============================ -->
+      <section class="cta" id="cta">
+        <span class="coord coord--a" aria-hidden="true">[0,246]</span>
+        <span class="coord coord--b" aria-hidden="true">[831,0]</span>
+        <span class="coord coord--c" aria-hidden="true">[2303,0]</span>
+        <h2 class="cta__title">See what Heron can do in your model</h2>
+        <p class="cta__body">
+          Point it at a file you are already working on. It reads the geometry, checks the clauses, and
+          writes back a list you can hand to a drafter.
+        </p>
+        <a class="btn" href="#top">
+          <span>Request access</span>
+          <span class="btn__sep" aria-hidden="true"></span>
+          <span aria-hidden="true">&rarr;</span>
+        </a>
+      </section>
+    </main>
+
+    <!-- ================================ FOOTER ========================== -->
+    <footer class="footer">
+      <div class="grid footer__top">
+        <p class="footer__claim">Checked before it leaves the desk.</p>
+        <p class="footer__meta">Sydney &middot; Berlin<br />Type: technology / AI software company</p>
+      </div>
+
+      <!-- Umriss-Wortmarke mit Konstruktionspunkten. Die Buchstaben stehen
+           einzeln und verteilen sich ueber die volle Breite (space-between)
+           statt ueber eine grosse Schriftgroesse — die Referenz hat auf
+           14.127px Seitenhoehe keinen einzigen Text ueber 46,67px. -->
+      <div class="wordmark" aria-hidden="true">
+        <span class="wordmark__rule"></span>
+        <span class="wordmark__ch">H</span><span class="wordmark__ch">E</span><span class="wordmark__ch">R</span
+        ><span class="wordmark__ch">O</span><span class="wordmark__ch">N</span><span class="wordmark__ch">A</span
+        ><span class="wordmark__ch">I</span>
+      </div>
+      <p class="sr-only">Heron AI</p>
+
+      <p class="footer__line">
+        PoC nach heronaiapp.com &middot; Quelle: Design-md/Heron-AI/DESIGN.md &middot; kein echtes Produkt, alle
+        Inhalte und Normverweise sind Demo-Material fuer den Render-Live-Workshop.
+      </p>
+    </footer>
+
+  </body>
+</html>

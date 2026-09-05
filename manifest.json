@@ -333,6 +333,15 @@
       "desc": "\"Zwei gekoppelte Effekte: (1) MENU-Pill öffnet ein zentriertes Overlay-Panel in Vollton-Gelb #F5D533 (1100×621, radius 8px, padding 48px) mit dreispaltigem Inhalt — Projektliste 16px + 12px-Untertitel, About/Archive, Porträt über drei Akkordeon-Zeilen auf rgba(255,255,255,.8); das Pill wird dabei zu CLOSE, eine dritte @-Pill erscheint, der Hintergrund bleibt unverändert (kein Dim, kein Blur). (2) Sticky-Viewport-Track: 900px-Sticky-Fenster in einem 1.800px-Wrapper übersetzt vertikalen Scroll in translateX einer Reihe aus 9 Karten (576px, 96px Gap), ≈5,3px horizontal je 1px vertikal; unter 810px Breite Rückfall auf vertikalen Stapel\"",
       "nightly": true,
       "built": "2026-09-04"
+    },
+    {
+      "slug": "poc-heron-ai",
+      "title": "Heron-AI",
+      "stage": "Nightly",
+      "effort": "mid",
+      "desc": "\"Zwei gemessene Effekte, beide ohne WebGL. (1) Zeichen-Farbwäsche: SplitText zerlegt die 33,33px-Aussage in 127 Zeichen; ein ScrollTrigger mit scrub:true (start `center bottom+=10%`, end `center top+=40%`, 620px Strecke) zieht die Farbe von #B3B3AF auf #282828 — nicht hart, sondern mit einer weichen Kante aus ~16 Zeichen im Verlauf (gemessen: bei 30 % sind 31 Zeichen fertig, 17 im Verlauf, 80 noch grau). (2) Zeichnungs-Aufbau: eine 887px hohe `position:sticky`-Fläche steht in einem 6.300px-Wrapper; ein zweiter scrub-Trigger (1.908 → 7.495, also 5.587px Strecke) baut einen Grundriss schichtweise auf — erst Wände, dann Möblierung, dann Maßketten, dann orange Fehler-Marker mit Tooltip. Das Pinning kommt aus CSS (0 von 44 ScrollTriggern nutzt GSAP-Pin).\"",
+      "nightly": true,
+      "built": "2026-09-05"
     }
   ]
 }
