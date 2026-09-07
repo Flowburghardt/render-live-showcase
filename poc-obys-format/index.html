@@ -1,0 +1,1352 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>(Format) — a working sheet · poc-obys-format</title>
+    <meta
+      name="description"
+      content="Ein 1440er-Blatt, dessen saemtliche Masse an einer einzigen Root-Variable haengen, plus drei Inhalts-Modi ueber einen Klassentausch an <html>."
+    />
+
+    <!--
+      Favicon als data-URI. Ohne deklariertes Favicon fragt der Browser
+      /favicon.ico an der DOMAIN-WURZEL an — unter dem Subpfad
+      /poc-obys-format/ ein garantierter 404. Die data-URI hat gar keinen Pfad.
+      Motiv: das F aus der Rechteck-Wortmarke.
+    -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23222222'/%3E%3Crect x='9' y='7' width='4' height='18' fill='%23ffffff'/%3E%3Crect x='9' y='7' width='15' height='4' fill='%23ffffff'/%3E%3Crect x='9' y='14' width='11' height='4' fill='%23ffffff'/%3E%3C/svg%3E"
+    />
+
+    <!--
+      noscript-Fallback MIT !important.
+      Grund: Vite injiziert den Bundle-<link rel=stylesheet> NACH diesem Block
+      in dist/index.html. Bei Spezifitaets-Gleichstand gewinnt die spaeter
+      notierte Regel — der Fallback waere ohne !important wirkungslos.
+      Ohne JS bleibt die Seite vollstaendig lesbar: alle Reveal-Stufen stehen
+      im Endzustand, nur die Bedienelemente, die ohne JS nichts tun, gehen weg.
+    -->
+    <noscript>
+      <style>
+        .field__word,
+        .reveal {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+        .needs-js {
+          display: none !important;
+        }
+        .noscript-note {
+          display: block !important;
+        }
+      </style>
+    </noscript>
+    <script type="module" crossorigin src="./assets/index-BC0VMjD1.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BeGZC09W.css">
+  </head>
+
+  <body>
+    <a class="skip" href="#main">Skip to the sheet</a>
+
+    <!--
+      logo-fixed und readout liegen ABSICHTLICH ausserhalb von .sheet-frame:
+      dieser traegt container-type: inline-size, und Container-Containment macht
+      ihn zum Containing-Block fuer position:fixed. Innerhalb waeren beide nicht
+      mehr viewport-fixiert. Sie benutzen deshalb das vw-basierte --s aus :root
+      (Scrollbar-Fehler bei so kleinen Objekten vernachlaessigbar).
+    -->
+    <div class="logo-fixed">
+      <!--
+        Wortmarke FORMAT: 14 Rechtecke, zu 6 Buchstaben gruppiert, jeder mit
+        eigener transform-origin, jeder driftet unabhaengig (wordmark.ts).
+        Rein visuell -> aria-hidden. Der Name steht genau EINMAL als echter Text.
+      -->
+      <svg
+        class="mark mark--small"
+        viewBox="0 0 1400 320"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <g class="mark__letter" data-letter="F" style="transform-origin: 0% 0%">
+          <rect x="0" y="0" width="52" height="320" />
+          <rect x="0" y="0" width="196" height="52" />
+          <rect x="0" y="134" width="150" height="52" />
+        </g>
+        <g class="mark__letter" data-letter="O" style="transform-origin: 50% 50%">
+          <rect
+            x="264"
+            y="26"
+            width="158"
+            height="268"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="52"
+          />
+        </g>
+        <g class="mark__letter" data-letter="R" style="transform-origin: 0% 100%">
+          <rect x="476" y="0" width="52" height="320" />
+          <rect
+            x="502"
+            y="26"
+            width="158"
+            height="134"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="52"
+          />
+          <rect x="634" y="186" width="52" height="134" />
+        </g>
+        <g class="mark__letter" data-letter="M" style="transform-origin: 50% 0%">
+          <rect x="714" y="0" width="52" height="320" />
+          <rect x="872" y="0" width="52" height="320" />
+          <rect x="714" y="0" width="210" height="52" />
+        </g>
+        <g class="mark__letter" data-letter="A" style="transform-origin: 100% 100%">
+          <rect
+            x="978"
+            y="26"
+            width="158"
+            height="268"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="52"
+          />
+          <rect x="952" y="134" width="210" height="52" />
+        </g>
+        <g class="mark__letter" data-letter="T" style="transform-origin: 100% 0%">
+          <rect x="1190" y="0" width="210" height="52" />
+          <rect x="1269" y="0" width="52" height="320" />
+        </g>
+      </svg>
+      <span class="visually-hidden">Format — a working sheet by Obys and DES</span>
+    </div>
+
+    <div class="sheet-frame">
+      <div class="sheet">
+        <!-- Messsonde fuer den didaktischen Readout: liest das WIRKLICH
+             kaskadierte --s, nicht den Quelltext. -->
+        <span class="s-probe" aria-hidden="true"></span>
+
+        <!-- ================= nav ================= -->
+        <header class="section section--nav reads" id="nav">
+          <div class="wrap nav">
+            <p class="nav__credits">(Credits) Obys and DES</p>
+            <p class="nav__series">(Grids Season) — chapter 02 of 04</p>
+            <div class="nav__modes needs-js">
+              <button
+                class="toggle"
+                type="button"
+                data-mode="notes"
+                aria-pressed="false"
+              >
+                (Notes)
+              </button>
+              <button
+                class="toggle"
+                type="button"
+                data-mode="daughter"
+                aria-pressed="false"
+              >
+                (Daughter)
+              </button>
+            </div>
+            <p class="noscript-note nav__series" lang="de">
+              (Ohne JS) Modus-Schalter, Uhr und Readout sind aus — der Inhalt ist
+              vollstaendig.
+            </p>
+          </div>
+          <p class="visually-hidden" id="mode-status" aria-live="polite"></p>
+        </header>
+
+        <!--
+          Landmark-Kette: <header> (banner) — <main> — <footer> (contentinfo).
+          <main> ist ein reiner Block ohne eigene CSS-Regel; es fasst weder
+          Breite noch Stapelkontext an (kein z-index, kein transform), die
+          Sektionen darin liegen weiter im Stapelkontext von .sheet-frame.
+          Der Skip-Link springt hierher, nicht auf die erste Sektion.
+        -->
+        <main id="main">
+
+        <!-- ================= ground ================= -->
+        <section class="section section--ground" id="ground" aria-labelledby="ground-h">
+          <span class="cut cut--tl" aria-hidden="true"></span>
+          <span class="cut cut--tr" aria-hidden="true"></span>
+          <span class="cut cut--bl" aria-hidden="true"></span>
+          <span class="cut cut--br" aria-hidden="true"></span>
+          <span class="side__note side__note--l" aria-hidden="true">(F) 0.1</span>
+
+          <div class="wrap ground">
+            <p class="eyebrow">(Format) 00 — ground</p>
+            <h1 class="h-chapter" id="ground-h">(Format) is a decision you make first</h1>
+            <div class="ground__body reads-col">
+              <p class="body reveal">
+                A format is chosen before there is anything to say. Everything
+                that follows — the picture, the sentence, the pause — happens
+                inside it. This sheet is a working note about that decision, and
+                it is built the way it argues: one typeface, one weight, one
+                variable.
+              </p>
+              <p class="body reveal">
+                Every measure on this page hangs on
+                <code class="code">--s</code>, and
+                <code class="code">--s</code> is nothing but the viewport divided
+                by 1440. Resize the window and the sheet does not respond — it
+                <em>scales</em>. The readout at the bottom shows what that costs.
+              </p>
+            </div>
+
+            <div class="ground__stage">
+              <figure class="fig fig--v" data-parallax="0.5">
+                <div class="art art--v">
+                  <svg
+                    class="art__layer art__layer--photo"
+                    viewBox="0 0 300 420"
+                    preserveAspectRatio="xMidYMid slice"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <defs>
+                      <linearGradient id="ph-sun-bg" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#8e8e8e" />
+                        <stop offset="0.55" stop-color="#5d5d5d" />
+                        <stop offset="1" stop-color="#3a3a3a" />
+                      </linearGradient>
+                    </defs>
+                    <rect width="300" height="420" fill="url(#ph-sun-bg)" />
+                    <rect
+                      x="34"
+                      y="34"
+                      width="232"
+                      height="352"
+                      fill="none"
+                      stroke="#c9c9c9"
+                      stroke-width="1"
+                      opacity="0.55"
+                    />
+                    <!-- Stiel -->
+                    <path
+                      d="M150 400 C 148 330 152 280 158 236"
+                      fill="none"
+                      stroke="#2c2c2c"
+                      stroke-width="7"
+                      stroke-linecap="round"
+                      opacity="0.85"
+                    />
+                    <!-- haengender Kopf -->
+                    <g transform="translate(158 226) rotate(18)">
+                      <g opacity="0.9">
+                        <ellipse rx="9" ry="46" cx="0" cy="-42" fill="#d6d6d6" />
+                        <ellipse
+                          rx="9"
+                          ry="46"
+                          cx="0"
+                          cy="-42"
+                          fill="#c2c2c2"
+                          transform="rotate(38)"
+                        />
+                        <ellipse
+                          rx="9"
+                          ry="46"
+                          cx="0"
+                          cy="-42"
+                          fill="#aeaeae"
+                          transform="rotate(76)"
+                        />
+                        <ellipse
+                          rx="8"
+                          ry="41"
+                          cx="0"
+                          cy="-40"
+                          fill="#9a9a9a"
+                          transform="rotate(118)"
+                        />
+                        <ellipse
+                          rx="9"
+                          ry="44"
+                          cx="0"
+                          cy="-41"
+                          fill="#bdbdbd"
+                          transform="rotate(-40)"
+                        />
+                        <ellipse
+                          rx="8"
+                          ry="38"
+                          cx="0"
+                          cy="-38"
+                          fill="#8f8f8f"
+                          transform="rotate(-78)"
+                        />
+                      </g>
+                      <circle r="27" fill="#3f3f3f" />
+                      <circle r="27" fill="none" stroke="#6a6a6a" stroke-width="3" />
+                    </g>
+                    <!-- welkes Blatt -->
+                    <path
+                      d="M150 330 C 118 322 100 300 96 276 C 124 282 144 302 150 330 Z"
+                      fill="#4a4a4a"
+                      opacity="0.8"
+                    />
+                  </svg>
+
+                  <svg
+                    class="art__layer art__layer--draw"
+                    viewBox="0 0 300 420"
+                    preserveAspectRatio="xMidYMid slice"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <rect width="300" height="420" fill="#efe9da" />
+                    <g
+                      fill="none"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      opacity="0.95"
+                    >
+                      <!-- Sonne oben links, wackelig -->
+                      <path
+                        d="M62 78 C 84 62 108 74 106 96 C 104 118 78 126 66 110 C 56 98 54 84 62 78 Z"
+                        stroke="#c08a2e"
+                        stroke-width="7"
+                      />
+                      <path d="M84 40 L 86 56" stroke="#c08a2e" stroke-width="6" />
+                      <path d="M132 62 L 116 72" stroke="#c08a2e" stroke-width="5" />
+                      <path d="M38 58 L 52 70" stroke="#c08a2e" stroke-width="6" />
+                      <path d="M30 112 L 48 108" stroke="#c08a2e" stroke-width="5" />
+                      <!-- Stiel -->
+                      <path
+                        d="M156 404 C 150 330 162 278 158 232"
+                        stroke="#6e8a3c"
+                        stroke-width="9"
+                      />
+                      <!-- Blueten-Kringel -->
+                      <path
+                        d="M158 232 C 130 216 138 178 168 178 C 200 178 208 214 182 232 C 172 240 166 238 158 232 Z"
+                        stroke="#c08a2e"
+                        stroke-width="8"
+                      />
+                      <path
+                        d="M170 208 C 160 200 164 190 176 194 C 186 198 182 212 170 208 Z"
+                        stroke="#c08a2e"
+                        stroke-width="5"
+                      />
+                      <!-- Blaetter -->
+                      <path
+                        d="M154 324 C 118 316 104 292 112 274 C 138 284 152 302 154 324 Z"
+                        stroke="#6e8a3c"
+                        stroke-width="7"
+                      />
+                      <path
+                        d="M160 286 C 196 280 212 258 206 240 C 180 250 164 266 160 286 Z"
+                        stroke="#6e8a3c"
+                        stroke-width="6"
+                      />
+                      <!-- Boden -->
+                      <path
+                        d="M22 400 C 96 392 210 406 282 396"
+                        stroke="#6e8a3c"
+                        stroke-width="8"
+                      />
+                    </g>
+                  </svg>
+
+                  <span class="art__mark" aria-hidden="true">(P) 2.3</span>
+                </div>
+                <figcaption class="fig__cap" lang="de">
+                  <span class="cap cap--photo"
+                    >(Platzhalter) Verwelkte Sonnenblume im Passepartout — Foto
+                    folgt</span
+                  >
+                  <span class="cap cap--draw"
+                    >(Platzhalter) Sonne und Blume, Buntstift — Zeichnung
+                    folgt</span
+                  >
+                </figcaption>
+              </figure>
+
+              <div class="plate plate--v" data-parallax="0.9">
+                <p class="micro" aria-hidden="true">1400 × 1.00 · (P) 2.3</p>
+                <p class="plate__body">
+                  A vertical plate. Nothing on it yet. That is already a
+                  decision.
+                </p>
+                <p class="micro micro--foot" aria-hidden="true">(Format) Vertical</p>
+              </div>
+            </div>
+
+            <aside class="note note--ground">
+              <p class="note__body">
+                Vertical format naturally make us rely more on vertical lines.
+              </p>
+              <p class="note__src">(Note) from the source sheet</p>
+            </aside>
+          </div>
+        </section>
+
+        <!-- ================= clock ================= -->
+        <section class="section section--clock" id="clock" aria-labelledby="clock-h">
+          <div class="wrap clock">
+            <div class="clock__head">
+              <p class="eyebrow">(Format) Circle — live</p>
+              <h2 class="h-chapter" id="clock-h">This document is running</h2>
+            </div>
+
+            <div class="clock__object" data-parallax="0.4">
+              <div class="disc disc--clock">
+                <svg
+                  class="disc__ticks"
+                  viewBox="0 0 360 360"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <circle
+                    cx="180"
+                    cy="180"
+                    r="168"
+                    fill="none"
+                    stroke="var(--color-mark)"
+                    stroke-width="1"
+                  />
+                  <g stroke="var(--color-mark)" stroke-width="2">
+                    <path d="M180 12 V 30" />
+                    <path d="M180 330 V 348" />
+                    <path d="M12 180 H 30" />
+                    <path d="M330 180 H 348" />
+                    <path d="M60 60 L 73 73" opacity="0.7" />
+                    <path d="M300 60 L 287 73" opacity="0.7" />
+                    <path d="M60 300 L 73 287" opacity="0.7" />
+                    <path d="M300 300 L 287 287" opacity="0.7" />
+                  </g>
+                </svg>
+                <p class="clock__time">
+                  <time id="clock-time">--:--:--</time>
+                  <span class="clock__zone" id="clock-zone">CEST</span>
+                </p>
+                <p class="micro clock__micro" aria-hidden="true">(Circle) d = 360</p>
+              </div>
+            </div>
+
+            <div class="clock__side reads-col">
+              <p class="body">This clock shows the current time in CEST.</p>
+              <p class="caption">
+                It is not decoration. A living document has to show that it is
+                alive — and it has to let you switch that off.
+              </p>
+              <button class="button-text needs-js" type="button" id="clock-toggle" lang="de">
+                Uhr anhalten
+              </button>
+              <p class="visually-hidden" id="clock-status" aria-live="polite"></p>
+            </div>
+
+            <aside class="note note--clock">
+              <p class="note__body">
+                A living document has to show that it is alive — WCAG 2.2.2 only
+                asks that you may stop it.
+              </p>
+              <p class="note__src">(Note) 4.1</p>
+            </aside>
+          </div>
+        </section>
+
+        <!-- ================= deck ================= -->
+        <section class="section section--deck" id="deck" aria-labelledby="deck-h">
+          <span class="side__note side__note--r" aria-hidden="true">(U) 2.1</span>
+          <div class="wrap deck">
+            <p class="eyebrow">(Chapter) 1</p>
+            <h2 class="h-chapter" id="deck-h">(Format) Vertical</h2>
+
+            <div class="deck__grid">
+              <div class="deck__card" data-parallax="0.7">
+                <!-- role="list": list-style: none nimmt VoiceOver/Safari die
+                     Listensemantik. Die Rolle gibt sie zurueck. -->
+                <ol class="card-list" role="list">
+                  <li><span class="card-list__no">1.1</span> Usage</li>
+                  <li><span class="card-list__no">1.2</span> Geometry</li>
+                  <li><span class="card-list__no">1.3</span> Perception</li>
+                  <li><span class="card-list__no">1.4</span> Balance</li>
+                </ol>
+                <p class="micro micro--foot" aria-hidden="true">(Card) 335 × 426</p>
+              </div>
+
+              <figure class="fig fig--v" data-parallax="1.1">
+                <div class="art art--v">
+                  <svg
+                    class="art__layer art__layer--photo"
+                    viewBox="0 0 300 420"
+                    preserveAspectRatio="xMidYMid slice"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <defs>
+                      <linearGradient id="ph-branch-bg" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#e2e2e2" />
+                        <stop offset="1" stop-color="#b4b4b4" />
+                      </linearGradient>
+                    </defs>
+                    <rect width="300" height="420" fill="url(#ph-branch-bg)" />
+                    <g
+                      fill="none"
+                      stroke="#2f2f2f"
+                      stroke-linecap="round"
+                      opacity="0.9"
+                    >
+                      <path d="M34 402 C 96 336 132 268 168 176" stroke-width="8" />
+                      <path d="M128 254 C 158 240 186 244 214 262" stroke-width="4" />
+                      <path d="M150 208 C 174 186 200 178 228 182" stroke-width="3.5" />
+                      <path d="M168 176 C 176 138 190 112 210 92" stroke-width="5" />
+                      <path d="M196 118 C 220 112 240 118 254 132" stroke-width="3" />
+                      <path d="M92 322 C 118 316 138 322 152 336" stroke-width="3" />
+                      <path d="M210 92 C 214 74 222 60 236 50" stroke-width="3.5" />
+                    </g>
+                    <circle cx="228" cy="182" r="4" fill="#3a3a3a" />
+                    <circle cx="254" cy="132" r="3" fill="#3a3a3a" />
+                  </svg>
+
+                  <svg
+                    class="art__layer art__layer--draw"
+                    viewBox="0 0 300 420"
+                    preserveAspectRatio="xMidYMid slice"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <rect width="300" height="420" fill="#efe9da" />
+                    <g
+                      fill="none"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M138 404 C 132 340 144 292 140 244"
+                        stroke="#c08a2e"
+                        stroke-width="11"
+                      />
+                      <path
+                        d="M140 244 C 96 236 74 198 96 168 C 84 132 128 108 156 128 C 190 104 232 136 216 170 C 240 200 214 240 140 244 Z"
+                        stroke="#6e8a3c"
+                        stroke-width="9"
+                      />
+                      <path d="M118 200 C 138 190 158 196 170 210" stroke="#6e8a3c" stroke-width="5" />
+                      <path d="M150 166 C 166 158 182 162 190 174" stroke="#6e8a3c" stroke-width="4" />
+                      <path d="M24 398 C 100 388 206 402 278 392" stroke="#6e8a3c" stroke-width="8" />
+                      <path d="M56 396 C 60 372 74 362 84 366" stroke="#6e8a3c" stroke-width="5" />
+                      <path d="M226 394 C 232 370 246 362 254 368" stroke="#6e8a3c" stroke-width="5" />
+                    </g>
+                  </svg>
+
+                  <span class="art__mark" aria-hidden="true">(P) 1.2</span>
+                </div>
+                <figcaption class="fig__cap" lang="de">
+                  <span class="cap cap--photo"
+                    >(Platzhalter) Kahler Ast vor hellem Grund — Foto folgt</span
+                  >
+                  <span class="cap cap--draw"
+                    >(Platzhalter) Baum mit Wiese, Buntstift — Zeichnung
+                    folgt</span
+                  >
+                </figcaption>
+              </figure>
+
+              <div class="deck__text reads-col">
+                <p class="body reveal">
+                  A vertical format makes the eye travel. It cannot help it: the
+                  long side is the direction of reading, and every object placed
+                  inside it is measured against that travel.
+                </p>
+                <p class="body reveal">
+                  1.4 Balance is the hard one. Vertical does not mean top-heavy
+                  and it does not mean centred. It means you owe the bottom edge
+                  an answer.
+                </p>
+              </div>
+            </div>
+
+            <aside class="note note--deck">
+              <p class="note__body">A format can be divided into several sub-formats.</p>
+              <p class="note__src">(Note) from the source sheet</p>
+            </aside>
+            <aside class="note note--deck2">
+              <p class="note__body">
+                One weight. Hierarchy comes from size, colour and position —
+                never from weight.
+              </p>
+              <p class="note__src">(Note) 1.0</p>
+            </aside>
+          </div>
+        </section>
+
+        <!-- ================= fan ================= -->
+        <section class="section section--fan" id="fan" aria-labelledby="fan-h">
+          <span class="side__note side__note--l" aria-hidden="true">(C) 3.2</span>
+          <div class="wrap fan">
+            <p class="eyebrow">(Chapter) 3</p>
+            <h2 class="h-chapter" id="fan-h">(Format) Circle</h2>
+
+            <div class="fan__row">
+              <figure class="fig fig--c fan__plate" data-fan="-1">
+                <div class="art art--c">
+                  <svg
+                    class="art__layer art__layer--photo"
+                    viewBox="0 0 300 300"
+                    preserveAspectRatio="xMidYMid slice"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <rect width="300" height="300" fill="#c6c6c6" />
+                    <g
+                      fill="none"
+                      stroke="#3d3d3d"
+                      stroke-linecap="round"
+                      stroke-width="9"
+                      opacity="0.88"
+                    >
+                      <path d="M150 292 C 150 232 142 186 118 140" />
+                      <path d="M150 292 C 152 226 168 178 196 138" />
+                      <path d="M150 292 C 138 240 106 206 68 186" />
+                      <path d="M150 292 C 164 238 200 208 240 190" />
+                      <path d="M150 292 C 148 248 150 214 152 176" />
+                    </g>
+                    <path
+                      d="M0 262 C 74 246 210 274 300 254 L 300 300 L 0 300 Z"
+                      fill="#9c9c9c"
+                    />
+                  </svg>
+                  <svg
+                    class="art__layer art__layer--draw"
+                    viewBox="0 0 300 300"
+                    preserveAspectRatio="xMidYMid slice"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <rect width="300" height="300" fill="#efe9da" />
+                    <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path
+                        d="M150 108 C 176 88 208 106 202 136 C 226 148 220 184 192 186 C 186 214 148 218 138 194 C 110 200 96 168 116 150 C 108 120 130 100 150 108 Z"
+                        stroke="#c08a2e"
+                        stroke-width="9"
+                      />
+                      <path
+                        d="M148 142 C 160 136 172 146 166 158 C 160 170 142 164 148 142 Z"
+                        stroke="#c08a2e"
+                        stroke-width="5"
+                      />
+                      <path d="M150 190 C 148 226 154 254 150 276" stroke="#6e8a3c" stroke-width="8" />
+                      <path d="M12 274 C 92 264 204 280 292 268" stroke="#6e8a3c" stroke-width="8" />
+                    </g>
+                  </svg>
+                  <span class="art__mark" aria-hidden="true">(C) 3.1</span>
+                </div>
+                <figcaption class="fig__cap" lang="de">
+                  <span class="cap cap--photo"
+                    >(Platzhalter) Wuestenpflanze, Blattfaecher — Foto folgt</span
+                  >
+                  <span class="cap cap--draw"
+                    >(Platzhalter) Blume, Buntstift — Zeichnung folgt</span
+                  >
+                </figcaption>
+              </figure>
+
+              <figure class="fig fig--c fan__plate" data-fan="0">
+                <div class="art art--c">
+                  <svg
+                    class="art__layer art__layer--photo"
+                    viewBox="0 0 300 300"
+                    preserveAspectRatio="xMidYMid slice"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <defs>
+                      <radialGradient id="ph-seed" cx="0.42" cy="0.36" r="0.75">
+                        <stop offset="0" stop-color="#efefef" />
+                        <stop offset="1" stop-color="#8b8b8b" />
+                      </radialGradient>
+                    </defs>
+                    <rect width="300" height="300" fill="url(#ph-seed)" />
+                    <g stroke="#4b4b4b" stroke-width="1.6" opacity="0.75" fill="none">
+                      <path d="M150 168 L 150 66" />
+                      <path d="M150 168 L 96 88" />
+                      <path d="M150 168 L 204 88" />
+                      <path d="M150 168 L 66 132" />
+                      <path d="M150 168 L 234 132" />
+                      <path d="M150 168 L 82 196" />
+                      <path d="M150 168 L 218 196" />
+                      <path d="M150 168 L 120 74" />
+                      <path d="M150 168 L 180 74" />
+                    </g>
+                    <g fill="#5a5a5a">
+                      <circle cx="150" cy="62" r="5" />
+                      <circle cx="93" cy="84" r="4.5" />
+                      <circle cx="207" cy="84" r="4.5" />
+                      <circle cx="62" cy="130" r="4" />
+                      <circle cx="238" cy="130" r="4" />
+                      <circle cx="78" cy="200" r="4" />
+                      <circle cx="222" cy="200" r="4" />
+                      <circle cx="118" cy="69" r="3.5" />
+                      <circle cx="182" cy="69" r="3.5" />
+                    </g>
+                    <path
+                      d="M150 168 C 150 220 148 262 146 298"
+                      fill="none"
+                      stroke="#3a3a3a"
+                      stroke-width="6"
+                    />
+                  </svg>
+                  <svg
+                    class="art__layer art__layer--draw"
+                    viewBox="0 0 300 300"
+                    preserveAspectRatio="xMidYMid slice"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <rect width="300" height="300" fill="#efe9da" />
+                    <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path
+                        d="M110 122 C 128 100 168 102 184 124 C 200 146 190 178 164 186 C 138 194 110 176 106 152 C 104 140 106 128 110 122 Z"
+                        stroke="#c08a2e"
+                        stroke-width="9"
+                      />
+                      <path d="M146 62 L 148 96" stroke="#c08a2e" stroke-width="7" />
+                      <path d="M78 96 L 100 118" stroke="#c08a2e" stroke-width="6" />
+                      <path d="M218 92 L 196 116" stroke="#c08a2e" stroke-width="6" />
+                      <path d="M58 156 L 90 154" stroke="#c08a2e" stroke-width="6" />
+                      <path d="M240 152 L 206 152" stroke="#c08a2e" stroke-width="6" />
+                      <path d="M82 216 L 104 194" stroke="#c08a2e" stroke-width="5" />
+                      <path d="M214 214 L 192 192" stroke="#c08a2e" stroke-width="5" />
+                      <path d="M14 268 C 96 258 208 274 290 262" stroke="#6e8a3c" stroke-width="8" />
+                    </g>
+                  </svg>
+                  <span class="art__mark" aria-hidden="true">(C) 3.2</span>
+                </div>
+                <figcaption class="fig__cap" lang="de">
+                  <span class="cap cap--photo"
+                    >(Platzhalter) Samenstand gegen Licht — Foto folgt</span
+                  >
+                  <span class="cap cap--draw"
+                    >(Platzhalter) Sonne mit Strahlen, Buntstift — Zeichnung
+                    folgt</span
+                  >
+                </figcaption>
+              </figure>
+
+              <figure class="fig fig--c fan__plate" data-fan="1">
+                <div class="art art--c">
+                  <svg
+                    class="art__layer art__layer--photo"
+                    viewBox="0 0 300 300"
+                    preserveAspectRatio="xMidYMid slice"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <defs>
+                      <radialGradient id="ph-stone" cx="0.36" cy="0.3" r="0.85">
+                        <stop offset="0" stop-color="#d7d7d7" />
+                        <stop offset="1" stop-color="#4f4f4f" />
+                      </radialGradient>
+                    </defs>
+                    <rect width="300" height="300" fill="#2f2f2f" />
+                    <ellipse cx="150" cy="164" rx="112" ry="88" fill="url(#ph-stone)" />
+                    <path
+                      d="M64 176 C 96 148 152 132 208 146"
+                      fill="none"
+                      stroke="#8f8f8f"
+                      stroke-width="2"
+                      opacity="0.6"
+                    />
+                    <path
+                      d="M78 200 C 118 178 176 172 224 188"
+                      fill="none"
+                      stroke="#767676"
+                      stroke-width="1.5"
+                      opacity="0.5"
+                    />
+                    <ellipse cx="150" cy="252" rx="118" ry="16" fill="#1f1f1f" opacity="0.7" />
+                  </svg>
+                  <svg
+                    class="art__layer art__layer--draw"
+                    viewBox="0 0 300 300"
+                    preserveAspectRatio="xMidYMid slice"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <rect width="300" height="300" fill="#efe9da" />
+                    <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path
+                        d="M78 246 L 76 152 L 222 148 L 224 244 Z"
+                        stroke="#c08a2e"
+                        stroke-width="9"
+                      />
+                      <path d="M62 156 L 150 92 L 238 150" stroke="#c08a2e" stroke-width="9" />
+                      <path
+                        d="M132 246 L 130 190 L 172 188 L 174 244"
+                        stroke="#6e8a3c"
+                        stroke-width="7"
+                      />
+                      <path d="M96 176 L 118 174" stroke="#6e8a3c" stroke-width="5" />
+                      <path d="M186 174 L 208 172" stroke="#6e8a3c" stroke-width="5" />
+                      <path d="M16 250 C 98 240 206 256 288 244" stroke="#6e8a3c" stroke-width="8" />
+                    </g>
+                  </svg>
+                  <span class="art__mark" aria-hidden="true">(C) 3.3</span>
+                </div>
+                <figcaption class="fig__cap" lang="de">
+                  <span class="cap cap--photo"
+                    >(Platzhalter) Stein auf dunklem Grund — Foto folgt</span
+                  >
+                  <span class="cap cap--draw"
+                    >(Platzhalter) Haus mit Tuer, Buntstift — Zeichnung
+                    folgt</span
+                  >
+                </figcaption>
+              </figure>
+            </div>
+
+            <div class="fan__text reads-col">
+              <p class="body reveal">
+                A circle has no edges to work against. That is the whole
+                exercise: everything you would normally align, you now have to
+                place.
+              </p>
+            </div>
+
+            <aside class="note note--fan">
+              <p class="note__body">
+                The image serves the format, never the other way round.
+              </p>
+              <p class="note__src">(Note) 3.4</p>
+            </aside>
+          </div>
+        </section>
+
+        <!-- ================= win ================= -->
+        <section class="section section--win" id="win" aria-labelledby="win-h">
+          <div class="wrap win">
+            <h2 class="visually-hidden" id="win-h">(Format) Circle 3</h2>
+            <div class="disc disc--win" data-parallax="0.3">
+              <div class="marquee" aria-hidden="true">
+                <div class="marquee__track">
+                  <span class="marquee__run">(Format) Circle 3 —</span>
+                  <span class="marquee__run">(Format) Circle 3 —</span>
+                  <span class="marquee__run">(Format) Circle 3 —</span>
+                  <span class="marquee__run">(Format) Circle 3 —</span>
+                  <span class="marquee__run">(Format) Circle 3 —</span>
+                  <span class="marquee__run">(Format) Circle 3 —</span>
+                </div>
+              </div>
+              <p class="micro disc__micro" aria-hidden="true">(Circle) d = 620 · r = 50%</p>
+            </div>
+            <p class="caption win__cap">
+              The band does not stop at an edge, because there is none. It only
+              stops when you ask it to.
+            </p>
+          </div>
+        </section>
+
+        <!-- ================= vee ================= -->
+        <section class="section section--vee" id="vee" aria-labelledby="vee-h">
+          <span class="side__note side__note--r" aria-hidden="true">(H) 2.2</span>
+          <div class="wrap vee">
+            <p class="eyebrow">(Chapter) 2</p>
+            <h2 class="h-chapter" id="vee-h">(Format) Horizontal</h2>
+
+            <figure class="fig fig--h" data-parallax="0.6">
+              <div class="art art--h">
+                <svg
+                  class="art__layer art__layer--photo"
+                  viewBox="0 0 900 420"
+                  preserveAspectRatio="xMidYMid slice"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <rect width="900" height="420" fill="#dcdcdc" />
+                  <g fill="#f2f2f2" stroke="#9a9a9a" stroke-width="1.4">
+                    <rect x="180" y="278" width="548" height="16" />
+                    <rect x="196" y="258" width="520" height="16" />
+                    <rect x="172" y="238" width="556" height="16" />
+                    <rect x="204" y="218" width="500" height="16" />
+                    <rect x="188" y="198" width="530" height="16" />
+                    <rect x="212" y="178" width="486" height="16" />
+                    <rect x="196" y="158" width="512" height="16" />
+                  </g>
+                  <rect x="160" y="296" width="590" height="10" fill="#b3b3b3" />
+                  <rect x="0" y="306" width="900" height="114" fill="#c3c3c3" />
+                  <path d="M0 306 H 900" stroke="#9a9a9a" stroke-width="1.4" />
+                </svg>
+                <svg
+                  class="art__layer art__layer--draw"
+                  viewBox="0 0 900 420"
+                  preserveAspectRatio="xMidYMid slice"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <rect width="900" height="420" fill="#efe9da" />
+                  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                      d="M40 330 C 140 250 250 262 330 322 C 420 236 520 246 600 320 C 680 250 790 262 862 328"
+                      stroke="#6e8a3c"
+                      stroke-width="10"
+                    />
+                    <path d="M30 356 C 300 344 620 366 872 350" stroke="#6e8a3c" stroke-width="9" />
+                    <path
+                      d="M712 118 C 742 96 782 116 776 148 C 770 178 730 186 714 164 C 702 148 702 128 712 118 Z"
+                      stroke="#c08a2e"
+                      stroke-width="8"
+                    />
+                    <path d="M744 66 L 746 88" stroke="#c08a2e" stroke-width="6" />
+                    <path d="M818 106 L 796 118" stroke="#c08a2e" stroke-width="6" />
+                    <path d="M676 84 L 694 100" stroke="#c08a2e" stroke-width="6" />
+                    <path d="M660 168 L 690 160" stroke="#c08a2e" stroke-width="6" />
+                    <path d="M132 386 L 130 328" stroke="#c08a2e" stroke-width="7" />
+                    <path d="M196 384 L 194 326" stroke="#c08a2e" stroke-width="7" />
+                    <path d="M260 386 L 258 330" stroke="#c08a2e" stroke-width="7" />
+                    <path d="M112 348 C 190 342 268 350 282 346" stroke="#c08a2e" stroke-width="6" />
+                  </g>
+                </svg>
+                <span class="art__mark" aria-hidden="true">(H) 2.1</span>
+              </div>
+              <figcaption class="fig__cap" lang="de">
+                <span class="cap cap--photo"
+                  >(Platzhalter) Papierstapel im Streiflicht — Foto folgt</span
+                >
+                <span class="cap cap--draw"
+                  >(Platzhalter) Huegel mit Zaun und Sonne, Buntstift — Zeichnung
+                  folgt</span
+                >
+              </figcaption>
+            </figure>
+
+            <div class="vee__split">
+              <div class="vee__text reads-col">
+                <p class="body reveal">
+                  Horizontal is the format of the horizon, and the horizon is a
+                  line you cannot move. Everything in a horizontal frame is
+                  either above it or below it.
+                </p>
+                <p class="body reveal">
+                  The variant below is the same frame with a
+                  <code class="code">border-radius</code> of 79&nbsp;px. That is
+                  not styling. Here the radius is content: it is a different
+                  format, and it behaves differently.
+                </p>
+              </div>
+
+              <figure class="fig fig--h fig--rounded" data-parallax="1.2">
+                <div class="art art--h art--rounded">
+                  <svg
+                    class="art__layer art__layer--photo"
+                    viewBox="0 0 900 420"
+                    preserveAspectRatio="xMidYMid slice"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <defs>
+                      <linearGradient id="ph-dune" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#f0f0f0" />
+                        <stop offset="0.52" stop-color="#c8c8c8" />
+                        <stop offset="1" stop-color="#5e5e5e" />
+                      </linearGradient>
+                    </defs>
+                    <rect width="900" height="420" fill="url(#ph-dune)" />
+                    <path
+                      d="M0 246 C 180 202 320 268 470 240 C 620 212 760 258 900 232 L 900 420 L 0 420 Z"
+                      fill="#8d8d8d"
+                    />
+                    <path
+                      d="M0 300 C 200 268 360 320 520 296 C 680 272 800 312 900 296 L 900 420 L 0 420 Z"
+                      fill="#6b6b6b"
+                    />
+                    <path
+                      d="M0 360 C 220 336 420 376 620 356 C 760 342 840 362 900 354 L 900 420 L 0 420 Z"
+                      fill="#494949"
+                    />
+                    <circle cx="686" cy="132" r="34" fill="#efefef" opacity="0.85" />
+                  </svg>
+                  <svg
+                    class="art__layer art__layer--draw"
+                    viewBox="0 0 900 420"
+                    preserveAspectRatio="xMidYMid slice"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <rect width="900" height="420" fill="#efe9da" />
+                    <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path
+                        d="M20 300 C 160 200 300 226 400 300 C 480 210 620 214 700 296 C 770 244 840 254 884 302"
+                        stroke="#6e8a3c"
+                        stroke-width="11"
+                      />
+                      <path d="M24 356 C 300 342 620 368 878 348" stroke="#6e8a3c" stroke-width="9" />
+                      <path
+                        d="M188 110 C 218 88 258 108 252 140 C 246 170 206 178 190 156 C 178 140 178 120 188 110 Z"
+                        stroke="#c08a2e"
+                        stroke-width="8"
+                      />
+                      <path d="M220 58 L 222 80" stroke="#c08a2e" stroke-width="6" />
+                      <path d="M292 98 L 272 110" stroke="#c08a2e" stroke-width="6" />
+                      <path d="M152 76 L 170 92" stroke="#c08a2e" stroke-width="6" />
+                      <path d="M136 160 L 166 152" stroke="#c08a2e" stroke-width="6" />
+                      <path
+                        d="M560 384 C 556 340 570 320 596 322 C 622 324 632 348 626 384"
+                        stroke="#c08a2e"
+                        stroke-width="7"
+                      />
+                    </g>
+                  </svg>
+                  <span class="art__mark" aria-hidden="true">(H) 2.2</span>
+                </div>
+                <figcaption class="fig__cap" lang="de">
+                  <span class="cap cap--photo"
+                    >(Platzhalter) Duenenhorizont, Graustufen — Foto folgt</span
+                  >
+                  <span class="cap cap--draw"
+                    >(Platzhalter) Huegel mit Sonne, Buntstift — Zeichnung
+                    folgt</span
+                  >
+                </figcaption>
+              </figure>
+            </div>
+
+            <p class="caption vee__variant">(Format) Horizontal (Rounded) — r = 79 px</p>
+
+            <aside class="note note--vee">
+              <p class="note__body">
+                Use the boundaries of a complex format to create visual tension.
+              </p>
+              <p class="note__src">(Note) from the source sheet</p>
+            </aside>
+            <aside class="note note--vee2">
+              <p class="note__body">
+                Rounded corners are content here, not styling. 79&nbsp;px is a
+                format, not a taste.
+              </p>
+              <p class="note__src">(Note) 2.2</p>
+            </aside>
+          </div>
+        </section>
+
+        <!-- ================= gauge ================= -->
+        <section class="section section--gauge" id="gauge" aria-labelledby="gauge-h">
+          <div class="wrap gauge">
+            <p class="eyebrow">(Gauge) two dials, counter-running</p>
+            <h2 class="h-chapter" id="gauge-h">Six formats, read in both directions</h2>
+
+            <div class="gauge__row">
+              <!--
+                Beide Zifferblaetter tragen dieselben sechs Namen. Das ist reine
+                visuelle Wiederholung -> aria-hidden. Die Namen stehen genau
+                EINMAL als echte Liste darunter (gauge__legend), im
+                floor-geschuetzten Lesegrad.
+              -->
+              <div class="dial" data-dial="a">
+                <svg viewBox="0 0 520 520" aria-hidden="true" focusable="false">
+                  <defs>
+                    <path
+                      id="dial-ring-a"
+                      d="M 260,60 A 200,200 0 1,1 259.99,60"
+                      fill="none"
+                    />
+                  </defs>
+                  <circle
+                    cx="260"
+                    cy="260"
+                    r="238"
+                    fill="none"
+                    stroke="var(--color-mark)"
+                    stroke-width="1"
+                  />
+                  <circle
+                    cx="260"
+                    cy="260"
+                    r="150"
+                    fill="none"
+                    stroke="var(--color-mark)"
+                    stroke-width="1"
+                  />
+                  <g class="dial__spin">
+                    <text class="dial__type">
+                      <!-- prettier-ignore -->
+                      <textPath href="#dial-ring-a" startOffset="0" textLength="1256.6" lengthAdjust="spacing">(Triangle)(Complex)(Format)(Vertical)(Horizontal)(Circle)</textPath>
+                    </text>
+                  </g>
+                  <g stroke="var(--color-mark)" stroke-width="2">
+                    <path d="M260 8 V 26" />
+                    <path d="M260 494 V 512" />
+                    <path d="M8 260 H 26" />
+                    <path d="M494 260 H 512" />
+                  </g>
+                  <circle cx="260" cy="260" r="4" fill="var(--color-mark-active)" />
+                </svg>
+                <p class="micro dial__micro" aria-hidden="true">(Dial) A · clockwise</p>
+              </div>
+
+              <div class="dial" data-dial="b">
+                <svg viewBox="0 0 520 520" aria-hidden="true" focusable="false">
+                  <defs>
+                    <path
+                      id="dial-ring-b"
+                      d="M 260,60 A 200,200 0 1,1 259.99,60"
+                      fill="none"
+                    />
+                  </defs>
+                  <circle
+                    cx="260"
+                    cy="260"
+                    r="238"
+                    fill="none"
+                    stroke="var(--color-mark)"
+                    stroke-width="1"
+                  />
+                  <circle
+                    cx="260"
+                    cy="260"
+                    r="150"
+                    fill="none"
+                    stroke="var(--color-mark)"
+                    stroke-width="1"
+                  />
+                  <g class="dial__spin">
+                    <text class="dial__type">
+                      <!-- prettier-ignore -->
+                      <textPath href="#dial-ring-b" startOffset="50%" textLength="1256.6" lengthAdjust="spacing">(Triangle)(Complex)(Format)(Vertical)(Horizontal)(Circle)</textPath>
+                    </text>
+                  </g>
+                  <g stroke="var(--color-mark)" stroke-width="2">
+                    <path d="M260 8 V 26" />
+                    <path d="M260 494 V 512" />
+                    <path d="M8 260 H 26" />
+                    <path d="M494 260 H 512" />
+                  </g>
+                  <circle cx="260" cy="260" r="4" fill="var(--color-mark-active)" />
+                </svg>
+                <p class="micro dial__micro" aria-hidden="true">(Dial) B · counter-clockwise</p>
+              </div>
+            </div>
+
+            <ul class="gauge__legend" role="list">
+              <li>(Triangle)</li>
+              <li>(Complex)</li>
+              <li>(Format)</li>
+              <li>(Vertical)</li>
+              <li>(Horizontal)</li>
+              <li>(Circle)</li>
+            </ul>
+
+            <aside class="note note--gauge">
+              <p class="note__body">
+                Type on a circle is the only place on this sheet where the
+                baseline is a decision.
+              </p>
+              <p class="note__src">(Note) 3.7</p>
+            </aside>
+          </div>
+        </section>
+
+        <!-- ================= poster ================= -->
+        <section class="section section--poster reads" id="poster" aria-labelledby="poster-h">
+          <div class="wrap poster">
+            <h2 class="poster__head" id="poster-h">
+              The format is part of the bigger idea <span class="poster__no">(0)</span>
+            </h2>
+            <div class="poster__grid">
+              <section class="poster__item" aria-labelledby="poster-1">
+                <h3 class="poster__sub" id="poster-1">
+                  <span class="poster__no">(1)</span> Split format into smaller
+                </h3>
+                <p class="body">
+                  A format can be divided into several sub-formats. Each of them
+                  is a full format again, with its own edges and its own
+                  obligations.
+                </p>
+              </section>
+              <section class="poster__item" aria-labelledby="poster-2">
+                <h3 class="poster__sub" id="poster-2">
+                  <span class="poster__no">(2)</span> Make the edges work
+                </h3>
+                <p class="body">
+                  Use the boundaries of a complex format to create visual
+                  tension. An edge that does nothing is an edge you did not
+                  choose.
+                </p>
+              </section>
+            </div>
+            <aside class="note note--poster">
+              <p class="note__body">
+                92&nbsp;px, tracking −3&nbsp;% — and this is the only sentence on
+                the sheet set in capitals.
+              </p>
+              <p class="note__src">(Note) 0.9</p>
+            </aside>
+          </div>
+        </section>
+
+        <!-- ================= field ================= -->
+        <section class="section section--field" id="field" aria-labelledby="field-h">
+          <div class="wrap field">
+            <p class="eyebrow">(Field) grid, revealed</p>
+            <h2 class="h-chapter" id="field-h">click, clack, click</h2>
+
+            <div class="field__box">
+              <span class="crosshair crosshair--v" aria-hidden="true"></span>
+              <span class="crosshair crosshair--h" aria-hidden="true"></span>
+              <p class="field__words">
+                <span class="field__word">click,</span>
+                <span class="field__word">clack,</span>
+                <span class="field__word">click,</span>
+                <span class="field__word">a</span>
+                <span class="field__word">format</span>
+                <span class="field__word">snapping</span>
+                <span class="field__word">into</span>
+                <span class="field__word">place.</span>
+                <span class="field__word">click,</span>
+                <span class="field__word">clack,</span>
+                <span class="field__word">the</span>
+                <span class="field__word">grid</span>
+                <span class="field__word">is</span>
+                <span class="field__word">eight</span>
+                <span class="field__word">columns</span>
+                <span class="field__word">wide,</span>
+                <span class="field__word">the</span>
+                <span class="field__word">gutter</span>
+                <span class="field__word">is</span>
+                <span class="field__word">twenty,</span>
+                <span class="field__word">the</span>
+                <span class="field__word">margin</span>
+                <span class="field__word">is</span>
+                <span class="field__word">twenty,</span>
+                <span class="field__word">and</span>
+                <span class="field__word">every</span>
+                <span class="field__word">one</span>
+                <span class="field__word">of</span>
+                <span class="field__word">those</span>
+                <span class="field__word">numbers</span>
+                <span class="field__word">is</span>
+                <span class="field__word">multiplied</span>
+                <span class="field__word">by</span>
+                <span class="field__word">a</span>
+                <span class="field__word">single</span>
+                <span class="field__word">variable.</span>
+                <span class="field__word">click.</span>
+              </p>
+            </div>
+
+            <aside class="note note--field">
+              <p class="note__body">
+                25&nbsp;% opacity is a step, never a resting state — the last
+                frame has to be full ink.
+              </p>
+              <p class="note__src">(Note) 5.2</p>
+            </aside>
+          </div>
+        </section>
+
+        </main>
+
+        <!-- ================= footer ================= -->
+        <footer class="section section--footer" id="footer">
+          <div class="wrap footer">
+            <svg
+              class="mark mark--hero"
+              viewBox="0 0 1400 320"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <g class="mark__letter" data-letter="F" style="transform-origin: 0% 100%">
+                <rect x="0" y="0" width="52" height="320" />
+                <rect x="0" y="0" width="196" height="52" />
+                <rect x="0" y="134" width="150" height="52" />
+              </g>
+              <g class="mark__letter" data-letter="O" style="transform-origin: 50% 0%">
+                <rect
+                  x="264"
+                  y="26"
+                  width="158"
+                  height="268"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="52"
+                />
+              </g>
+              <g class="mark__letter" data-letter="R" style="transform-origin: 100% 50%">
+                <rect x="476" y="0" width="52" height="320" />
+                <rect
+                  x="502"
+                  y="26"
+                  width="158"
+                  height="134"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="52"
+                />
+                <rect x="634" y="186" width="52" height="134" />
+              </g>
+              <g class="mark__letter" data-letter="M" style="transform-origin: 0% 50%">
+                <rect x="714" y="0" width="52" height="320" />
+                <rect x="872" y="0" width="52" height="320" />
+                <rect x="714" y="0" width="210" height="52" />
+              </g>
+              <g class="mark__letter" data-letter="A" style="transform-origin: 50% 100%">
+                <rect
+                  x="978"
+                  y="26"
+                  width="158"
+                  height="268"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="52"
+                />
+                <rect x="952" y="134" width="210" height="52" />
+              </g>
+              <g class="mark__letter" data-letter="T" style="transform-origin: 100% 100%">
+                <rect x="1190" y="0" width="210" height="52" />
+                <rect x="1269" y="0" width="52" height="320" />
+              </g>
+            </svg>
+            <p class="footer__line">©2026. Format — Obys and DES</p>
+            <p class="footer__line footer__line--muted" lang="de">
+              PoC-Nachbau · Quelle: format.obys.agency · Schrift: Inter Variable
+              (OFL) statt Obys Sans
+            </p>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <!-- ================= didaktischer Readout ================= -->
+    <div class="readout needs-js" lang="de">
+      <div class="readout__bar">
+        <p class="readout__title">(Readout) Skalen-System</p>
+        <button
+          class="button-text readout__toggle"
+          type="button"
+          id="readout-toggle"
+          aria-expanded="true"
+          aria-controls="readout-body"
+        >
+          einklappen
+        </button>
+      </div>
+      <dl class="readout__body" id="readout-body">
+        <div class="readout__pair">
+          <dt>Viewport</dt>
+          <dd id="ro-vw">—</dd>
+        </div>
+        <div class="readout__pair">
+          <dt>--s (gemessen)</dt>
+          <dd id="ro-s">—</dd>
+        </div>
+        <div class="readout__pair">
+          <dt>12er-Grad, pur</dt>
+          <dd id="ro-pure">—</dd>
+        </div>
+        <div class="readout__pair">
+          <dt>mit max(0.62px, …)</dt>
+          <dd id="ro-capped">—</dd>
+        </div>
+        <div class="readout__pair readout__pair--live">
+          <dt>hier: max(13px, …)</dt>
+          <dd id="ro-floor">—</dd>
+        </div>
+      </dl>
+    </div>
+
+  </body>
+</html>
