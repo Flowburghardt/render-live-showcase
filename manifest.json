@@ -351,6 +351,15 @@
       "desc": "Fluid-Root-Scale (--s = 100vw/1440) + drei zuschaltbare Inhalts-Modi über eine Klasse an <html> (Default / Notes / Kinderzeichnung) — dieselbe Geometrie, drei Bildwelten",
       "nightly": true,
       "built": "2026-09-07"
+    },
+    {
+      "slug": "poc-faustina",
+      "title": "Faustina",
+      "stage": "Nightly",
+      "effort": "quick",
+      "desc": "Sechsfacher Sticky-Card-Stack (6 × 880px position:sticky in einem 5.865px-Container, je Karte Nummern-Tag + Vollbild-Motiv rechts) plus Zähler-Reveal 0+ → 15+ beim Eintritt — reine CSS-Sticky-Lösung ohne Scroll-Library",
+      "nightly": true,
+      "built": "2026-09-14"
     }
   ]
 }

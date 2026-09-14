@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <title>Audrey Faustina — Art Direction &amp; Design</title>
+    <meta
+      name="description"
+      content="Acid poster portfolio: a six-card CSS sticky stack and a counter reveal, built without a scroll library."
+    />
+
+    <!--
+      Favicon als Inline-data-URI. Der PoC laeuft unter /poc-faustina/ — ein <link rel="icon"
+      href="/favicon.ico"> wuerde den Domain-ROOT anfragen und dort 404en. Gelbes Quadrat, schwarzes f.
+    -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23EFFF2A'/%3E%3Ctext x='16' y='26' text-anchor='middle' font-family='Impact,Haettenschweiler,sans-serif' font-size='30' fill='%23000'%3Ef%3C/text%3E%3C/svg%3E"
+    />
+
+    <!-- Displayschrift Anton (400) — einziger externer Request des PoC, exakt wie in DESIGN.md notiert. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap" />
+
+    <script type="module" crossorigin src="./assets/index-BrztuJ_K.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CV0TD1sQ.css">
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <header class="topbar" id="top" tabindex="-1">
+      <nav class="nav" aria-label="Primary">
+        <a class="nav__mark" href="#top">faustina</a>
+        <p class="nav__meta">based in New York, USA</p>
+        <p class="nav__meta">working globally</p>
+        <button
+          class="nav__toggle"
+          type="button"
+          data-menu-toggle
+          aria-expanded="false"
+          aria-controls="menu-overlay"
+        >
+          menu
+        </button>
+      </nav>
+    </header>
+
+    <!--
+      Overlay-Menue. Ohne JS bleibt es [hidden] und der Button tut nichts — deshalb wiederholt
+      der Footer dieselben vier Ziele als echte Links. Navigation geht also auch ohne Skripte.
+    -->
+    <div
+      class="menu"
+      id="menu-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Menu"
+      data-menu-panel
+      hidden
+    >
+      <div class="menu__inner">
+        <p class="menu__eyebrow">index</p>
+        <ul class="menu__list">
+          <li><a class="menu__link" href="#top" data-menu-link>Home</a></li>
+          <li><a class="menu__link" href="#works" data-menu-link>works</a></li>
+          <li><a class="menu__link" href="#about" data-menu-link>About</a></li>
+          <li><a class="menu__link" href="#contact" data-menu-link>contact</a></li>
+        </ul>
+        <button class="menu__close" type="button" data-menu-close>close</button>
+      </div>
+    </div>
+
+    <main id="main" tabindex="-1">
+      <noscript>
+        <p class="noscript">
+          JavaScript is off — and the signature effect of this page does not care. The six-card
+          sticky stack is pure CSS and behaves exactly as designed. What is missing: the counter
+          reveal (the figures stay at 0+ and 0%), the staggered wordmark (shown all at once
+          instead), the live clock and the menu overlay. Every menu target is repeated as a plain
+          link in the footer.
+        </p>
+      </noscript>
+
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero__frame media">
+          <span class="media__fallback" aria-hidden="true">audrey faustina</span>
+          <img
+            class="media__img"
+            src="https://picsum.photos/seed/faustina-hero/1440/900"
+            alt=""
+            width="1440"
+            height="900"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </div>
+
+        <!--
+          Split-Wordmark: der Name RAHMT das Bild (Vorname oben links, Nachname unten rechts).
+          Die beiden sichtbaren Spans werden von main.ts in Zeichen-Spans zerlegt — sie sind
+          damit visuelle Klone und tragen aria-hidden. Der semantische Name steht daneben
+          als .sr-only-Text, genau einmal.
+        -->
+        <h1 class="hero__wordmark" id="hero-title">
+          <span class="sr-only">Audrey Faustina — art director and designer, New York</span>
+          <span class="hero__name hero__name--first" aria-hidden="true" data-split>AUDREY</span>
+          <span class="hero__name hero__name--last" aria-hidden="true" data-split>FAUSTINA</span>
+        </h1>
+
+        <p class="hero__lead">
+          Art direction and design for brands that would rather be remembered than liked. Posters
+          first. Everything else second.
+        </p>
+      </section>
+
+      <div class="strip">
+        <p class="strip__text">available for selected collaborations — 2026</p>
+      </div>
+
+      <section class="section section--light about" id="about" tabindex="-1" aria-labelledby="about-heading">
+        <div class="container">
+          <!--
+            Ein <h2> ueber alle Breiten — kein Tag-Wechsel am Breakpoint.
+            >= 810px: der Text ist .sr-only, sichtbar sind die beiden SVG-Mega-Fragmente.
+            <  810px: die Mega-Fragmente sind display:none, der Heading-Text uebernimmt im 68px-Grad.
+          -->
+          <p class="tag">who I am</p>
+          <h2 class="about__heading" id="about-heading">
+            <span class="about__heading-text">about</span>
+          </h2>
+
+          <div class="about__stage">
+            <svg
+              class="about__mega about__mega--abo"
+              viewBox="0 0 1500 1000"
+              preserveAspectRatio="xMidYMid meet"
+              aria-hidden="true"
+              focusable="false"
+            ><text x="750" y="900" text-anchor="middle" font-size="1100" textLength="1450" lengthAdjust="spacingAndGlyphs">abo</text></svg>
+
+            <figure class="about__portrait duotone media">
+              <span class="media__fallback" aria-hidden="true">portrait</span>
+              <img
+                class="media__img"
+                src="https://picsum.photos/seed/faustina-portrait/620/780"
+                alt="Audrey Faustina in her New York studio"
+                width="620"
+                height="780"
+                loading="lazy"
+                decoding="async"
+              />
+            </figure>
+
+            <svg
+              class="about__mega about__mega--ut"
+              viewBox="0 0 900 1000"
+              preserveAspectRatio="xMidYMid meet"
+              aria-hidden="true"
+              focusable="false"
+            ><text x="450" y="900" text-anchor="middle" font-size="1100" textLength="860" lengthAdjust="spacingAndGlyphs">ut</text></svg>
+          </div>
+
+          <div class="about__columns">
+            <p class="about__text">
+              Fifteen years of posters, identities and campaigns out of a third-floor room in
+              Brooklyn. One display face, one acid yellow, no rounded corners — the constraint is
+              the method, not the mood board.
+            </p>
+            <p class="about__text">
+              I work directly with founders and in-house teams, usually from the first sketch to the
+              printed sheet. Small studio, long engagements, very few clients at a time.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="works" id="works" tabindex="-1" aria-labelledby="works-heading">
+        <div class="container works__intro">
+          <p class="tag">what I do</p>
+          <h2 class="works__title" id="works-heading">our services</h2>
+        </div>
+
+        <!--
+          EFFEKT 1 — Sticky-Card-Stack. Sechs position:sticky-Karten in einem Container, dessen
+          Hoehe 6 x Kartenhoehe + Nachlauf betraegt. Kein Scroll-Listener, kein rAF, keine Library:
+          der teuerste Effekt der Seite kostet null Kilobyte JavaScript.
+        -->
+        <div class="stack">
+          <article class="stack__card">
+            <div class="stack__body">
+              <p class="tag"><span class="sr-only">Service </span>01</p>
+              <h3 class="stack__title">branding</h3>
+              <p class="stack__text">
+                Naming, identity systems and a logo that still reads at twelve pixels. One typeface,
+                one accent, nothing decorative.
+              </p>
+            </div>
+            <a class="media stack__media" href="#contact">
+              <span class="media__fallback" aria-hidden="true">branding</span>
+              <img
+                class="media__img"
+                src="https://picsum.photos/seed/faustina-branding/620/720"
+                alt=""
+                width="620"
+                height="720"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="media__caption">view branding <span aria-hidden="true">&rarr;</span></span>
+            </a>
+          </article>
+
+          <article class="stack__card">
+            <div class="stack__body">
+              <p class="tag"><span class="sr-only">Service </span>02</p>
+              <h3 class="stack__title">art direction</h3>
+              <p class="stack__text">
+                Shoots, sets and the rules that hold them together afterwards. I direct so the third
+                photographer still matches the first.
+              </p>
+            </div>
+            <a class="media stack__media" href="#contact">
+              <span class="media__fallback" aria-hidden="true">art direction</span>
+              <img
+                class="media__img"
+                src="https://picsum.photos/seed/faustina-artdirection/620/720"
+                alt=""
+                width="620"
+                height="720"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="media__caption">view art direction <span aria-hidden="true">&rarr;</span></span>
+            </a>
+          </article>
+
+          <article class="stack__card">
+            <div class="stack__body">
+              <p class="tag"><span class="sr-only">Service </span>03</p>
+              <h3 class="stack__title">digital experiences</h3>
+              <p class="stack__text">
+                Sites that behave like posters: one idea per screen, hard edges, and motion only
+                where it earns its bandwidth.
+              </p>
+            </div>
+            <a class="media stack__media" href="#contact">
+              <span class="media__fallback" aria-hidden="true">digital experiences</span>
+              <img
+                class="media__img"
+                src="https://picsum.photos/seed/faustina-digital/620/720"
+                alt=""
+                width="620"
+                height="720"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="media__caption">view digital experiences <span aria-hidden="true">&rarr;</span></span>
+            </a>
+          </article>
+
+          <article class="stack__card">
+            <div class="stack__body">
+              <p class="tag"><span class="sr-only">Service </span>04</p>
+              <h3 class="stack__title">campaigns</h3>
+              <p class="stack__text">
+                Launches that run from a wheatpaste wall to a paid social frame without losing the
+                thread. One headline, many surfaces.
+              </p>
+            </div>
+            <a class="media stack__media" href="#contact">
+              <span class="media__fallback" aria-hidden="true">campaigns</span>
+              <img
+                class="media__img"
+                src="https://picsum.photos/seed/faustina-campaigns/620/720"
+                alt=""
+                width="620"
+                height="720"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="media__caption">view campaigns <span aria-hidden="true">&rarr;</span></span>
+            </a>
+          </article>
+
+          <article class="stack__card">
+            <div class="stack__body">
+              <p class="tag"><span class="sr-only">Service </span>05</p>
+              <h3 class="stack__title">content</h3>
+              <p class="stack__text">
+                Editorial systems, photography direction and copy that sounds like the founder on a
+                good day, not like a brand deck.
+              </p>
+            </div>
+            <a class="media stack__media" href="#contact">
+              <span class="media__fallback" aria-hidden="true">content</span>
+              <img
+                class="media__img"
+                src="https://picsum.photos/seed/faustina-content/620/720"
+                alt=""
+                width="620"
+                height="720"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="media__caption">view content <span aria-hidden="true">&rarr;</span></span>
+            </a>
+          </article>
+
+          <article class="stack__card">
+            <div class="stack__body">
+              <p class="tag"><span class="sr-only">Service </span>06</p>
+              <h3 class="stack__title">creative strategy</h3>
+              <p class="stack__text">
+                The unglamorous half: positioning, naming shortlists, and deciding which three
+                things the brand will refuse to do.
+              </p>
+            </div>
+            <a class="media stack__media" href="#contact">
+              <span class="media__fallback" aria-hidden="true">creative strategy</span>
+              <img
+                class="media__img"
+                src="https://picsum.photos/seed/faustina-strategy/620/720"
+                alt=""
+                width="620"
+                height="720"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="media__caption">view creative strategy <span aria-hidden="true">&rarr;</span></span>
+            </a>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section--light why" aria-labelledby="why-heading">
+        <div class="container why__grid">
+          <div class="why__body">
+            <p class="tag">the numbers</p>
+            <h2 class="why__title" id="why-heading">Choosing Excelence</h2>
+
+            <!--
+              EFFEKT 2 — Zaehler-Reveal. Die Startwerte stehen woertlich im DOM (0+ / 0%), genau wie
+              auf der Vorlage. Die laufende Zahl ist aria-hidden; der Endwert steht stabil als
+              .sr-only-Text im Label, damit Screenreader nicht 60x pro Sekunde eine Zwischenzahl hoeren.
+            -->
+            <div class="why__stats">
+              <div class="stat">
+                <span
+                  class="stat__num counter"
+                  data-count-to="15"
+                  data-count-suffix="+"
+                  aria-hidden="true"
+                  >0+</span
+                >
+                <p class="stat__label"><span class="sr-only">15+ </span>completed projects</p>
+              </div>
+              <div class="stat">
+                <span
+                  class="stat__num counter"
+                  data-count-to="99"
+                  data-count-suffix="%"
+                  aria-hidden="true"
+                  >0%</span
+                >
+                <p class="stat__label"><span class="sr-only">99% </span>client satisfaction rate</p>
+              </div>
+            </div>
+
+            <p class="why__text">
+              Excellence here is not a promise, it is a workload: fewer projects, longer briefs, and
+              a studio small enough that the person who pitched the work also makes it.
+            </p>
+          </div>
+
+          <figure class="why__figure duotone media">
+            <span class="media__fallback media__fallback--light" aria-hidden="true">studio</span>
+            <img
+              class="media__img"
+              src="https://picsum.photos/seed/faustina-excellence/720/540"
+              alt=""
+              width="720"
+              height="540"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" id="contact" tabindex="-1">
+      <h2 class="sr-only">Contact and site navigation</h2>
+
+      <div class="container footer__grid">
+        <nav class="footer__nav" aria-label="Footer">
+          <ul class="footer__list">
+            <li><a class="footer__link" href="#top">Home</a></li>
+            <li><a class="footer__link" href="#works">works</a></li>
+            <li><a class="footer__link" href="#about">About</a></li>
+            <li><a class="footer__link" href="#contact">contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer__contact">
+          <p class="footer__line"><a href="mailto:studio@faustina.example">studio@faustina.example</a></p>
+          <p class="footer__line"><a href="tel:+12125550134">+1 212 555 0134</a></p>
+          <p class="footer__line footer__line--muted">
+            64 Meserole Street, 3rd floor<br />Brooklyn, New York
+          </p>
+          <ul class="footer__social">
+            <li><a href="#contact">Instagram</a></li>
+            <li><a href="#contact">Are.na</a></li>
+            <li><a href="#contact">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="container footer__base">
+        <p class="footer__copy">&copy; 2026 Audrey Faustina — poster first.</p>
+
+        <!--
+          EFFEKT 4 — Live-Uhr. Eine sich selbst aktualisierende Anzeige faellt unter WCAG 2.2.2
+          (Pause, Stop, Hide), deshalb der echte Button daneben. Unter prefers-reduced-motion
+          startet die Uhr pausiert mit einem einmalig gesetzten Zeitstempel.
+        -->
+        <p class="clock">
+          <span class="clock__city">New York</span>
+          <span class="clock__value" data-clock-value>--:--:--</span>
+          <button class="clock__toggle" type="button" data-clock-toggle aria-pressed="false">
+            Pause clock
+          </button>
+        </p>
+
+        <p class="footer__line"><a class="footer__top" href="#top">Back to top</a></p>
+      </div>
+    </footer>
+  </body>
+</html>
