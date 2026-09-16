@@ -1,0 +1,843 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
+    <title>Nicolai &amp; Sohn — Erfurter Whiskybrennerei</title>
+    <meta
+      name="description"
+      content="PoC zur Layout-Signatur von Nicolai &amp; Sohn: 300px fixe Navigationsspalte plus 1140px Inhaltssäule, zusammen exakt 1440px, mit Umschaltpunkt auf ein Overlay-Menü."
+    />
+
+    <!--
+      Favicon als Inline-data-URI. Der PoC laeuft unter /poc-nicolai-und-sohn/ — ein
+      <link rel="icon" href="/favicon.ico"> wuerde den Domain-ROOT anfragen und dort 404en.
+      Creme-Quadrat, dunkles N.
+    -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23FEF9F3'/%3E%3Cpath d='M9,24V9L23,24V9' fill='none' stroke='%23141618' stroke-width='2.4'/%3E%3C/svg%3E"
+    />
+
+    <!--
+      Klassisches Inline-Skript, bewusst NICHT im Modul: es laeuft waehrend des
+      Parsens, vor dem ersten Paint, und ist vom Bundle unabhaengig. Damit deckt
+      die `.js`-Klasse beide Ausfaelle ab — JavaScript abgeschaltet UND Bundle
+      kaputt/404. Im Modul stuende sie zu spaet: ES-Imports werden gehoistet und
+      `type="module"` ist ausserdem deferred.
+      Ohne `.js` bleibt jeder Inhalt sichtbar (kein `opacity: 0`) und die
+      Seitenleiste steht als statische Spalte im Fluss statt als totes Overlay.
+    -->
+    <script>
+      document.documentElement.classList.add('js')
+    </script>
+
+    <!--
+      KEIN externer Font-Link. Lausanne (Original) ist kommerziell; Ersatz ist
+      Inter Tight Variable (OFL), das main.ts als Side-Effect-Import bundelt.
+    -->
+    <script type="module" crossorigin src="./assets/index-DmEI5EKc.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-Bn4Cwhtq.css">
+  </head>
+
+  <body>
+    <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
+
+    <!--
+      Kopfleiste NUR unterhalb des Umschaltpunkts (CSS: display none ab 1040px).
+      Sie ist bei offenem Overlay `inert` wie der uebrige Hintergrund — sonst
+      bliebe sie fuer den Virtual Cursor erreichbar. Der Rueckweg des Fokus ist
+      trotzdem sicher: closeMenu() nimmt das `inert` (apply(false)) ab, BEVOR es
+      toggle.focus() aufruft (src/menu.ts).
+    -->
+    <header class="topbar" data-inert-when-open>
+      <button
+        class="topbar__toggle"
+        type="button"
+        data-menu-toggle
+        aria-expanded="false"
+        aria-controls="seitenleiste"
+      >
+        <span class="topbar__bars" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span class="topbar__label">Menü</span>
+      </button>
+
+      <a class="topbar__brand" href="#start">
+        <svg class="mono mono--xs" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+          <g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="miter">
+            <circle cx="60" cy="60" r="55" stroke-width="1.1" />
+            <path d="M26 80V40l26 40V40" />
+            <path
+              d="M94 50C94 44 88 40 81 40C74 40 68 44 68 50C68 62 94 58 94 70C94 76 88 80 81 80C74 80 68 76 68 70"
+            />
+          </g>
+          <text
+            x="60"
+            y="66"
+            text-anchor="middle"
+            font-size="19"
+            font-weight="300"
+            fill="currentColor"
+          >
+            &amp;
+          </text>
+        </svg>
+        <span class="sr-only">Nicolai und Sohn — zum Seitenanfang</span>
+      </a>
+    </header>
+
+    <!--
+      DIE Signatur des Systems: eine 300px breite, stehende Spalte statt einer Kopfzeile.
+      Ab 1040px `position: fixed; width: 300px`, darunter ein von links einfahrendes Panel.
+      Ein Element, zwei Darstellungen — kein zweites Menue im DOM.
+    -->
+    <aside class="sidebar" id="seitenleiste" data-menu-panel data-rail aria-label="Seitenleiste">
+      <div class="sidebar__inner">
+        <div class="sidebar__head">
+          <a class="sidebar__brand" href="#start">
+            <svg class="mono mono--lg" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+              <g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="miter">
+                <circle cx="60" cy="60" r="55" stroke-width="1.1" />
+                <path d="M26 80V40l26 40V40" />
+                <path
+                  d="M94 50C94 44 88 40 81 40C74 40 68 44 68 50C68 62 94 58 94 70C94 76 88 80 81 80C74 80 68 76 68 70"
+                />
+              </g>
+              <text
+                x="60"
+                y="66"
+                text-anchor="middle"
+                font-size="19"
+                font-weight="300"
+                fill="currentColor"
+              >
+                &amp;
+              </text>
+            </svg>
+            <span class="sr-only">Nicolai und Sohn — zum Seitenanfang</span>
+          </a>
+
+          <button class="sidebar__close" type="button" data-menu-close>
+            <span aria-hidden="true">✕</span>
+            <span class="sr-only">Menü schließen</span>
+          </button>
+        </div>
+
+        <nav class="nav" aria-label="Hauptnavigation">
+          <ul class="nav__list">
+            <li class="nav__item">
+              <a class="nav__link" href="#online-shop" data-spy="online-shop">Online Shop</a>
+            </li>
+            <li class="nav__item">
+              <a class="nav__link" href="#tastings" data-spy="tastings">Tastings</a>
+            </li>
+            <!--
+              Die drei Sortenpunkte sind Tiefenlinks auf einzelne Karten IM Shop-Band.
+              Sie tragen bewusst kein data-spy: sonst leuchteten vier Punkte gleichzeitig,
+              sobald das Shop-Band im Fenster steht.
+            -->
+            <li class="nav__item">
+              <a class="nav__link" href="#karte-single-malt">Single Malt</a>
+            </li>
+            <li class="nav__item"><a class="nav__link" href="#karte-dry-gin">Dry Gin</a></li>
+            <li class="nav__item">
+              <a class="nav__link" href="#karte-krume-likoer">Krume Likör</a>
+            </li>
+            <li class="nav__item">
+              <a class="nav__link" href="#community" data-spy="community">Community</a>
+            </li>
+            <li class="nav__item">
+              <a class="nav__link" href="#b2b-bereich" data-spy="b2b-bereich">B2B Bereich</a>
+            </li>
+            <li class="nav__item">
+              <a class="nav__link" href="#eventlocation" data-spy="eventlocation">Eventlocation</a>
+            </li>
+            <li class="nav__item nav__item--group">
+              <div class="nav__row">
+                <a class="nav__link" href="#blog" data-spy="blog">Blog</a>
+                <button
+                  class="nav__disclosure"
+                  type="button"
+                  data-disclosure
+                  aria-expanded="true"
+                  aria-controls="subnav-blog"
+                >
+                  <span class="nav__chevron" aria-hidden="true">›</span>
+                  <span class="sr-only">Unterpunkte zu Blog</span>
+                </button>
+              </div>
+              <!--
+                Ohne JavaScript bleibt diese Liste offen (CSS klappt sie nur unter `.js` ein)
+                und der Knopf ist ausgeblendet — kein toter Schalter, keine unerreichbaren Ziele.
+              -->
+              <ul class="subnav" id="subnav-blog">
+                <li><a class="subnav__link" href="#blog-tagebuch">Brennerei-Tagebuch</a></li>
+                <li><a class="subnav__link" href="#blog-presse">Presse</a></li>
+                <li><a class="subnav__link" href="#blog">Rezepte</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+
+        <p class="sidebar__claim">Nicolai &amp; Sohn — Straight Forward Single Malt</p>
+      </div>
+    </aside>
+
+    <!-- Scrim hinter dem Overlay-Panel. Klick schließt. -->
+    <div class="scrim" data-menu-scrim hidden></div>
+
+    <!--
+      Die Inhaltssäule. Ab 1040px `margin-left: 300px` — dadurch beginnt JEDES farbige Band
+      exakt bei x = 300 und endet an der Viewport-Kante. Bei 1440px Fenster ist die Säule
+      genau 1140px breit; die Mess-Anzeige unten rechts rechnet das live nach.
+    -->
+    <div class="shell" data-column>
+      <main class="main" id="inhalt" tabindex="-1" data-inert-when-open>
+        <!-- ============================ 1 · HERO ============================ -->
+        <section class="band band--hero hero" id="start" data-band aria-labelledby="hero-title">
+          <div class="hero__text">
+            <p class="eyebrow">Erfurter Whiskybrennerei</p>
+
+            <h1 class="hero__title" id="hero-title">
+              <!--
+                Semantik-Fix gegenüber dem Original: dort ist der 100px-Markenname ein h3
+                und ein 20px-Fließtext das h1 — in der DESIGN.md ausdrücklich als
+                "✗ Vermeiden" markiert. Hier ist der Markenname das h1, der Lead ein p.
+
+                Der sichtbare Text ist ein Bild-Klon (aria-hidden), daneben steht der
+                semantische Originaltext genau einmal als .sr-only-Span.
+              -->
+              <span class="sr-only">Nicolai &amp; Sohn</span>
+              <span class="display" aria-hidden="true">
+                <span class="display__line" data-split>Nicolai &amp;</span>
+                <span class="display__line" data-split>Sohn</span>
+              </span>
+            </h1>
+
+            <p class="lead hero__lead">
+              Zwei Generationen, ein Brennkessel, kein Marketing-Getöse. Wir brennen in Erfurt
+              Single Malt aus Thüringer Gerste — langsam, in kleinen Chargen und ohne Abkürzung.
+            </p>
+          </div>
+
+          <figure class="hero__figure">
+            <img
+              class="hero__img"
+              src="https://picsum.photos/seed/nus-hero-flasche/900/1200"
+              alt="Hochformat-Aufnahme einer Whiskyflasche aus der Erfurter Brennerei im Gegenlicht"
+              width="900"
+              height="1200"
+              loading="eager"
+            />
+          </figure>
+        </section>
+
+        <!-- ============================ 2 · INTRO ============================ -->
+        <section
+          class="band band--cream"
+          id="intro"
+          data-band
+          data-reveal
+          aria-labelledby="intro-title"
+        >
+          <div class="band__inner intro">
+            <div class="intro__mark">
+              <svg class="mono mono--xl" viewBox="0 0 120 120" role="img">
+                <title>Bildmarke Nicolai und Sohn</title>
+                <g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="miter">
+                  <circle cx="60" cy="60" r="55" stroke-width="1.1" />
+                  <path d="M26 80V40l26 40V40" />
+                  <path
+                    d="M94 50C94 44 88 40 81 40C74 40 68 44 68 50C68 62 94 58 94 70C94 76 88 80 81 80C74 80 68 76 68 70"
+                  />
+                </g>
+                <text
+                  x="60"
+                  y="66"
+                  text-anchor="middle"
+                  font-size="19"
+                  font-weight="300"
+                  fill="currentColor"
+                >
+                  &amp;
+                </text>
+              </svg>
+            </div>
+
+            <div class="intro__body">
+              <h2 class="h2-lg" id="intro-title">Gebrannt, nicht gebaut</h2>
+              <p class="body">
+                Die Brennerei steht in einem Hinterhof in der Erfurter Altstadt. Gerste aus dem
+                Thüringer Becken, Wasser aus der eigenen Quelle, Fässer, die vorher Sherry oder
+                Bordeaux gesehen haben. Mehr Zutaten gibt es nicht, und es braucht auch nicht mehr.
+              </p>
+              <p class="body">
+                Was wir abfüllen, füllen wir von Hand ab. Jede Charge trägt Datum, Fassnummer und
+                die Unterschrift dessen, der sie gezogen hat. Wer wissen will, was drin ist, findet
+                es auf dem Etikett — nicht in einer Broschüre.
+              </p>
+              <a class="btn btn--outline" href="#online-shop">Unsere Produkte ›</a>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========================== 3 · PRODUKTE ========================== -->
+        <section
+          class="band band--ink band--tall"
+          id="online-shop"
+          data-band
+          data-reveal
+          aria-labelledby="shop-title"
+        >
+          <div class="band__inner">
+            <p class="eyebrow eyebrow--inverse">Online Shop</p>
+            <h2 class="h2-lg h2--inverse" id="shop-title">Fünf Abfüllungen</h2>
+
+            <ul class="grid grid--products">
+              <li class="product" id="karte-single-malt">
+                <div class="product__plate">
+                  <img
+                    class="product__img"
+                    src="https://picsum.photos/seed/nus-bottle-single-malt/600/800?grayscale"
+                    alt="Freigestellte Flasche Single Malt, 0,7 Liter"
+                    width="600"
+                    height="800"
+                    loading="lazy"
+                  />
+                </div>
+                <h3 class="card-title">Single Malt, 46 %</h3>
+                <p class="card-meta">0,7 l · Sherry-Fass</p>
+                <button class="btn btn--solid product__action" type="button">
+                  Warenkorb<span class="sr-only"> — Single Malt, 46 %</span>
+                </button>
+              </li>
+
+              <li class="product" id="karte-dry-gin">
+                <div class="product__plate">
+                  <img
+                    class="product__img"
+                    src="https://picsum.photos/seed/nus-bottle-dry-gin/600/800?grayscale"
+                    alt="Freigestellte Flasche Dry Gin, 0,5 Liter"
+                    width="600"
+                    height="800"
+                    loading="lazy"
+                  />
+                </div>
+                <h3 class="card-title">Dry Gin, 44 %</h3>
+                <p class="card-meta">0,5 l · 11 Botanicals</p>
+                <button class="btn btn--solid product__action" type="button">
+                  Warenkorb<span class="sr-only"> — Dry Gin, 44 %</span>
+                </button>
+              </li>
+
+              <li class="product" id="karte-krume-likoer">
+                <div class="product__plate">
+                  <img
+                    class="product__img"
+                    src="https://picsum.photos/seed/nus-bottle-krume/600/800?grayscale"
+                    alt="Freigestellte Flasche Krume Likör, 0,5 Liter"
+                    width="600"
+                    height="800"
+                    loading="lazy"
+                  />
+                </div>
+                <h3 class="card-title">Krume Likör, 28 %</h3>
+                <p class="card-meta">0,5 l · Roggenbrot</p>
+                <button class="btn btn--solid product__action" type="button">
+                  Warenkorb<span class="sr-only"> — Krume Likör, 28 %</span>
+                </button>
+              </li>
+
+              <li class="product">
+                <div class="product__plate">
+                  <img
+                    class="product__img"
+                    src="https://picsum.photos/seed/nus-bottle-cask/600/800?grayscale"
+                    alt="Freigestellte Flasche Cask Strength, 0,7 Liter"
+                    width="600"
+                    height="800"
+                    loading="lazy"
+                  />
+                </div>
+                <h3 class="card-title">Cask Strength, 58 %</h3>
+                <p class="card-meta">0,7 l · Fass 014</p>
+                <button class="btn btn--solid product__action" type="button">
+                  Warenkorb<span class="sr-only"> — Cask Strength, 58 %</span>
+                </button>
+              </li>
+
+              <li class="product">
+                <div class="product__plate">
+                  <img
+                    class="product__img"
+                    src="https://picsum.photos/seed/nus-bottle-tasting-set/600/800?grayscale"
+                    alt="Freigestelltes Probierset mit vier kleinen Flaschen"
+                    width="600"
+                    height="800"
+                    loading="lazy"
+                  />
+                </div>
+                <h3 class="card-title">Probierset, 4 × 5 cl</h3>
+                <p class="card-meta">Alle Sorten</p>
+                <button class="btn btn--solid product__action" type="button">
+                  Warenkorb<span class="sr-only"> — Probierset, 4 mal 5 Zentiliter</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- ======================= 4 · TASTINGS-INTRO ======================= -->
+        <section
+          class="band band--cream"
+          id="tastings"
+          data-band
+          data-reveal
+          aria-labelledby="tastings-title"
+        >
+          <div class="band__inner center">
+            <h2 class="h2-lg" id="tastings-title">Tastings</h2>
+            <p class="body measure">
+              Wir setzen uns mit sechs bis zwölf Leuten an einen Tisch, öffnen vier Flaschen und
+              reden über das, was im Glas ist. Kein Skript, keine Fachbegriffe, die niemand braucht.
+              Wer mag, geht danach durch die Brennerei.
+            </p>
+            <a class="btn btn--outline" href="#eventlocation">Übersicht Tastings ›</a>
+          </div>
+        </section>
+
+        <!-- ====================== 5 · TASTING-KARTEN ====================== -->
+        <section
+          class="band band--ink band--mid"
+          id="eventlocation"
+          data-band
+          data-reveal
+          aria-labelledby="events-title"
+        >
+          <div class="band__inner band__inner--flush">
+            <h2 class="sr-only" id="events-title">Tastings und Eventlocation</h2>
+
+            <ul class="grid grid--tastings">
+              <li class="tile">
+                <img
+                  class="tile__img"
+                  src="https://picsum.photos/seed/nus-tasting-abend/600/900"
+                  alt="Reportage-Aufnahme: Gläser und Flaschen auf einem langen Tisch im Kerzenlicht"
+                  width="600"
+                  height="900"
+                  loading="lazy"
+                />
+                <div class="tile__body">
+                  <h3 class="card-title tile__title">Klassisches<br />Tasting</h3>
+                  <a class="btn btn--solid tile__action" href="#newsletter"
+                    >Buchen<span class="sr-only"> — Klassisches Tasting</span></a
+                  >
+                </div>
+              </li>
+
+              <li class="tile">
+                <img
+                  class="tile__img"
+                  src="https://picsum.photos/seed/nus-tasting-fasskeller/600/900"
+                  alt="Reportage-Aufnahme: Fasskeller mit gestapelten Eichenfässern"
+                  width="600"
+                  height="900"
+                  loading="lazy"
+                />
+                <div class="tile__body">
+                  <h3 class="card-title tile__title">Fasskeller<br />&amp; Probe</h3>
+                  <a class="btn btn--solid tile__action" href="#newsletter"
+                    >Buchen<span class="sr-only"> — Fasskeller und Probe</span></a
+                  >
+                </div>
+              </li>
+
+              <li class="tile">
+                <img
+                  class="tile__img"
+                  src="https://picsum.photos/seed/nus-tasting-brennerei/600/900"
+                  alt="Reportage-Aufnahme: Kupferner Brennkessel in der Erfurter Brennerei"
+                  width="600"
+                  height="900"
+                  loading="lazy"
+                />
+                <div class="tile__body">
+                  <h3 class="card-title tile__title">Brennerei<br />am Abend</h3>
+                  <a class="btn btn--solid tile__action" href="#newsletter"
+                    >Buchen<span class="sr-only"> — Brennerei am Abend</span></a
+                  >
+                </div>
+              </li>
+
+              <li class="tile">
+                <img
+                  class="tile__img"
+                  src="https://picsum.photos/seed/nus-tasting-hinterhof/600/900"
+                  alt="Reportage-Aufnahme: Hinterhof der Brennerei mit gedecktem Tisch"
+                  width="600"
+                  height="900"
+                  loading="lazy"
+                />
+                <div class="tile__body">
+                  <h3 class="card-title tile__title">Hinterhof<br />privat</h3>
+                  <a class="btn btn--solid tile__action" href="#newsletter"
+                    >Buchen<span class="sr-only"> — Hinterhof privat</span></a
+                  >
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- ====================== 6 · VATER &amp; SOHN ====================== -->
+        <section
+          class="band band--cream"
+          id="community"
+          data-band
+          data-reveal
+          aria-labelledby="community-title"
+        >
+          <div class="band__inner">
+            <p class="eyebrow">Community</p>
+            <h2 class="h2-lg" id="community-title">Vater &amp; Sohn</h2>
+
+            <div class="prose">
+              <p class="body">
+                Angefangen hat es 1998 mit einer Genehmigung, einem gebrauchten 150-Liter-Kessel und
+                der festen Überzeugung, dass sich in Thüringen Whisky brennen lässt. Die ersten
+                sieben Jahre gingen für Versuche drauf, von denen die meisten nicht gut waren. Das
+                Fass, aus dem 2005 die erste verkaufsfähige Abfüllung kam, steht heute leer im
+                Eingang.
+              </p>
+              <p class="body">
+                Seit 2016 steht der Sohn am Kessel. Er hat in Schottland gelernt, was man dort über
+                Fasshaltung weiß, und in Erfurt behalten, was hier funktioniert. Die Rezepturen sind
+                dieselben geblieben, die Fässer nicht: statt ausschließlich Sherry kommen heute
+                auch Bordeaux, Portwein und einmal im Jahr ein Fass, in dem vorher Bier reifte.
+              </p>
+              <p class="body">
+                Was wir Community nennen, ist nüchterner, als es klingt: rund 400 Leute, die ein
+                Fass mitfinanziert haben und zweimal im Jahr kommen, um nachzusehen, was daraus
+                geworden ist. Manche seit zwanzig Jahren. Das ist kein Marketing-Programm, das ist
+                die Finanzierung.
+              </p>
+            </div>
+
+            <div class="grid grid--diptych">
+              <figure class="figure">
+                <img
+                  class="figure__img"
+                  src="https://picsum.photos/seed/nus-vater/800/600"
+                  alt="Reportage-Aufnahme: Der Gründer am Brennkessel"
+                  width="800"
+                  height="600"
+                  loading="lazy"
+                />
+              </figure>
+              <figure class="figure">
+                <img
+                  class="figure__img"
+                  src="https://picsum.photos/seed/nus-sohn/800/600"
+                  alt="Reportage-Aufnahme: Der Sohn zieht eine Probe aus einem Fass"
+                  width="800"
+                  height="600"
+                  loading="lazy"
+                />
+              </figure>
+            </div>
+
+            <a class="btn btn--outline" href="#b2b-bereich">Philosophie &amp; Whisky ›</a>
+          </div>
+        </section>
+
+        <!-- ======================== 7 · BLOG-KARTEN ======================== -->
+        <section
+          class="band band--ink"
+          id="blog"
+          data-band
+          data-reveal
+          aria-labelledby="blog-title"
+        >
+          <div class="band__inner">
+            <p class="eyebrow eyebrow--inverse">Blog</p>
+            <h2 class="h2-lg h2--inverse" id="blog-title">Aus der Brennerei</h2>
+
+            <ul class="grid grid--blog">
+              <li class="post" id="blog-tagebuch">
+                <img
+                  class="post__img"
+                  src="https://picsum.photos/seed/nus-blog-tagebuch/900/600"
+                  alt="Reportage-Aufnahme: Notizbuch und Refraktometer neben der Maischebottich-Kante"
+                  width="900"
+                  height="600"
+                  loading="lazy"
+                />
+                <div class="post__body">
+                  <p class="meta">14. Februar 2026</p>
+                  <h3 class="h2-sm h2--inverse">
+                    <a class="post__link" href="#blog-tagebuch"
+                      >Brennerei-Tagebuch: Warum Charge 41 zwei Wochen länger brauchte</a
+                    >
+                  </h3>
+                </div>
+              </li>
+
+              <li class="post" id="blog-presse">
+                <img
+                  class="post__img"
+                  src="https://picsum.photos/seed/nus-blog-presse/900/600"
+                  alt="Reportage-Aufnahme: Aufgeschlagene Zeitungsseite auf einem Holztisch"
+                  width="900"
+                  height="600"
+                  loading="lazy"
+                />
+                <div class="post__body">
+                  <p class="meta">3. Januar 2026</p>
+                  <h3 class="h2-sm h2--inverse">
+                    <a class="post__link" href="#blog-presse"
+                      >Presse: Was in der Verkostung 2025 tatsächlich verglichen wurde</a
+                    >
+                  </h3>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- ============================ 8 · FAQ ============================ -->
+        <section
+          class="band band--cream"
+          id="b2b-bereich"
+          data-band
+          data-reveal
+          aria-labelledby="faq-title"
+        >
+          <div class="band__inner">
+            <h2 class="h2-md" id="faq-title">B2B &amp; häufige Fragen</h2>
+            <p class="faq__subline">schnell &amp; direkt</p>
+
+            <div class="faq">
+              <!--
+                Natives <details>/<summary>: Tastaturbedienung, Zustand und
+                Screenreader-Ansage kommen vom Browser. Kein JavaScript beteiligt.
+              -->
+              <details class="faq__item">
+                <summary class="faq__summary">
+                  <span class="faq__no" aria-hidden="true">01</span>
+                  <span class="faq__q">Beliefern Sie Gastronomie und Fachhandel direkt?</span>
+                </summary>
+                <div class="faq__a">
+                  <p class="body">
+                    Ja, ab zwölf Flaschen und ohne Mindestumsatz im Jahr. Die Preisliste schicken
+                    wir auf Anfrage; Staffeln gibt es ab sechs Kartons.
+                  </p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary class="faq__summary">
+                  <span class="faq__no" aria-hidden="true">02</span>
+                  <span class="faq__q">Gibt es Eigenabfüllungen für Unternehmen?</span>
+                </summary>
+                <div class="faq__a">
+                  <p class="body">
+                    Ein eigenes Fass ab 100 Litern, Laufzeit mindestens drei Jahre. Etikett und
+                    Abfüllstärke bestimmen Sie, das Destillat kommt aus der laufenden Produktion.
+                  </p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary class="faq__summary">
+                  <span class="faq__no" aria-hidden="true">03</span>
+                  <span class="faq__q">Kann man die Räume für Firmenabende mieten?</span>
+                </summary>
+                <div class="faq__a">
+                  <p class="body">
+                    Der Fasskeller fasst 40 Personen, der Hinterhof im Sommer 70. Beides inklusive
+                    Tasting, beides ohne externen Caterer-Zwang.
+                  </p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary class="faq__summary">
+                  <span class="faq__no" aria-hidden="true">04</span>
+                  <span class="faq__q">Wie lange dauert der Versand?</span>
+                </summary>
+                <div class="faq__a">
+                  <p class="body">
+                    Innerhalb Deutschlands zwei bis drei Werktage. Ins EU-Ausland liefern wir nur
+                    an Gewerbe, weil die Verbrauchsteuer sonst nicht sauber abbildbar ist.
+                  </p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary class="faq__summary">
+                  <span class="faq__no" aria-hidden="true">05</span>
+                  <span class="faq__q">Was passiert, wenn eine Charge ausverkauft ist?</span>
+                </summary>
+                <div class="faq__a">
+                  <p class="body">
+                    Dann ist sie weg. Wir füllen nicht nach und mischen keine Chargen, um eine
+                    Lücke zu schließen. Die nächste kommt, wenn sie fertig ist.
+                  </p>
+                </div>
+              </details>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- ==================== 9 · NEWSLETTER + FOOTER ==================== -->
+      <footer
+        class="band band--ink band--footer"
+        id="newsletter"
+        data-band
+        data-inert-when-open
+        aria-labelledby="newsletter-title"
+      >
+        <div class="band__inner">
+          <div class="newsletter">
+            <div class="newsletter__col">
+              <h2 class="h2-md h2--inverse" id="newsletter-title">Post aus der Brennerei</h2>
+              <p class="body body--inverse">
+                Sechs bis acht Mails im Jahr: neue Chargen, freie Tasting-Termine, gelegentlich
+                eine Notiz aus dem Fasskeller. Abmeldung in jeder Mail.
+              </p>
+            </div>
+
+            <div class="newsletter__col">
+              <!--
+                Attrappe: kein `novalidate`, die Browser-Prüfung läuft also normal.
+                Erst der erfolgreiche Submit wird in form.ts abgefangen.
+                Sichtbares Label statt Platzhalter — ein Platzhalter auf dem 50%-Grau
+                käme nicht auf AA-Kontrast.
+              -->
+              <form class="newsletter__form" data-newsletter>
+                <label class="newsletter__label" for="newsletter-mail">E-Mail-Adresse</label>
+                <div class="field">
+                  <input
+                    class="field__input"
+                    id="newsletter-mail"
+                    name="email"
+                    type="email"
+                    autocomplete="email"
+                    required
+                  />
+                  <button class="field__submit" type="submit">Senden</button>
+                </div>
+                <p class="newsletter__note" data-newsletter-status role="status" aria-live="polite"></p>
+              </form>
+            </div>
+          </div>
+
+          <div class="grid grid--footer">
+            <div class="footcol">
+              <h3 class="footcol__title">Sortiment</h3>
+              <ul class="footcol__list">
+                <li><a class="footcol__link" href="#karte-single-malt">Single Malt</a></li>
+                <li><a class="footcol__link" href="#karte-dry-gin">Dry Gin</a></li>
+                <li><a class="footcol__link" href="#karte-krume-likoer">Krume Likör</a></li>
+                <li><a class="footcol__link" href="#online-shop">Probierset</a></li>
+              </ul>
+            </div>
+
+            <div class="footcol">
+              <h3 class="footcol__title">Besuchen</h3>
+              <ul class="footcol__list">
+                <li><a class="footcol__link" href="#tastings">Tastings</a></li>
+                <li><a class="footcol__link" href="#eventlocation">Eventlocation</a></li>
+                <li><a class="footcol__link" href="#community">Community</a></li>
+                <li><a class="footcol__link" href="#blog">Blog</a></li>
+              </ul>
+            </div>
+
+            <div class="footcol">
+              <h3 class="footcol__title">Geschäftlich</h3>
+              <ul class="footcol__list">
+                <li><a class="footcol__link" href="#b2b-bereich">B2B Bereich</a></li>
+                <li><a class="footcol__link" href="#b2b-bereich">Eigenabfüllung</a></li>
+                <li><a class="footcol__link" href="#b2b-bereich">Versand</a></li>
+                <li><a class="footcol__link" href="#blog-presse">Presse</a></li>
+              </ul>
+            </div>
+
+            <div class="footcol">
+              <h3 class="footcol__title">Brennerei</h3>
+              <p class="footcol__text">
+                Nicolai &amp; Sohn<br />
+                Hinterhof 7<br />
+                99084 Erfurt
+              </p>
+              <p class="footcol__text footcol__text--quiet">
+                Demo-Inhalte. Dieser PoC bildet ein Layout nach, keine echte Brennerei.
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!--
+      Mess-Anzeige: belegt die Layout-Rechnung live aus getBoundingClientRect().
+      Die Live-Region ist NICHT die sichtbare Liste — die ändert sich beim Ziehen
+      am Fenster in jedem Frame und würde den Screenreader zuschütten. Angesagt
+      wird stattdessen ein einzelner Satz aus dem sr-only-Absatz darunter, und
+      zwar erst, wenn das Ziehen zur Ruhe gekommen ist. Beides steht im Rumpf:
+      eingeklappt ist er `hidden` und damit auch aus dem A11y-Baum — im
+      Verborgenen wird nichts angesagt.
+    -->
+    <section class="metrics" data-metrics data-inert-when-open aria-label="Layout-Messung">
+      <div class="metrics__head">
+        <h2 class="metrics__title">Layout-Rechnung</h2>
+        <button
+          class="metrics__toggle"
+          type="button"
+          data-metrics-toggle
+          aria-expanded="true"
+          aria-controls="metrics-body"
+        >
+          <span class="metrics__chevron" aria-hidden="true">›</span>
+          <!-- Zustandsneutraler Name: das Auf/Zu steht in aria-expanded, nicht im Label. -->
+          <span class="sr-only">Mess-Anzeige ein- und ausklappen</span>
+        </button>
+      </div>
+
+      <div class="metrics__body" id="metrics-body" data-metrics-body>
+        <p class="sr-only" role="status" data-metrics-status></p>
+
+        <!-- Die Liste bleibt fuer den Virtual Cursor lesbar; sie ist nur keine
+             Live-Region mehr. Der Statusabsatz darueber bleibt bis zur ersten
+             Aenderung leer, es wird also nichts doppelt vorgelesen. -->
+        <dl class="metrics__list">
+          <div class="metrics__row">
+            <!-- Bewusst nicht "Viewport": gemessen wird die Layout-Breite von
+                 <html>, also OHNE klassische Scrollleiste. Genau gegen die muss
+                 die Summe aufgehen. -->
+            <dt>Layout-Breite</dt>
+            <dd data-metric="viewport">—</dd>
+          </div>
+          <div class="metrics__row">
+            <dt>Seitenleiste</dt>
+            <dd data-metric="rail">—</dd>
+          </div>
+          <div class="metrics__row">
+            <dt>Inhaltssäule</dt>
+            <dd data-metric="column">—</dd>
+          </div>
+          <div class="metrics__row metrics__row--sum">
+            <dt data-metric-label="sum">Summe</dt>
+            <dd data-metric="sum">—</dd>
+          </div>
+          <div class="metrics__row metrics__row--mode">
+            <dt>Modus</dt>
+            <dd data-metric="mode">—</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+  </body>
+</html>

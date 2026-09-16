@@ -360,6 +360,15 @@
       "desc": "Sechsfacher Sticky-Card-Stack (6 × 880px position:sticky in einem 5.865px-Container, je Karte Nummern-Tag + Vollbild-Motiv rechts) plus Zähler-Reveal 0+ → 15+ beim Eintritt — reine CSS-Sticky-Lösung ohne Scroll-Library",
       "nightly": true,
       "built": "2026-09-14"
+    },
+    {
+      "slug": "poc-nicolai-und-sohn",
+      "title": "Nicolai-und-Sohn",
+      "stage": "Nightly",
+      "effort": "quick",
+      "desc": "Fixe 300px-Seitenleiste als Navigationsspalte + 1140px-Inhaltssäule, die den Viewport exakt ausfüllt — mit Umschaltpunkt auf Overlay-Menü",
+      "nightly": true,
+      "built": "2026-09-16"
     }
   ]
 }
