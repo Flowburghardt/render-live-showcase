@@ -378,6 +378,15 @@
       "desc": "\"Gestapelte Zink-Blätter: Sektionen mit border-radius 48px 48px 0 0 im Wechsel #f4f4f5/#ffffff, das nächste Blatt deckt Vollbild-Fotos ab + vertikaler Wort-Ticker im H1 (Wortliste design/marketing/product/video, translateY in Stufen mit Haltephase, Farbe #a1a1aa) + Glanz-Button mit 4-Ebenen-Schatten\"",
       "nightly": true,
       "built": "2026-10-14"
+    },
+    {
+      "slug": "poc-hyper-tria",
+      "title": "Hyper-Tria",
+      "stage": "Nightly",
+      "effort": "quick",
+      "desc": "Rotierendes Text-Siegel (Kreistext auf SVG-Pfad, rotate 15s endlos, H-Monogramm in der Mitte, blendet nach 100px Scroll aus) + treppenartig eingerückte Versal-Headline (stepped-headline) + 90px-Laufband „DARE TO GO HYPER?“ (margin-left 0 → −50 % in 8s linear, Pause bei Hover) + 6px-Cursor-Punkt mit scale(2) über Links",
+      "nightly": true,
+      "built": "2026-10-14"
     }
   ]
 }

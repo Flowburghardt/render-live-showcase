@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>poc-hyper-tria — Spinning seal, stepped claims, CTA marquee, cursor dot</title>
+    <meta
+      name="description"
+      content="Design study after hypertria.com: a white seal whose text ring turns around a still H monogram, stepped uppercase claims indented with non-breaking spaces, a seamless 90px green marquee and a 6px difference-blend cursor dot."
+    />
+    <meta name="theme-color" content="#000000" />
+
+    <!--
+      Favicon als Inline-data-URI. Der PoC laeuft unter /poc-hyper-tria/ — ohne deklariertes Icon
+      fragt der Browser /favicon.ico an der Domain-WURZEL an und bekommt einen 404.
+      Motiv: das H-Monogramm des Siegels (zwei Staemme, zwei gebogene Querstriche), weiss auf Schwarz.
+    -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23000'/%3E%3Cg fill='%23fff'%3E%3Crect x='20' y='16' width='14' height='68'/%3E%3Crect x='66' y='16' width='14' height='68'/%3E%3Cpath d='M34 38Q50 32 66 38V46Q50 40 34 46Z'/%3E%3Cpath d='M34 54Q50 60 66 54V62Q50 68 34 62Z'/%3E%3C/g%3E%3C/svg%3E"
+    />
+
+    <!-- Keine externen <link>s: Inter kommt per Import aus src/main.ts, Vite bundelt die woff2. -->
+    <script type="module" crossorigin src="./assets/index-D0DjreoV.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-Dbryynjy.css">
+  </head>
+
+  <body id="top">
+    <!--
+      Header: position:absolute ueber dem Hero, scrollt mit weg — bewusst NICHT fixed.
+      Eine fixe weisse/rote Navigation laege spaeter ueber Weiss, Gruen und den Platzhalter-
+      Flaechen und haette dort Kontrastloecher (siehe README, Abweichungen).
+    -->
+    <header class="site-header">
+      <a class="wordmark" href="#top">Hyper Tria</a>
+      <!-- WCAG 2.2.2: Siegel-Ring + Laufband bewegen sich autonom > 5 s. Beide Toggles teilen
+           sich EINEN Zustand (<html data-motion>). JS entfernt hidden — ausser unter reduced-motion. -->
+      <button type="button" class="motion-toggle" data-motion-toggle hidden>Pause motion</button>
+      <nav class="site-nav" aria-label="Main">
+        <ul class="site-nav__list" role="list">
+          <li><a class="site-nav__link" href="#works">Works</a></li>
+          <li><a class="site-nav__link" href="#agency">Agency</a></li>
+          <li><a class="site-nav__link" href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- ============================== HERO ============================== -->
+    <section class="hero" aria-labelledby="hero-title">
+      <!--
+        Showreel-PLATZHALTER statt Video: kein Autoplay, keine Datei. Statische Chrom-"H"-
+        Komposition — Flaeche mit Metall-Verlauf, dunkle Extrusion dahinter, Glanzkante davor.
+      -->
+      <svg class="hero__art" viewBox="0 0 560 500" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="chrome-face" gradientUnits="userSpaceOnUse" x1="0" y1="40" x2="0" y2="440">
+            <stop offset="0" stop-color="#fafafa" />
+            <stop offset="0.3" stop-color="#a6a6a6" />
+            <stop offset="0.47" stop-color="#3b3b3b" />
+            <stop offset="0.53" stop-color="#e2e2e2" />
+            <stop offset="0.78" stop-color="#7b7b7b" />
+            <stop offset="1" stop-color="#efefef" />
+          </linearGradient>
+          <linearGradient id="chrome-side" gradientUnits="userSpaceOnUse" x1="60" y1="40" x2="500" y2="460">
+            <stop offset="0" stop-color="#5c5c5c" />
+            <stop offset="1" stop-color="#141414" />
+          </linearGradient>
+          <linearGradient id="chrome-shine" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#ffffff" stop-opacity="0" />
+            <stop offset="0.5" stop-color="#ffffff" stop-opacity="0.85" />
+            <stop offset="1" stop-color="#ffffff" stop-opacity="0" />
+          </linearGradient>
+        </defs>
+        <g transform="translate(20 16)" fill="url(#chrome-side)">
+          <rect x="60" y="40" width="130" height="400" />
+          <rect x="350" y="40" width="130" height="400" />
+          <path d="M190 170Q270 150 350 170V204Q270 184 190 204Z" />
+          <path d="M190 276Q270 296 350 276V310Q270 330 190 310Z" />
+        </g>
+        <g fill="url(#chrome-face)" stroke="#ffffff" stroke-opacity="0.55" stroke-width="2">
+          <rect x="60" y="40" width="130" height="400" />
+          <rect x="350" y="40" width="130" height="400" />
+          <path d="M190 170Q270 150 350 170V204Q270 184 190 204Z" />
+          <path d="M190 276Q270 296 350 276V310Q270 330 190 310Z" />
+        </g>
+        <rect x="74" y="52" width="102" height="6" fill="url(#chrome-shine)" />
+        <rect x="364" y="52" width="102" height="6" fill="url(#chrome-shine)" />
+      </svg>
+
+      <div class="hero__text">
+        <h1 class="hero__title" id="hero-title">Hyper Branding</h1>
+        <p class="hero__label">Showreel placeholder — MP4 1440×900, 100 s loop</p>
+      </div>
+
+      <!--
+        EFFEKT 1 — Rotierendes Text-Siegel. Nur der Textring (.seal__ring) dreht; das
+        H-Monogramm steht still. role="img" + aria-label: das Innenleben ist reine Deko.
+        data-hidden schaltet seal.ts ab 100px Scrollweg (Ring pausiert dann).
+      -->
+      <div class="seal" role="img" aria-label="Hyper Branding — Hyper Tria seal" data-seal data-hidden="false">
+        <svg class="seal__ring" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+          <defs>
+            <!-- Kreis r=74 um (100|100), Start bei 9 Uhr, im Uhrzeigersinn: Umfang 2·π·74 = 464.96 -->
+            <path id="seal-path" d="M100 100m-74 0a74 74 0 1 1 148 0a74 74 0 1 1-148 0" fill="none" />
+          </defs>
+          <!--
+            textLength = Umfang, lengthAdjust="spacing": die Zeichen verteilen sich gleichmaessig
+            ueber den ganzen Ring. Ohne Whitespace um <textPath> (der waere Teil des <text>).
+            Das Schluss-&#160; ist ein geschuetztes Leerzeichen: ein normales am Zeilenende
+            wuerde weggekuerzt, und an der Naht stuende "•H" ohne Luft.
+          -->
+          <text class="seal__text"><textPath href="#seal-path" textLength="464.96" lengthAdjust="spacing">HYPER BRANDING • HYPER BRANDING •&#160;</textPath></text>
+        </svg>
+        <svg class="seal__mono" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+          <rect x="20" y="16" width="14" height="68" />
+          <rect x="66" y="16" width="14" height="68" />
+          <path d="M34 38Q50 32 66 38V46Q50 40 34 46Z" />
+          <path d="M34 54Q50 60 66 54V62Q50 68 34 62Z" />
+        </svg>
+      </div>
+    </section>
+
+    <!-- ============================ PROJEKTE ============================ -->
+    <main id="works" class="projects">
+      <!-- P1: Medium links, Text rechts -->
+      <article class="project project--media-left" aria-labelledby="p1-name">
+        <div class="project__text">
+          <p class="project__name" id="p1-name">Your Breakfast Box</p>
+          <!--
+            EFFEKT 2 — Treppen-Claim. Die Einrueckung ist Teil des Satzes: eine &nbsp;-Kette
+            (aria-hidden), keine margin. Zwischen den Zeilen-Spans steht Whitespace, damit der
+            zugaengliche Name "AN OUT OF THE BOX CONCEPT" mit Leerzeichen entsteht.
+          -->
+          <h2 class="claim">
+            <span class="claim__line">AN</span>
+            <span class="claim__line">OUT OF THE BOX</span>
+            <span class="claim__line"><span class="claim__indent" aria-hidden="true">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>CONCEPT</span>
+          </h2>
+          <a
+            class="arrow-link"
+            href="https://hypertria.com/projects/your-breakfast-box/"
+            aria-label="Your Breakfast Box – view project on hypertria.com"
+          >
+            <svg viewBox="0 0 325 300" aria-hidden="true" focusable="false">
+              <path d="M6 0 V179 H319" />
+              <path d="M202 58 L319 179 L202 299" />
+            </svg>
+          </a>
+        </div>
+        <div class="media media--kraft">
+          <p class="media__label">Video placeholder — Kraft box, 570×714</p>
+        </div>
+      </article>
+
+      <!-- P2: Text links, Pfeil rechts, darunter Vollbild-Medium -->
+      <article class="project project--wide project--indent" aria-labelledby="p2-name">
+        <div class="project__head">
+          <div class="project__text">
+            <p class="project__name" id="p2-name">Porcelana</p>
+            <h2 class="claim">
+              <span class="claim__line">IMAGINE YOU</span>
+              <span class="claim__line"><span class="claim__indent" aria-hidden="true">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>CHANGE</span>
+              <span class="claim__line">EVERYTHING</span>
+            </h2>
+          </div>
+          <a class="arrow-link" href="https://hypertria.com/" aria-label="Porcelana – more work on hypertria.com">
+            <svg viewBox="0 0 325 300" aria-hidden="true" focusable="false">
+              <path d="M6 0 V179 H319" />
+              <path d="M202 58 L319 179 L202 299" />
+            </svg>
+          </a>
+        </div>
+        <div class="media media--tiles media--full">
+          <p class="media__label">Video placeholder — Porcelana tiles, 1440×900</p>
+        </div>
+      </article>
+
+      <!-- P3: Text links, Medium rechts -->
+      <article class="project project--media-right project--indent" aria-labelledby="p3-name">
+        <div class="project__text">
+          <p class="project__name" id="p3-name">Onoma Hotel</p>
+          <h2 class="claim">
+            <span class="claim__line">A STORY OF AN</span>
+            <span class="claim__line">INSTAGRAMMABLE</span>
+            <span class="claim__line"><span class="claim__indent" aria-hidden="true">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>HOTEL</span>
+          </h2>
+          <a class="arrow-link" href="https://hypertria.com/" aria-label="Onoma Hotel – more work on hypertria.com">
+            <svg viewBox="0 0 325 300" aria-hidden="true" focusable="false">
+              <path d="M6 0 V179 H319" />
+              <path d="M202 58 L319 179 L202 299" />
+            </svg>
+          </a>
+        </div>
+        <div class="media media--yellow">
+          <span class="media__initial" aria-hidden="true">S</span>
+          <p class="media__label">Image placeholder — Onoma Hotel, 570×714</p>
+        </div>
+      </article>
+    </main>
+
+    <!-- ============================ LAUFBAND ============================ -->
+    <section id="contact" class="contact" aria-label="Contact">
+      <!--
+        EFFEKT 3 — 90px-Laufband. .marquee ist Rahmen UND Clip (overflow: clip = kein
+        Scroll-Container). Im Markup steht genau EINE Gruppe — das ist der Ohne-JS-Zustand:
+        statisch, umbrechend. marquee.ts baut daraus die Spur (2k Gruppen, Klone aria-hidden,
+        Klon-Links tabindex=-1) und setzt data-state/data-copies/data-k.
+      -->
+      <div class="marquee" data-marquee data-state="static" data-copies="1" data-k="0">
+        <div class="marquee__track" data-marquee-track>
+          <div class="marquee__group" data-marquee-group>
+            <span class="marquee__text">DARE TO GO HYPER?</span>
+            <svg class="marquee__cursor" viewBox="0 0 60 80" aria-hidden="true" focusable="false">
+              <path
+                class="marquee__cursor-side"
+                d="M11 9L11 67L25 54L35 77L45 73L35 50L54 50Z"
+              />
+              <path
+                class="marquee__cursor-face"
+                d="M4 4L4 62L18 49L28 72L38 68L28 45L47 45Z"
+              />
+            </svg>
+            <a class="marquee__link" href="https://hypertria.com/">CONTACT US</a>
+          </div>
+        </div>
+      </div>
+      <div class="motion-bar">
+        <button type="button" class="motion-toggle" data-motion-toggle hidden>Pause motion</button>
+      </div>
+    </section>
+
+    <!-- ============================= FOOTER ============================= -->
+    <footer id="agency" class="site-footer">
+      <div class="site-footer__body">
+        <p class="footer__claim">
+          Hyper Tria is a branding agency specializing in brand strategy, visual identity and
+          digital experiences.
+        </p>
+        <p class="footer__legal">
+          <span>PoC after hypertria.com · render-live-workshop</span>
+          <span class="footer__sep" aria-hidden="true">·</span>
+          <a href="./fonts/LICENSE-Inter.txt">Font: Inter, SIL OFL 1.1</a>
+        </p>
+      </div>
+      <svg class="footer__signet" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+        <rect x="20" y="16" width="14" height="68" />
+        <rect x="66" y="16" width="14" height="68" />
+        <path d="M34 38Q50 32 66 38V46Q50 40 34 46Z" />
+        <path d="M34 54Q50 60 66 54V62Q50 68 34 62Z" />
+      </svg>
+    </footer>
+  </body>
+</html>
