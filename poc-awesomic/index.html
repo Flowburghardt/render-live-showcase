@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>poc-awesomic — Rounded sheet stack, word ticker, gloss button</title>
+    <meta
+      name="description"
+      content="Design study after awesomic.com: zinc sheets with 48px top corners that cover full-bleed photos, a stepped word ticker in the headline and a gloss button with a four-layer shadow."
+    />
+    <meta name="theme-color" content="#ffffff" />
+
+    <!--
+      Favicon als Inline-data-URI. Der PoC laeuft unter /poc-awesomic/ — ohne deklariertes Icon
+      fragt der Browser /favicon.ico an der Domain-WURZEL an und bekommt einen 404.
+      Fast-schwarzes Quadrat (Radius 8) mit weissem Asterisk, wie die Wortmarke "awesomic*".
+    -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2309090b'/%3E%3Ctext x='16' y='39' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-size='40' font-weight='700' fill='%23ffffff'%3E*%3C/text%3E%3C/svg%3E"
+    />
+
+    <!-- Keine externen <link>s: DM Sans kommt per Import aus src/main.ts, Vite bundelt die woff2. -->
+    <script type="module" crossorigin src="./assets/index-CNwDEmob.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-r-3juuft.css">
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a class="logo" href="#top">awesomic<span aria-hidden="true">*</span></a>
+
+        <nav class="site-nav" aria-label="Primary">
+          <ul class="site-nav__list">
+            <li><a class="site-nav__link" href="#categories">Categories</a></li>
+            <li><a class="site-nav__link" href="#why">Why us</a></li>
+            <li><a class="site-nav__link" href="#vetting">Vetting</a></li>
+            <li><a class="site-nav__link" href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="site-header__actions">
+          <a class="btn btn--white site-header__secondary" href="#contact">Log in</a>
+          <a class="btn btn--white site-header__secondary" href="#contact">Book demo</a>
+          <a class="btn btn--primary" href="#contact"><span class="btn__shine" aria-hidden="true"></span><span class="btn__label">Call me now</span></a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <!--
+        BLATTSTAPEL — alle sechs Blaetter (01–05 hier, 06 = Footer) sind Geschwister-Ebenen.
+        Jedes folgende Blatt zieht sich per margin-top: -48px ueber die Unterkante des vorigen
+        und malt dank position:relative + DOM-Reihenfolge darueber. Ueberlappung = Radius: in
+        den Eckzwickeln ausserhalb der 48px-Rundung sieht man das Blatt oder Foto darunter.
+        Statisch, ohne eine Zeile JavaScript — "Kein Scroll-Theater" laut DESIGN.md.
+      -->
+
+      <!-- Blatt 01 — Hero, unterste Ebene: keine Rundung, Header → Tags 27px. -->
+      <section class="sheet sheet--base sheet--white" id="top" data-sheet="01">
+        <div class="container">
+          <ul class="tag-row" aria-label="Credentials">
+            <li class="tag">
+              <span class="yc-logo" aria-hidden="true">Y</span>
+              Backed by Y Combinator
+            </li>
+            <li class="tag">
+              <svg class="tag__icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false">
+                <path fill="currentColor" d="M8 1.4 9.7 6.05 14.66 6.24 10.76 9.3 12.11 14.06 8 11.3 3.89 14.06 5.24 9.3 1.34 6.24 6.3 6.05Z" />
+              </svg>
+              4.9 on Clutch &amp; G2
+            </li>
+          </ul>
+
+          <div class="hero__grid">
+            <div class="hero__main">
+              <!--
+                H1 zweimal im DOM, aber nur einmal hoerbar: der semantische Satz steht als
+                .sr-only, die sichtbare Kopie mit dem Ticker ist aria-hidden — sonst laese der
+                Screenreader alle fuenf Slot-Woerter vor.
+                Ticker = 5 Slots: design · marketing · product · video · design. Das LETZTE
+                "design" ist der Schleifen-Klon: dort springt ticker.ts ohne Transition auf
+                Slot 0 zurueck (gleiches Wort, unsichtbar). Ohne JS steht statisch "design".
+                Das Fenster ist so breit wie "marketing"; das <br> danach haelt den Rest des
+                Satzes fest, die Zeile darunter verschiebt sich beim Wortwechsel nie.
+              -->
+              <h1 class="hero__title">
+                <span class="sr-only">All your design, marketing, product and video tasks done — from launch to scale</span>
+                <span aria-hidden="true">All your <span class="ticker" data-ticker><span class="ticker__track" data-ticker-track><span class="ticker__word">design</span><span class="ticker__word">marketing</span><span class="ticker__word">product</span><span class="ticker__word">video</span><span class="ticker__word">design</span></span></span><br />tasks done — from launch to scale</span>
+              </h1>
+
+              <!--
+                WCAG 2.2.2 (Pause, Stop, Hide): autonome Bewegung braucht eine Pause. Initial
+                hidden — ohne JS bewegt sich nichts, also gibt es nichts zu pausieren. ticker.ts
+                blendet ihn ein; unter prefers-reduced-motion bleibt er verborgen.
+              -->
+              <button class="ticker-toggle" type="button" data-ticker-toggle aria-label="Pause word animation" hidden>
+                <span class="ticker-toggle__icon" aria-hidden="true">
+                  <svg class="ticker-toggle__svg ticker-toggle__svg--pause" viewBox="0 0 12 12" width="12" height="12" focusable="false">
+                    <rect x="2" y="1.5" width="2.8" height="9" rx="0.8" fill="currentColor" />
+                    <rect x="7.2" y="1.5" width="2.8" height="9" rx="0.8" fill="currentColor" />
+                  </svg>
+                  <svg class="ticker-toggle__svg ticker-toggle__svg--play" viewBox="0 0 12 12" width="12" height="12" focusable="false">
+                    <path d="M3 1.6v8.8L10.4 6Z" fill="currentColor" />
+                  </svg>
+                </span>
+                <span data-ticker-toggle-label>Pause</span>
+              </button>
+            </div>
+
+            <div class="hero__aside">
+              <p class="lead">Get a vetted, AI-native expert in hours — not weeks. One flat monthly fee, pause or cancel anytime.</p>
+
+              <!--
+                Demo-Formular. Kein novalidate: die Browser-Pruefung (required, type=email) laeuft
+                normal. form.ts faengt erst den gueltigen Submit ab und sagt ehrlich, dass nichts
+                verschickt wurde. Statuszeile + Hinweis liegen IM Formular, damit form.ts sie pro
+                Formular findet; .form-unit ist die sichtbare Einheit aus Input + Button.
+              -->
+              <form class="hero-form" id="start" data-demo-form aria-label="Book a demo">
+                <div class="form-unit">
+                  <label class="sr-only" for="hero-email">Work email</label>
+                  <input
+                    class="form-unit__input"
+                    id="hero-email"
+                    type="email"
+                    name="email"
+                    required
+                    autocomplete="email"
+                    placeholder="Your work email"
+                    aria-describedby="hero-form-hint"
+                  />
+                  <button class="btn btn--primary btn--lg" type="submit"><span class="btn__shine" aria-hidden="true"></span><span class="btn__label">Book demo</span></button>
+                </div>
+                <p class="form-status" role="status" data-form-status></p>
+                <p class="form-hint" id="hero-form-hint">No credit card. 30-minute intro call.</p>
+              </form>
+            </div>
+          </div>
+
+          <ul class="stats" aria-label="Awesomic in numbers">
+            <li class="stat"><span class="stat__num">20&nbsp;000+</span> <span class="stat__label">completed projects</span></li>
+            <li class="stat"><span class="stat__num">4&nbsp;000+</span> <span class="stat__label">customers</span></li>
+            <li class="stat"><span class="stat__num">200+</span> <span class="stat__label">vetted talents</span></li>
+          </ul>
+
+          <div class="categories" id="categories">
+            <h2 class="sr-only" id="categories-title">Categories</h2>
+            <!-- Scroll-Snap statt Swiper. tabindex=0 + role=region: per Tastatur fokussier- und scrollbar. -->
+            <div class="carousel" role="region" aria-labelledby="categories-title" tabindex="0">
+              <article class="cat-card">
+                <img class="cat-card__img" src="https://picsum.photos/seed/awesomic-design/654/886" alt="" width="654" height="886" decoding="async" />
+                <h3 class="cat-card__title">Design</h3>
+                <ul class="cat-card__tags">
+                  <li class="cat-card__tag">Brand identity</li>
+                  <li class="cat-card__tag">UI/UX</li>
+                  <li class="cat-card__tag">Packaging</li>
+                </ul>
+              </article>
+              <article class="cat-card">
+                <img class="cat-card__img" src="https://picsum.photos/seed/awesomic-marketing/654/886" alt="" width="654" height="886" decoding="async" />
+                <h3 class="cat-card__title">Marketing</h3>
+                <ul class="cat-card__tags">
+                  <li class="cat-card__tag">Paid social</li>
+                  <li class="cat-card__tag">Ads</li>
+                  <li class="cat-card__tag">SEO</li>
+                </ul>
+              </article>
+              <article class="cat-card">
+                <img class="cat-card__img" src="https://picsum.photos/seed/awesomic-product/654/886" alt="" width="654" height="886" decoding="async" />
+                <h3 class="cat-card__title">Product</h3>
+                <ul class="cat-card__tags">
+                  <li class="cat-card__tag">Web apps</li>
+                  <li class="cat-card__tag">Mobile</li>
+                  <li class="cat-card__tag">Webflow</li>
+                </ul>
+              </article>
+              <article class="cat-card">
+                <img class="cat-card__img" src="https://picsum.photos/seed/awesomic-video/654/886" alt="" width="654" height="886" decoding="async" />
+                <h3 class="cat-card__title">Video</h3>
+                <ul class="cat-card__tags">
+                  <li class="cat-card__tag">Motion</li>
+                  <li class="cat-card__tag">Editing</li>
+                  <li class="cat-card__tag">3D</li>
+                </ul>
+              </article>
+              <article class="cat-card">
+                <img class="cat-card__img" src="https://picsum.photos/seed/awesomic-ai/654/886" alt="" width="654" height="886" decoding="async" />
+                <h3 class="cat-card__title">AI</h3>
+                <ul class="cat-card__tags">
+                  <li class="cat-card__tag">Automation</li>
+                  <li class="cat-card__tag">Agents</li>
+                  <li class="cat-card__tag">Prompting</li>
+                </ul>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Blatt 02 — grau, endet mit Vollbild-Foto, dessen untere 48px Blatt 03 abdeckt. -->
+      <section class="sheet sheet--gray sheet--photo-end" id="work" data-sheet="02" aria-labelledby="work-title">
+        <div class="container">
+          <ul class="tag-row" aria-label="Sheet properties">
+            <li class="tag">Sheet 02</li>
+            <li class="tag">#f4f4f5</li>
+            <li class="tag">48px 48px 0 0</li>
+          </ul>
+          <h2 class="section-title" id="work-title">We solve the bottlenecks <span class="muted">that kill your speed</span></h2>
+
+          <div class="split">
+            <div class="feature">
+              <ul class="feature__list">
+                <li class="feature__item">
+                  <svg class="feature__arrow" viewBox="0 0 20 20" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 10h11.5M10.5 5 15.5 10l-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  <span>Forget about <span class="feature__muted">months of hiring</span></span>
+                </li>
+                <li class="feature__item">
+                  <svg class="feature__arrow" viewBox="0 0 20 20" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 10h11.5M10.5 5 15.5 10l-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  <span>Forget about <span class="feature__muted">freelancer roulette</span></span>
+                </li>
+                <li class="feature__item">
+                  <svg class="feature__arrow" viewBox="0 0 20 20" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 10h11.5M10.5 5 15.5 10l-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  <span>Forget about <span class="feature__muted">agency overhead and markups</span></span>
+                </li>
+                <li class="feature__item">
+                  <svg class="feature__arrow" viewBox="0 0 20 20" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 10h11.5M10.5 5 15.5 10l-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  <span>Forget about <span class="feature__muted">juggling five tools to brief one task</span></span>
+                </li>
+              </ul>
+            </div>
+
+            <ul class="split__stats" aria-label="Results">
+              <li class="stat-card"><span class="stat-card__num">70%</span> <span class="stat-card__label">faster from brief to first draft</span></li>
+              <li class="stat-card"><span class="stat-card__num">40%</span> <span class="stat-card__label">lower cost than an in-house hire</span></li>
+              <li class="stat-card"><span class="stat-card__num">60%</span> <span class="stat-card__label">fewer revision rounds</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Foto als direktes Kind des Blatts (ausserhalb .container) = vollflaechig, Radius 0. -->
+        <div class="photo-band">
+          <span class="photo-band__fallback" aria-hidden="true">Photo placeholder · picsum.photos</span>
+          <img class="photo-band__img" src="https://picsum.photos/seed/awesomic-moss-1/1600/900" alt="" width="1600" height="900" loading="lazy" decoding="async" />
+        </div>
+      </section>
+
+      <!-- Blatt 03 — weiss, liegt ueber dem Foto von Blatt 02 (Eckzwickel zeigen das Foto). -->
+      <section class="sheet sheet--white sheet--photo-end" id="why" data-sheet="03" aria-labelledby="why-title">
+        <div class="container">
+          <ul class="tag-row" aria-label="Sheet properties">
+            <li class="tag">Sheet 03</li>
+            <li class="tag">#ffffff</li>
+            <li class="tag">48px 48px 0 0</li>
+          </ul>
+          <h2 class="section-title" id="why-title">Why teams choose <span class="muted">Awesomic</span></h2>
+
+          <div class="bento">
+            <div class="bento__tile bento__tile--a">
+              <p class="bento__num">4&nbsp;000+</p>
+              <h3 class="bento__title">Customers</h3>
+              <p class="bento__text">From YC startups to public companies, one subscription covers every creative request.</p>
+            </div>
+            <div class="bento__tile">
+              <p class="bento__num">0.82%</p>
+              <h3 class="bento__title">Talents vetted</h3>
+              <p class="bento__text">Only the top fraction passes our four-stage review.</p>
+            </div>
+            <div class="bento__tile">
+              <p class="bento__num">30+</p>
+              <h3 class="bento__title">Skill sets</h3>
+              <p class="bento__text">Brand, product, motion, growth and more.</p>
+            </div>
+            <div class="bento__tile bento__tile--d">
+              <h3 class="bento__title">Flat monthly fee</h3>
+              <p class="bento__text">No hourly billing, no surprise invoices. Scale up or pause whenever your roadmap changes.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-band">
+          <span class="photo-band__fallback" aria-hidden="true">Photo placeholder · picsum.photos</span>
+          <img class="photo-band__img" src="https://picsum.photos/seed/awesomic-moss-2/1600/900" alt="" width="1600" height="900" loading="lazy" decoding="async" />
+        </div>
+      </section>
+
+      <!-- Blatt 04 — grau, liegt ueber dem Foto von Blatt 03. Endet ohne Foto: volle Reserve unten. -->
+      <section class="sheet sheet--gray" id="vetting" data-sheet="04" aria-labelledby="vetting-title">
+        <div class="container">
+          <ul class="tag-row" aria-label="Sheet properties">
+            <li class="tag">Sheet 04</li>
+            <li class="tag">#f4f4f5</li>
+            <li class="tag">48px 48px 0 0</li>
+          </ul>
+          <h2 class="section-title" id="vetting-title">Only the top 0.82% <span class="muted">get approved</span></h2>
+
+          <ol class="steps">
+            <li class="step">
+              <p class="step__num">55%</p>
+              <h3 class="step__title">pass the portfolio review</h3>
+              <div class="avatars" aria-hidden="true"><span class="avatar avatar--1"></span><span class="avatar avatar--2"></span><span class="avatar avatar--3"></span><span class="avatar avatar--4"></span></div>
+            </li>
+            <li class="step">
+              <p class="step__num">21%</p>
+              <h3 class="step__title">pass the skills test</h3>
+              <div class="avatars" aria-hidden="true"><span class="avatar avatar--2"></span><span class="avatar avatar--3"></span><span class="avatar avatar--4"></span><span class="avatar avatar--1"></span></div>
+            </li>
+            <li class="step">
+              <p class="step__num">5.3%</p>
+              <h3 class="step__title">pass the live interview</h3>
+              <div class="avatars" aria-hidden="true"><span class="avatar avatar--3"></span><span class="avatar avatar--4"></span><span class="avatar avatar--1"></span><span class="avatar avatar--2"></span></div>
+            </li>
+            <li class="step">
+              <p class="step__num">0.82%</p>
+              <h3 class="step__title">join the network</h3>
+              <div class="avatars" aria-hidden="true"><span class="avatar avatar--4"></span><span class="avatar avatar--1"></span><span class="avatar avatar--2"></span><span class="avatar avatar--3"></span></div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!--
+        Blatt 05 — CTA auf Foto. overflow:clip rundet das Foto an der eigenen 48px-Kante; die
+        Eckzwickel zeigen das Grau von Blatt 04. Das Medium liegt mit z-index -1 INNERHALB des
+        isolierten Blatts, der Footer (Blatt 06) deckt seine untere Kante ab.
+      -->
+      <section class="sheet sheet--cta" id="contact" data-sheet="05" aria-labelledby="cta-title">
+        <div class="cta__media" aria-hidden="true">
+          <img class="cta__img" src="https://picsum.photos/seed/awesomic-moss-3/1600/1000" alt="" width="1600" height="1000" loading="lazy" decoding="async" />
+        </div>
+        <div class="container cta__inner">
+          <h2 class="cta__title" id="cta-title">Free consultation to scope your creative projects</h2>
+          <p class="cta__lead">Tell us what you are shipping next — we match you with a vetted expert within hours.</p>
+          <a class="btn btn--primary btn--lg" href="#start"><span class="btn__shine" aria-hidden="true"></span><span class="btn__label">Book a free call</span></a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Blatt 06 — Footer, ausserhalb von <main>. Deckt die Unterkante des CTA-Fotos ab. -->
+    <footer class="sheet sheet--gray site-footer" data-sheet="06">
+      <div class="container">
+        <div class="footer__grid">
+          <div class="footer__col">
+            <h2 class="footer__heading">Product</h2>
+            <nav aria-label="Footer">
+              <ul class="footer__list">
+                <li><a class="footer__link" href="#categories">Categories</a></li>
+                <li><a class="footer__link" href="#why">Why us</a></li>
+                <li><a class="footer__link" href="#vetting">Vetting</a></li>
+                <li><a class="footer__link" href="#contact">Contact</a></li>
+              </ul>
+            </nav>
+          </div>
+          <div class="footer__col">
+            <h2 class="footer__heading">Company</h2>
+            <p class="footer__text">Design study after awesomic.com — not affiliated.</p>
+          </div>
+          <div class="footer__col">
+            <h2 class="footer__heading">Licenses</h2>
+            <!-- RELATIVER Pfad: public/fonts/ landet unveraendert in dist/fonts/. Ein fuehrender
+                 Slash wuerde unter /poc-awesomic/ an der Domain-Wurzel 404en. -->
+            <p class="footer__text"><a class="footer__link footer__link--inline" href="./fonts/LICENSE-DM-Sans.txt">DM Sans — SIL Open Font License</a></p>
+          </div>
+        </div>
+
+        <p class="wordmark" aria-hidden="true">awesomic*</p>
+        <p class="footer__fine">PoC · render-live-workshop · built from Awesomic/DESIGN.md</p>
+      </div>
+    </footer>
+  </body>
+</html>

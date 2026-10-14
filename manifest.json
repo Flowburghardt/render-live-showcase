@@ -369,6 +369,15 @@
       "desc": "Fixe 300px-Seitenleiste als Navigationsspalte + 1140px-Inhaltssäule, die den Viewport exakt ausfüllt — mit Umschaltpunkt auf Overlay-Menü",
       "nightly": true,
       "built": "2026-09-16"
+    },
+    {
+      "slug": "poc-awesomic",
+      "title": "Awesomic",
+      "stage": "Nightly",
+      "effort": "quick",
+      "desc": "\"Gestapelte Zink-Blätter: Sektionen mit border-radius 48px 48px 0 0 im Wechsel #f4f4f5/#ffffff, das nächste Blatt deckt Vollbild-Fotos ab + vertikaler Wort-Ticker im H1 (Wortliste design/marketing/product/video, translateY in Stufen mit Haltephase, Farbe #a1a1aa) + Glanz-Button mit 4-Ebenen-Schatten\"",
+      "nightly": true,
+      "built": "2026-10-14"
     }
   ]
 }
