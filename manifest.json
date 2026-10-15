@@ -387,6 +387,15 @@
       "desc": "Rotierendes Text-Siegel (Kreistext auf SVG-Pfad, rotate 15s endlos, H-Monogramm in der Mitte, blendet nach 100px Scroll aus) + treppenartig eingerückte Versal-Headline (stepped-headline) + 90px-Laufband „DARE TO GO HYPER?“ (margin-left 0 → −50 % in 8s linear, Pause bei Hover) + 6px-Cursor-Punkt mit scale(2) über Links",
       "nightly": true,
       "built": "2026-10-14"
+    },
+    {
+      "slug": "poc-monad",
+      "title": "Monad",
+      "stage": "Nightly",
+      "effort": "mid",
+      "desc": "\"Pfad-Ticker: 12 Integrationen laufen endlos (≈ 44px/s) entlang eines geknickten „<“-Pfads, Deckkraft 0,08 → 0,84 zur Pfadmitte + animiertes Pipeline-Fluss-Diagramm (Quellen-Pills → Hub → Ziele, Ereignis-Marker laufen die Kurven entlang) + Zeichen-Roll-Hover an Buttons (zwei split-Textkopien, gestaffelt um −24px)\"",
+      "nightly": true,
+      "built": "2026-10-15"
     }
   ]
 }
